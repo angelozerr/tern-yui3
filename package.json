@@ -17,7 +17,7 @@
     "acorn": "~0.5.0"
   },
   "devDependencies": { 
-  	"test": ">=0.0.5" 
+    "test": ">=0.0.5" 
   },
   "keywords": [
     "tern",
