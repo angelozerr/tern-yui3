@@ -8,7 +8,7 @@
   var YUI = exports.YUI = {};
   YUI.generate = function(api) {
     var options = {
-      "name" : "yui_3",
+      "name" : "yui3",
       "initialize" : initialize,
       "getType" : getType,
       "getEffects" : getEffects

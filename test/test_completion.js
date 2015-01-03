@@ -6,7 +6,7 @@ exports['test YUI completion'] = function() {
 	    "end":{"line":0,"ch":1},
 	    "isProperty":false,
 	    "completions":[{"name":"YUI","type":"fn() -> yui.YUI",
-	    "origin":"yui_3"}]
+	    "origin":"yui3"}]
 	});
 }
 
@@ -16,7 +16,7 @@ exports['test YUI().use completion'] = function() {
 	    "end":{"line":0,"ch":7},
 	    "isProperty":true,
 	    "completions":[{"name":"use","type":"fn(modules: string, callback?: fn(Y: yui.YUI))",
-	    "origin":"yui_3"}]
+	    "origin":"yui3"}]
 	});
 }
 
@@ -26,7 +26,7 @@ exports['test Y.one completion'] = function() {
 	    "end":{"line":0,"ch":33},
 	    "isProperty":true,
 	    "completions":[{"name":"one","type":"fn(node: string) -> node.Node",
-	    "origin":"yui_3"}]
+	    "origin":"yui3"}]
 	});
 }
 
@@ -37,7 +37,7 @@ exports['test !proto completion'] = function() {
 	    "end":{"line":0,"ch":54},
 	    "isProperty":true,
 	    "completions":[{"name":"duration","type":"number",
-	    "origin":"yui_3"}]
+	    "origin":"yui3"}]
 	});
 	//  Anim.anim extends base.Base
 	util.assertCompletion("YUI().use('', function(Y) { var anim = new Y.Anim().unpl", {
@@ -45,7 +45,7 @@ exports['test !proto completion'] = function() {
 	    "end":{"line":0,"ch":56},
 	    "isProperty":true,
 	    "completions":[{"name":"unplug","type":"fn()",
-	    "origin":"yui_3"}]
+	    "origin":"yui3"}]
 	});	
 }
 

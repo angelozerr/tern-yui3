@@ -1,7 +1,7 @@
 "use strict";
 
 var fs = require("fs"), path = require("path"), tern = require("tern"), assert = require('assert');
-require("../yui_3.js");
+require("../yui3.js");
 
 var projectDir = path.resolve(__dirname, "..");
 var resolve = function(pth) {
@@ -26,7 +26,7 @@ var defaultQueryOptions = {
 
 function createServer(defs, options) {
 	var plugins = {};
-	if (options) plugins['yui_3'] = options; else plugins['yui_3'] = {};
+	if (options) plugins['yui3'] = options; else plugins['yui3'] = {};
 	var server = new tern.Server({
 		plugins : plugins,
 		defs : defs
