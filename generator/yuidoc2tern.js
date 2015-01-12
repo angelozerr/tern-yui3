@@ -126,8 +126,8 @@
     var name = moduleName.replace(/-/g, '_');
     var parent = ternDef["!define"];
     if (isSubModule) {
-    	var sub = parent["!yui"];
-    	if (!sub) sub = parent["!yui"] = {};
+    	var sub = parent["_yui"];
+    	if (!sub) sub = parent["_yui"] = {};
     	parent = sub;
     }    
     var ternModule = parent[name];
