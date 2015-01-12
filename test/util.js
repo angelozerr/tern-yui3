@@ -34,7 +34,7 @@ function createServer(defs, options) {
 	return server;
 }
 
-exports.assertCompletion = function(text, expected, queryOptions, pluginOptions) {
+exports.assertCompletion = function(text, expected, name) {
 	var defs = [];
 	var defNames = ["ecma5", "browser"]; 
 	if (defNames) {
@@ -43,9 +43,9 @@ exports.assertCompletion = function(text, expected, queryOptions, pluginOptions)
 			defs.push(def);
 		}
 	}
-	if (!queryOptions) queryOptions = defaultQueryOptions;
+	var queryOptions = defaultQueryOptions;
 
-	var server = createServer(defs, pluginOptions);
+	var server = createServer(defs, {});
 	server.addFile("test1.js", text);
 	server.request({
 		query : {
@@ -65,7 +65,19 @@ exports.assertCompletion = function(text, expected, queryOptions, pluginOptions)
 			throw err;
 		var actualMessages = resp.messages;
 		var expectedMessages = expected.messages;
-		assert.equal(JSON.stringify(resp), JSON.stringify(expected));
+
+		if(name) {
+          var actualItem = {};
+          var completions = resp["completions"];
+          if (completions) {
+                  completions.forEach(function(item) {
+                    if (item['name'] === name) actualItem = item;
+                  });
+          }
+          assert.equal(JSON.stringify(actualItem), JSON.stringify(expected));                           
+        } else {
+          assert.equal(JSON.stringify(resp), JSON.stringify(expected)); 
+        }
 	});
 }
 
