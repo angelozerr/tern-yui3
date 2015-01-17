@@ -111,4 +111,16 @@ exports['test getTernType - YUIClassItem - method with callback'] = function() {
   assert.equal(type, 'fn(content: +HTMLElement, options?: +yui.Object, callback?: fn(view: +app.View)) -> !this');
 }
 
+exports['test toTernName'] = function() {
+  // case found inside AlloyUI 1.5.x
+  assertToTernName('@param', 'param');
+  assertToTernName('+', 'arg');
+  assertToTernName('', 'arg');
+  assertToTernName('*callback', 'callback');
+}
+
+var assertToTernName = function (name, expected) {
+  var ternName = yuidoc2tern.toTernName(name);
+  assert.equal(ternName, expected);
+}
 if (module == require.main) require("test").run(exports);

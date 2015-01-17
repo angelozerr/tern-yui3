@@ -296,21 +296,26 @@
     return className + '.prototype';
   }
   
-  function toTernName(yuiName) {
+  var toTernName = exports.toTernName = function(yuiName) {
     var name = yuiName;
     name = name.replace(/-/g, '');
-    var index = name.indexOf('*');
-    if (index > 0)
-      name = name.substring(0, index);
-    index = name.indexOf(',');
-    if (index > 0)
-      name = name.substring(0, index);
+    name = extractName(name, '*');
+    name = extractName(name, ',');
+    // ex : @param
+    name = extractName(name, '@');
     // ex : prepend=false
-    var index = name.indexOf('=');
-	    if (index > 0)
-	      name = name.substring(0, index);
-	    return name;
-	  }
+    name = extractName(name, '=');
+    // ex : +
+    if (name == '+' || name.length == 0) return "arg";
+	return name;
+  }
+  
+  function extractName(name, c) {
+    var index = name.indexOf(c);
+    if (index == -1) return name;
+    if (index == 0) return name.substring(1, name.length);
+    return name.substring(0, index);
+  }
   
   var formatType = function (type, isArray, isInstance) {
     var t = "";
