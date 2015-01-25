@@ -52,7 +52,7 @@
     // !doc
     var doc = getDescription(yuiClassItem);
     // !url
-    var url = null;
+    var url = this.options.baseURL ? getURL(this.options.baseURL, className, yuiClassItem.itemtype, name) : null;
     createTernDefItem(ternClassItem, name, type, proto, effects, url, doc);	
   }
   
@@ -76,20 +76,20 @@
     
     var ternClass = parent[name];
     if (!ternClass) {
-      var yuiClass = yuiDoc.classes[className];
+      var yuiClass = yuiDoc.classes[className], type, proto, effects, doc, url;
       if (yuiClass) {
         // !type
-        var type = this.getTernType(yuiClass, yuiDoc);      
+        type = this.getTernType(yuiClass, yuiDoc);      
         // !proto
-        var proto = this.getProto(yuiClass, yuiDoc);
-        var effects = null;
+        proto = this.getProto(yuiClass, yuiDoc);
+        effects = null;
         // !doc
-        var doc = null;
+        doc = null;
         // if (yuiClass.description)
           //  ternClass["!doc"] = yuiClass.description;
         // !url
-        var url = null;
-        }
+        url = this.options.baseURL ? getURL(this.options.baseURL, className) : null;
+      }
       ternClass = createTernDefItem(parent, name, type, proto, effects, url, doc);
     }    
     return ternClass;
@@ -121,6 +121,23 @@
 	return description;
   }
   
+  var getURL = function(baseURL, className, itemtype, name) {
+    var url = baseURL;
+    if (!endsWith(baseURL, '/')) {
+      url += '/';
+    }
+    url += 'classes/';
+    url += className;
+    url += '.html';
+    if (itemtype && name) {
+      url += '#';
+      url += itemtype;
+      url += '_';
+      url += name;
+    }
+    return url;
+  }
+  
   var getTernModule = function(moduleName, ternDef, isSubModule) {
     // YUI module uses '-' in their name, and tern cannot support that, replace '-' with '_'
     var name = moduleName.replace(/-/g, '_');
@@ -138,11 +155,11 @@
   
   var createTernDefItem = function(parent, name, type, proto, effects, url, doc) {
     var item = parent[name] = {};
-    if (type) item["!type"] = type;
-    if (proto) getTernClassPrototype(item)["!proto"] = proto;
-    if (effects) item["!effects"] = effects;
+    if (type) item["!type"] = type;    
     if (url) item["!url"] = url;
     if (doc && doc != '') item["!doc"] = doc;
+    if (proto) getTernClassPrototype(item)["!proto"] = proto;
+    if (effects) item["!effects"] = effects;
     return item;
   }
   

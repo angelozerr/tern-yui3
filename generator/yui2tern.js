@@ -11,7 +11,8 @@
       "name" : "yui3",
       "initialize" : initialize,
       "getType" : getType,
-      "getEffects" : getEffects
+      "getEffects" : getEffects,
+      "baseURL": "http://yuilibrary.com/yui/docs/api/"
     };
     var generator = new yuidoc2tern.Generator(options);
     return generator.process(api);
