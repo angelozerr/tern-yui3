@@ -109,7 +109,7 @@
   }  
   
   var isAccess = function(yuiClassItem, isSubModule) {
-    if (isSubModule && yuiClassItem.file && startsWith(yuiClassItem.file, "yui3")) {
+    if (isSubModule && yuiClassItem.file && (startsWith(yuiClassItem.file, "yui3") || startsWith(yuiClassItem.file, "lib/yui3"))) {
       return false;
     }
     var access = yuiClassItem["access"];
