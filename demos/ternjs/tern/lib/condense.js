@@ -7,13 +7,13 @@
 // The idea being that big libraries can be analyzed once, dumped, and
 // then cheaply included in later analysis.
 
-(function(mod) {
+(function(root, mod) {
   if (typeof exports == "object" && typeof module == "object") // CommonJS
     return mod(exports, require("./infer"));
   if (typeof define == "function" && define.amd) // AMD
     return define(["exports", "./infer"], mod);
-  mod(self.tern || (self.tern = {}), tern); // Plain browser env
-})(function(exports, infer) {
+  mod(root.tern || (root.tern = {}), tern); // Plain browser env
+})(this, function(exports, infer) {
   "use strict";
 
   exports.condense = function(origins, name, options) {
@@ -113,7 +113,7 @@
           state.altPaths[oldPath] = actual;
         } else data = {type: actual};
         data.span = state.getSpan(type) || (actual != type && state.isTarget(actual.origin) && state.getSpan(actual)) || data.span;
-        data.doc = type.doc || (actual != type && state.isTarget(actual.origin) && type.doc) || data.doc;
+        data.doc = type.doc || (actual != type && state.isTarget(actual.origin) && actual.doc) || data.doc;
         data.data = actual.metaData;
         data.byName = data.byName == null ? !!byName : data.byName && byName;
         state.types[newPath] = data;
@@ -180,9 +180,7 @@
       var part = parts[i], known = path && state.types[path];
       path = path ? path + "." + part : part;
       var me = state.types[path];
-      if (part.charAt(0) == "!" ||
-          known && known.type.constructor != infer.Obj ||
-          me && me.byName) {
+      if (part.charAt(0) == "!" || me && me.byName) {
         if (hop(defs, path)) base = defs[path];
         else defs[path] = base = {};
       } else {
