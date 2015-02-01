@@ -7,7 +7,7 @@ var yuiDef = util.generateDef();
 exports['test admin.Anim'] = function() {
   var Anim = yuiDef["!define"]["anim"]["Anim"];
   assert.notEqual(Anim, null, 'cannot find anim.Anim');
-  assert.equal(Anim["!type"], "fn() -> +anim.Anim");
+  assert.equal(Anim["!type"], "fn()");
   // extends Base
   assert.equal(Anim["prototype"]["!proto"], "base.Base.prototype");
 }
@@ -15,7 +15,7 @@ exports['test admin.Anim'] = function() {
 exports['test app.App'] = function() {
   var App = yuiDef["!define"]["app"]["App"];
   assert.notEqual(App, null, 'cannot find app.App');
-  assert.equal(App["!type"], "fn(config?: +yui.Object) -> +app.App");
+  assert.equal(App["!type"], "fn(config?: +yui.Object)");
   // extends Base
   assert.equal(App["prototype"]["!proto"], "app.App.Base.prototype");
   // showContent

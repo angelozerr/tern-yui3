@@ -88,8 +88,17 @@
 	});
     
     return {defs: defs,
-        passes: {postLoadDef: postLoadDef}};
+            passes: {preLoadDef: preLoadDef,
+                     postLoadDef: postLoadDef}};
   });        
+    
+  function preLoadDef(data) {
+    var cx = infer.cx(), localDefs = cx.localDefs;
+    if (cx.definitions["yui3"] && data["!define"]["_yui"]) {
+      // set yui3 as local defs for AlloyUI tern plugin
+      cx.localDefs["yui3"] = cx.definitions["yui3"];
+    }
+  }        
 	  
   function postLoadDef(data) {
     var cx = infer.cx(), mods = cx.definitions[data["!name"]]["_yui"];

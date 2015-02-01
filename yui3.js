@@ -88,8 +88,17 @@
 	});
     
     return {defs: defs,
-        passes: {postLoadDef: postLoadDef}};
+            passes: {preLoadDef: preLoadDef,
+                     postLoadDef: postLoadDef}};
   });        
+    
+  function preLoadDef(data) {
+    var cx = infer.cx(), localDefs = cx.localDefs;
+    if (cx.definitions["yui3"] && data["!define"]["_yui"]) {
+      // set yui3 as local defs for AlloyUI tern plugin
+      cx.localDefs["yui3"] = cx.definitions["yui3"];
+    }
+  }        
 	  
   function postLoadDef(data) {
     var cx = infer.cx(), mods = cx.definitions[data["!name"]]["_yui"];
@@ -107,7 +116,7 @@
  "!define": {
   "anim": {
    "Anim": {
-    "!type": "fn() -> +anim.Anim",
+    "!type": "fn()",
     "prototype": {
      "!proto": "base.Base.prototype",
      "node": {
@@ -332,7 +341,7 @@
   },
   "app": {
    "App": {
-    "!type": "fn(config?: +yui.Object) -> +app.App",
+    "!type": "fn(config?: +yui.Object)",
     "prototype": {
      "!proto": "app.App.Base.prototype"
     },
@@ -375,7 +384,7 @@
      }
     },
     "Base": {
-     "!type": "fn(config?: +yui.Object) -> +app.App.Base",
+     "!type": "fn(config?: +yui.Object)",
      "prototype": {
       "!proto": "base.Base.prototype",
       "views": {
@@ -537,7 +546,7 @@
     }
    },
    "View": {
-    "!type": "fn() -> +app.View",
+    "!type": "fn()",
     "prototype": {
      "!proto": "base.Base.prototype",
      "containerTemplate": {
@@ -603,7 +612,7 @@
     }
    },
    "LazyModelList": {
-    "!type": "fn() -> +app.LazyModelList",
+    "!type": "fn()",
     "prototype": {
      "!proto": "app.ModelList.prototype",
      "free": {
@@ -650,7 +659,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/LazyModelList.html"
    },
    "ModelList": {
-    "!type": "fn(config: +yui.Object) -> +app.ModelList",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "model": {
@@ -772,7 +781,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ModelList.html"
    },
    "Model": {
-    "!type": "fn() -> +app.Model",
+    "!type": "fn()",
     "prototype": {
      "!proto": "base.Base.prototype",
      "changed": {
@@ -889,7 +898,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Model.html"
    },
    "Router": {
-    "!type": "fn(config?: +yui.Object) -> +app.Router",
+    "!type": "fn(config?: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "dispatch": {
@@ -994,7 +1003,7 @@
   },
   "async_queue": {
    "AsyncQueue": {
-    "!type": "fn(callback: fn()) -> +async_queue.AsyncQueue",
+    "!type": "fn(callback: fn())",
     "prototype": {
      "!proto": "event_custom.EventTarget.prototype",
      "defaults": {
@@ -1170,7 +1179,7 @@
     }
    },
    "State": {
-    "!type": "fn() -> +attribute.State",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/State.html",
     "prototype": {
      "data": {
@@ -1502,7 +1511,7 @@
     }
    },
    "AutoCompleteList": {
-    "!type": "fn(config: +yui.Object) -> +autocomplete.AutoCompleteList",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "hide": {
@@ -1566,7 +1575,7 @@
   },
   "base": {
    "Base": {
-    "!type": "fn(config: +yui.Object) -> +base.Base",
+    "!type": "fn(config: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Base.html",
     "NAME": {
      "!type": "string",
@@ -1610,7 +1619,7 @@
     }
    },
    "BaseCore": {
-    "!type": "fn(cfg: +yui.Object) -> +base.BaseCore",
+    "!type": "fn(cfg: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/BaseCore.html",
     "NAME": {
      "!type": "string",
@@ -1679,7 +1688,7 @@
   },
   "button": {
    "Button": {
-    "!type": "fn(config: +yui.Object) -> +button.Button",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "BOUNDING_TEMPLATE": {
@@ -1711,7 +1720,7 @@
     }
    },
    "ToggleButton": {
-    "!type": "fn(config: +yui.Object) -> +button.ToggleButton",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "button.Button.prototype",
      "trigger": {
@@ -1760,7 +1769,7 @@
   },
   "button_core": {
    "ButtonCore": {
-    "!type": "fn(config: +yui.Object) -> +button_core.ButtonCore",
+    "!type": "fn(config: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ButtonCore.html",
     "prototype": {
      "TEMPLATE": {
@@ -1812,7 +1821,7 @@
   },
   "button_group": {
    "ButtonGroup": {
-    "!type": "fn(config: +yui.Object) -> +button_group.ButtonGroup",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "renderUI": {
@@ -1861,7 +1870,7 @@
   "button_plugin": {
    "Plugin": {
     "Button": {
-     "!type": "fn(config: +yui.Object) -> +button_plugin.Plugin.Button",
+     "!type": "fn(config: +yui.Object)",
      "prototype": {
       "!proto": "button_core.ButtonCore.prototype",
       "createNode": {
@@ -1886,7 +1895,7 @@
   },
   "cache": {
    "Cache": {
-    "!type": "fn() -> +cache.Cache",
+    "!type": "fn()",
     "prototype": {
      "!proto": "base.Base.prototype",
      "max": {
@@ -1938,7 +1947,7 @@
     }
    },
    "CacheOffline": {
-    "!type": "fn() -> +cache.CacheOffline",
+    "!type": "fn()",
     "prototype": {
      "!proto": "cache.Cache.prototype",
      "sandbox": {
@@ -2006,7 +2015,7 @@
   },
   "calendar": {
    "CalendarBase": {
-    "!type": "fn(config: +yui.Object) -> +calendar.CalendarBase",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "initializer": {
@@ -2078,7 +2087,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/CalendarBase.html"
    },
    "Calendar": {
-    "!type": "fn(config: +yui.Object) -> +calendar.Calendar",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "calendar.CalendarBase.prototype",
      "initializer": {
@@ -2173,7 +2182,7 @@
   },
   "charts": {
    "AreaSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.AreaSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.CartesianSeries.prototype",
      "type": {
@@ -2190,7 +2199,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/AreaSeries.html"
    },
    "AreaSplineSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.AreaSplineSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.AreaSeries.prototype",
      "type": {
@@ -2207,7 +2216,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/AreaSplineSeries.html"
    },
    "Axis": {
-    "!type": "fn(config: +yui.Object) -> +charts.Axis",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "getLabelByIndex": {
@@ -2344,7 +2353,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Axis.html"
    },
    "AxisBase": {
-    "!type": "fn(config: +yui.Object) -> +charts.AxisBase",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "getOrigin": {
@@ -2451,7 +2460,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/AxisBase.html"
    },
    "BarSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.BarSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.MarkerSeries.prototype",
      "type": {
@@ -2473,7 +2482,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/BarSeries.html"
    },
    "CandlestickSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.CandlestickSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.RangeSeries.prototype",
      "type": {
@@ -2510,7 +2519,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/CandlestickSeries.html"
    },
    "CartesianChart": {
-    "!type": "fn() -> +charts.CartesianChart",
+    "!type": "fn()",
     "prototype": {
      "!proto": "charts.ChartBase.prototype",
      "_addToAxesCollection": {
@@ -2607,7 +2616,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/CartesianChart.html"
    },
    "CartesianSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.CartesianSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.SeriesBase.prototype",
      "seriesTypeCollection": {
@@ -2719,7 +2728,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/CartesianSeries.html"
    },
    "CategoryAxis": {
-    "!type": "fn(config: +yui.Object) -> +charts.CategoryAxis",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.Axis.prototype",
      "getMinimumValue": {
@@ -2736,7 +2745,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/CategoryAxis.html"
    },
    "CategoryImpl": {
-    "!type": "fn() -> +charts.CategoryImpl",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/CategoryImpl.html",
     "prototype": {
      "labelFormat": {
@@ -2777,7 +2786,7 @@
     }
    },
    "ChartBase": {
-    "!type": "fn() -> +charts.ChartBase",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ChartBase.html",
     "prototype": {
      "dataProvider": {
@@ -2925,7 +2934,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ChartLegend.html"
    },
    "ColumnSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.ColumnSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.MarkerSeries.prototype",
      "type": {
@@ -2942,7 +2951,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ColumnSeries.html"
    },
    "ComboSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.ComboSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.CartesianSeries.prototype",
      "type": {
@@ -2989,7 +2998,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ComboSeries.html"
    },
    "ComboSplineSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.ComboSplineSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.ComboSeries.prototype",
      "type": {
@@ -3001,7 +3010,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ComboSplineSeries.html"
    },
    "Graph": {
-    "!type": "fn() -> +charts.Graph",
+    "!type": "fn()",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "getSeriesByIndex": {
@@ -3073,7 +3082,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Graph.html"
    },
    "Gridlines": {
-    "!type": "fn(config: +yui.Object) -> +charts.Gridlines",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "direction": {
@@ -3100,7 +3109,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Gridlines.html"
    },
    "LineSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.LineSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.CartesianSeries.prototype",
      "type": {
@@ -3117,7 +3126,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/LineSeries.html"
    },
    "MarkerSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.MarkerSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.CartesianSeries.prototype",
      "type": {
@@ -3134,7 +3143,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/MarkerSeries.html"
    },
    "NumericImpl": {
-    "!type": "fn() -> +charts.NumericImpl",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/NumericImpl.html",
     "prototype": {
      "alwaysShowZero": {
@@ -3175,7 +3184,7 @@
     }
    },
    "OHLCSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.OHLCSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.RangeSeries.prototype",
      "type": {
@@ -3197,7 +3206,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/OHLCSeries.html"
    },
    "PieChart": {
-    "!type": "fn() -> +charts.PieChart",
+    "!type": "fn()",
     "prototype": {
      "!proto": "charts.ChartBase.prototype",
      "getSeriesItem": {
@@ -3234,7 +3243,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/PieChart.html"
    },
    "PieSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.PieSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.SeriesBase.prototype",
      "": {
@@ -3296,7 +3305,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/PieSeries.html"
    },
    "RangeSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.RangeSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.CartesianSeries.prototype",
      "type": {
@@ -3329,7 +3338,7 @@
     }
    },
    "SeriesBase": {
-    "!type": "fn(config: +yui.Object) -> +charts.SeriesBase",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "getTotalValues": {
@@ -3376,7 +3385,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/SeriesBase.html"
    },
    "SplineSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.SplineSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.LineSeries.prototype",
      "type": {
@@ -3393,7 +3402,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/SplineSeries.html"
    },
    "StackedAreaSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.StackedAreaSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.AreaSeries.prototype",
      "type": {
@@ -3405,7 +3414,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedAreaSeries.html"
    },
    "StackedAreaSplineSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.StackedAreaSplineSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.AreaSeries.prototype",
      "type": {
@@ -3417,7 +3426,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedAreaSplineSeries.html"
    },
    "StackedBarSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.StackedBarSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.BarSeries.prototype",
      "type": {
@@ -3439,7 +3448,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedBarSeries.html"
    },
    "StackedColumnSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.StackedColumnSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.ColumnSeries.prototype",
      "type": {
@@ -3456,7 +3465,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedColumnSeries.html"
    },
    "StackedComboSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.StackedComboSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.ComboSeries.prototype",
      "type": {
@@ -3473,7 +3482,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedComboSeries.html"
    },
    "StackedComboSplineSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.StackedComboSplineSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.StackedComboSeries.prototype",
      "type": {
@@ -3490,7 +3499,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedComboSplineSeries.html"
    },
    "StackedLineSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.StackedLineSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.LineSeries.prototype",
      "type": {
@@ -3502,7 +3511,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedLineSeries.html"
    },
    "StackedMarkerSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.StackedMarkerSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.MarkerSeries.prototype",
      "type": {
@@ -3514,7 +3523,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedMarkerSeries.html"
    },
    "StackedSplineSeries": {
-    "!type": "fn(config: +yui.Object) -> +charts.StackedSplineSeries",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "charts.SplineSeries.prototype",
      "type": {
@@ -3526,7 +3535,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedSplineSeries.html"
    },
    "TimeImpl": {
-    "!type": "fn() -> +charts.TimeImpl",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/TimeImpl.html",
     "prototype": {
      "labelFunction": {
@@ -3681,7 +3690,7 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +yui.Object) -> +yui.YUI",
+    "!type": "fn(config?: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "prototype": {
      "dump": {
@@ -4190,7 +4199,7 @@
     }
    },
    "Queue": {
-    "!type": "fn(item: +MIXED) -> +yui.Queue",
+    "!type": "fn(item: +MIXED)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Queue.html",
     "prototype": {
      "indexOf": {
@@ -4527,7 +4536,7 @@
   },
   "collection": {
    "ArrayList": {
-    "!type": "fn(items: +yui.Array) -> +collection.ArrayList",
+    "!type": "fn(items: +yui.Array)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ArrayList.html",
     "prototype": {
      "add": {
@@ -4878,7 +4887,7 @@
   },
   "console": {
    "Console": {
-    "!type": "fn(config?: +yui.Object) -> +console.Console",
+    "!type": "fn(config?: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "log": {
@@ -5260,7 +5269,7 @@
    },
    "DataSource": {
     "Function": {
-     "!type": "fn() -> +datasource.DataSource.Function",
+     "!type": "fn()",
      "prototype": {
       "!proto": "datasource.DataSource.Local.prototype",
       "source": {
@@ -5277,7 +5286,7 @@
      }
     },
     "Get": {
-     "!type": "fn() -> +datasource.DataSource.Get",
+     "!type": "fn()",
      "prototype": {
       "!proto": "datasource.DataSource.Local.prototype",
       "get": {
@@ -5309,7 +5318,7 @@
      }
     },
     "IO": {
-     "!type": "fn() -> +datasource.DataSource.IO",
+     "!type": "fn()",
      "prototype": {
       "!proto": "datasource.DataSource.Local.prototype",
       "io": {
@@ -5331,7 +5340,7 @@
      }
     },
     "Local": {
-     "!type": "fn() -> +datasource.DataSource.Local",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype",
       "source": {
@@ -6254,6 +6263,11 @@
     },
     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.html",
     "BodyView": {
+     "!type": "fn()",
+     "prototype": {
+      "!proto": "app.View.prototype"
+     },
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/BodyView.html",
      "Formatters": {
       "!type": "fn()",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.BodyView.Formatters.html",
@@ -6399,7 +6413,7 @@
   "dd": {
    "Plugin": {
     "DDConstrained": {
-     "!type": "fn() -> +dd.Plugin.DDConstrained",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype",
       "stickX": {
@@ -6491,7 +6505,7 @@
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDConstrained.html"
     },
     "Drop": {
-     "!type": "fn() -> +dd.Plugin.Drop",
+     "!type": "fn()",
      "prototype": {
       "!proto": "dd.DD.Drop.prototype",
       "NAME": {
@@ -6508,7 +6522,7 @@
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Drop.html"
     },
     "Drag": {
-     "!type": "fn() -> +dd.Plugin.Drag",
+     "!type": "fn()",
      "prototype": {
       "!proto": "dd.DD.Drag.prototype",
       "NAME": {
@@ -6525,7 +6539,7 @@
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Drag.html"
     },
     "DDProxy": {
-     "!type": "fn() -> +dd.Plugin.DDProxy",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype",
       "moveOnEnd": {
@@ -6562,7 +6576,7 @@
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDProxy.html"
     },
     "DDWindowScroll": {
-     "!type": "fn() -> +dd.Plugin.DDWindowScroll",
+     "!type": "fn()",
      "prototype": {
       "!proto": "Scroll.prototype",
       "windowScroll": {
@@ -6574,7 +6588,7 @@
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDWindowScroll.html"
     },
     "DDNodeScroll": {
-     "!type": "fn() -> +dd.Plugin.DDNodeScroll",
+     "!type": "fn()",
      "prototype": {
       "!proto": "Scroll.prototype",
       "node": {
@@ -6588,7 +6602,7 @@
    },
    "DD": {
     "DDM": {
-     "!type": "fn() -> +dd.DD.DDM",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype",
       "dragCursor": {
@@ -6720,7 +6734,7 @@
      "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.DDM.html"
     },
     "Delegate": {
-     "!type": "fn() -> +dd.DD.Delegate",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype",
       "dd": {
@@ -6792,7 +6806,7 @@
      "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Delegate.html"
     },
     "Drag": {
-     "!type": "fn() -> +dd.DD.Drag",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype",
       "node": {
@@ -6989,7 +7003,7 @@
      }
     },
     "Drop": {
-     "!type": "fn() -> +dd.DD.Drop",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype",
       "node": {
@@ -7061,7 +7075,7 @@
      "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Drop.html"
     },
     "Scroll": {
-     "!type": "fn() -> +dd.DD.Scroll",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype",
       "buffer": {
@@ -7116,7 +7130,7 @@
   },
   "dial": {
    "Dial": {
-    "!type": "fn(config: +yui.Object) -> +dial.Dial",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "min": {
@@ -7444,7 +7458,7 @@
   },
   "editor": {
    "ContentEditable": {
-    "!type": "fn() -> +editor.ContentEditable",
+    "!type": "fn()",
     "prototype": {
      "!proto": "Y.Plugin.Base.prototype",
      "use": {
@@ -7575,6 +7589,26 @@
      }
     },
     "ExecCommand": {
+     "!type": "fn()",
+     "prototype": {
+      "!proto": "base.Base.prototype",
+      "bidi": {
+       "!type": "?",
+       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ExecCommand.html#property_bidi",
+       "!doc": "bidi execCommand override for setting the text direction of a node.\nThis property is added to the `Y.Plugin.ExecCommands.COMMANDS`\ncollection."
+      },
+      "command": {
+       "!type": "fn(action: string, value: string) -> +node.Node",
+       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ExecCommand.html#method_command",
+       "!doc": "Execute a command on the frames document."
+      },
+      "getInstance": {
+       "!type": "fn() -> +yui.YUI",
+       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ExecCommand.html#method_getInstance",
+       "!doc": "Gets the instance of YUI bound to the parent frame"
+      }
+     },
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/ExecCommand.html",
      "COMMANDS": {
       "!type": "fn()",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ExecCommand.COMMANDS.html",
@@ -7684,23 +7718,6 @@
        "!doc": "Override method for justify"
       }
      },
-     "prototype": {
-      "bidi": {
-       "!type": "?",
-       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ExecCommand.html#property_bidi",
-       "!doc": "bidi execCommand override for setting the text direction of a node.\nThis property is added to the `Y.Plugin.ExecCommands.COMMANDS`\ncollection."
-      },
-      "command": {
-       "!type": "fn(action: string, value: string) -> +node.Node",
-       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ExecCommand.html#method_command",
-       "!doc": "Execute a command on the frames document."
-      },
-      "getInstance": {
-       "!type": "fn() -> +yui.YUI",
-       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ExecCommand.html#method_getInstance",
-       "!doc": "Gets the instance of YUI bound to the parent frame"
-      }
-     },
      "NAME": {
       "!type": "?",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ExecCommand.html#property_NAME",
@@ -7713,7 +7730,7 @@
      }
     },
     "EditorBidi": {
-     "!type": "fn() -> +editor.Plugin.EditorBidi",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype"
      },
@@ -7770,7 +7787,7 @@
      }
     },
     "EditorBR": {
-     "!type": "fn() -> +editor.Plugin.EditorBR",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype"
      },
@@ -7787,7 +7804,7 @@
      }
     },
     "EditorParaBase": {
-     "!type": "fn() -> +editor.Plugin.EditorParaBase",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype"
      },
@@ -7804,7 +7821,7 @@
      }
     },
     "EditorParaIE": {
-     "!type": "fn() -> +editor.Plugin.EditorParaIE",
+     "!type": "fn()",
      "prototype": {
       "!proto": "editor.Plugin.EditorParaBase.prototype"
      },
@@ -7821,7 +7838,7 @@
      }
     },
     "EditorPara": {
-     "!type": "fn() -> +editor.Plugin.EditorPara",
+     "!type": "fn()",
      "prototype": {
       "!proto": "editor.Plugin.EditorParaBase.prototype"
      },
@@ -7838,7 +7855,7 @@
      }
     },
     "EditorTab": {
-     "!type": "fn() -> +editor.Plugin.EditorTab",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype"
      },
@@ -7855,7 +7872,7 @@
      }
     },
     "EditorLists": {
-     "!type": "fn() -> +editor.Plugin.EditorLists",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype"
      },
@@ -7888,7 +7905,7 @@
     }
    },
    "EditorBase": {
-    "!type": "fn() -> +editor.EditorBase",
+    "!type": "fn()",
     "prototype": {
      "!proto": "base.Base.prototype",
      "frame": {
@@ -8010,7 +8027,7 @@
     }
    },
    "EditorSelection": {
-    "!type": "fn() -> +editor.EditorSelection",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/EditorSelection.html",
     "removeFontFamily": {
      "!type": "fn()",
@@ -8221,7 +8238,7 @@
     }
    },
    "Frame": {
-    "!type": "fn() -> +editor.Frame",
+    "!type": "fn()",
     "prototype": {
      "!proto": "base.Base.prototype",
      "use": {
@@ -8401,7 +8418,7 @@
   },
   "event_custom": {
    "CustomEvent": {
-    "!type": "fn(type: string, defaults: +yui.Object) -> +event_custom.CustomEvent",
+    "!type": "fn(type: string, defaults: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/CustomEvent.html",
     "prototype": {
      "type": {
@@ -8645,7 +8662,7 @@
      "!doc": "Contains the current state of the return value, consumable by\nafter event listeners, and updated if an after subscriber\nchanges the return value generated by the wrapped function."
     },
     "Method": {
-     "!type": "fn(obj: ?, sFn: ?) -> +event_custom.Do.Method",
+     "!type": "fn(obj: ?, sFn: ?)",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Do.Method.html",
      "prototype": {
       "register": {
@@ -8814,7 +8831,7 @@
     }
    },
    "EventHandle": {
-    "!type": "fn(evt: +event_custom.CustomEvent, sub: +event_custom.Subscriber) -> +event_custom.EventHandle",
+    "!type": "fn(evt: +event_custom.CustomEvent, sub: +event_custom.Subscriber)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/EventHandle.html",
     "prototype": {
      "evt": {
@@ -8840,7 +8857,7 @@
     }
    },
    "Subscriber": {
-    "!type": "fn(fn: fn(), context: +yui.Object, args: +yui.Array) -> +event_custom.Subscriber",
+    "!type": "fn(fn: fn(), context: +yui.Object, args: +yui.Array)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Subscriber.html",
     "prototype": {
      "fn": {
@@ -9150,7 +9167,7 @@
     }
    },
    "SynthRegistry": {
-    "!type": "fn(el: +HTMLElement, yuid: string, key: string) -> +event.SynthRegistry",
+    "!type": "fn(el: +HTMLElement, yuid: string, key: string)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/SynthRegistry.html",
     "prototype": {
      "register": {
@@ -9166,7 +9183,7 @@
     }
    },
    "SyntheticEvent": {
-    "!type": "fn(cfg: +yui.Object) -> +event.SyntheticEvent",
+    "!type": "fn(cfg: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/SyntheticEvent.html",
     "prototype": {
      "processArgs": {
@@ -9235,7 +9252,7 @@
   },
   "file_flash": {
    "FileFlash": {
-    "!type": "fn(config: +yui.Object) -> +file_flash.FileFlash",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "startUpload": {
@@ -9294,7 +9311,7 @@
   },
   "file_html5": {
    "FileHTML5": {
-    "!type": "fn(config: +yui.Object) -> +file_html5.FileHTML5",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "startUpload": {
@@ -9444,7 +9461,7 @@
      "!doc": "Alias for `js()`."
     },
     "Transaction": {
-     "!type": "fn() -> +get.Get.Transaction",
+     "!type": "fn()",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Get.Transaction.html",
      "prototype": {
       "data": {
@@ -9930,7 +9947,7 @@
     }
    },
    "CircleGroup": {
-    "!type": "fn() -> +graphics.CircleGroup",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/CircleGroup.html",
     "prototype": {
      "drawShape": {
@@ -9941,7 +9958,7 @@
     }
    },
    "AttributeLite": {
-    "!type": "fn() -> +graphics.AttributeLite",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/AttributeLite.html",
     "prototype": {
      "addAttrs": {
@@ -9962,7 +9979,7 @@
     }
    },
    "Drawing": {
-    "!type": "fn() -> +graphics.Drawing",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Drawing.html",
     "prototype": {
      "curveTo": {
@@ -10023,7 +10040,7 @@
     }
    },
    "Shape": {
-    "!type": "fn(cfg: +yui.Object) -> +graphics.Shape",
+    "!type": "fn(cfg: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Shape.html",
     "prototype": {
      "addClass": {
@@ -10184,7 +10201,7 @@
     }
    },
    "Circle": {
-    "!type": "fn() -> +graphics.Circle",
+    "!type": "fn()",
     "prototype": {
      "!proto": "graphics.Shape.prototype",
      "radius": {
@@ -10196,7 +10213,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Circle.html"
    },
    "Path": {
-    "!type": "fn() -> +graphics.Path",
+    "!type": "fn()",
     "prototype": {
      "!proto": "graphics.Shape.prototype",
      "path": {
@@ -10208,7 +10225,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Path.html"
    },
    "Graphic": {
-    "!type": "fn() -> +graphics.Graphic",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Graphic.html",
     "prototype": {
      "render": {
@@ -11387,7 +11404,7 @@
     }
    },
    "HistoryHTML5": {
-    "!type": "fn(config: +yui.Object) -> +history.HistoryHTML5",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "history.HistoryBase.prototype"
     },
@@ -11401,7 +11418,7 @@
   },
   "imageloader": {
    "ImgLoadGroup": {
-    "!type": "fn() -> +imageloader.ImgLoadGroup",
+    "!type": "fn()",
     "prototype": {
      "!proto": "base.Base.prototype",
      "name": {
@@ -11453,7 +11470,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ImgLoadGroup.html"
    },
    "ImgLoadImgObj": {
-    "!type": "fn() -> +imageloader.ImgLoadImgObj",
+    "!type": "fn()",
     "prototype": {
      "!proto": "base.Base.prototype",
      "domId": {
@@ -11576,7 +11593,7 @@
   },
   "io": {
    "IO": {
-    "!type": "fn(config: +yui.Object) -> +io.IO",
+    "!type": "fn(config: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/IO.html",
     "prototype": {
      "start": {
@@ -11754,7 +11771,7 @@
   },
   "loader": {
    "Loader": {
-    "!type": "fn(config: +yui.Object) -> +loader.Loader",
+    "!type": "fn(config: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html",
     "prototype": {
      "onSuccess": {
@@ -12027,7 +12044,7 @@
   },
   "matrix": {
    "Matrix": {
-    "!type": "fn() -> +matrix.Matrix",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Matrix.html",
     "prototype": {
      "multiple": {
@@ -12512,7 +12529,7 @@
   },
   "node": {
    "Node": {
-    "!type": "fn(node: +HTMLElement) -> +node.Node",
+    "!type": "fn(node: +HTMLElement)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html",
     "ATTRS": {
      "!type": "+object",
@@ -13045,7 +13062,7 @@
     }
    },
    "NodeList": {
-    "!type": "fn(nodes: string) -> +node.NodeList",
+    "!type": "fn(nodes: string)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/NodeList.html",
     "prototype": {
      "setAttribute": {
@@ -13486,7 +13503,7 @@
   },
   "panel": {
    "Panel": {
-    "!type": "fn() -> +panel.Panel",
+    "!type": "fn()",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "BUTTONS": {
@@ -13605,7 +13622,7 @@
     }
    },
    "Pjax": {
-    "!type": "fn(config?: +yui.Object) -> +pjax.Pjax",
+    "!type": "fn(config?: +yui.Object)",
     "prototype": {
      "!proto": "app.Router.prototype",
      "container": {
@@ -13740,7 +13757,7 @@
   },
   "promise": {
    "Promise": {
-    "!type": "fn(fn: fn()) -> +promise.Promise",
+    "!type": "fn(fn: fn())",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Promise.html",
     "prototype": {
      "then": {
@@ -13785,7 +13802,7 @@
      "!doc": "Returns a promise that is resolved or rejected when any of values is either\nresolved or rejected. Can be used for providing early feedback in the UI\nwhile other operations are still pending."
     },
     "Resolver": {
-     "!type": "fn(promise: +promise.Promise) -> +promise.Promise.Resolver",
+     "!type": "fn(promise: +promise.Promise)",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Promise.Resolver.html",
      "prototype": {
       "promise": {
@@ -13868,7 +13885,7 @@
   },
   "recordset": {
    "Recordset": {
-    "!type": "fn(config: +yui.Object) -> +recordset.Recordset",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "getRecord": {
@@ -14020,7 +14037,7 @@
   },
   "resize": {
    "Resize": {
-    "!type": "fn(config: +yui.Object) -> +resize.Resize",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "autoHide": {
@@ -14261,7 +14278,7 @@
      }
     },
     "ResizeProxy": {
-     "!type": "fn() -> +resize.Plugin.ResizeProxy",
+     "!type": "fn()",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "proxyNode": {
@@ -14282,7 +14299,7 @@
   "scrollview_list": {
    "Plugin": {
     "ScrollViewList": {
-     "!type": "fn() -> +scrollview_list.Plugin.ScrollViewList",
+     "!type": "fn()",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "isAttached": {
@@ -14318,7 +14335,7 @@
   "scrollview_paginator": {
    "Plugin": {
     "ScrollViewPaginator": {
-     "!type": "fn() -> +scrollview_paginator.Plugin.ScrollViewPaginator",
+     "!type": "fn()",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "initializer": {
@@ -14389,7 +14406,7 @@
   "scrollview": {
    "Plugin": {
     "ScrollViewScrollbars": {
-     "!type": "fn() -> +scrollview.Plugin.ScrollViewScrollbars",
+     "!type": "fn()",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "verticalNode": {
@@ -14447,7 +14464,7 @@
     }
    },
    "ScrollView": {
-    "!type": "fn(config: +yui.Object) -> +scrollview.ScrollView",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "lastScrolledAmt": {
@@ -14587,7 +14604,7 @@
     }
    },
    "SliderBase": {
-    "!type": "fn(config: +yui.Object) -> +slider.SliderBase",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "rail": {
@@ -14697,7 +14714,7 @@
   },
   "sortable": {
    "Sortable": {
-    "!type": "fn() -> +sortable.Sortable",
+    "!type": "fn()",
     "prototype": {
      "!proto": "base.Base.prototype",
      "delegate": {
@@ -14796,7 +14813,7 @@
   },
   "stylesheet": {
    "StyleSheet": {
-    "!type": "fn(seed: string, name: string) -> +stylesheet.StyleSheet",
+    "!type": "fn(seed: string, name: string)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/StyleSheet.html",
     "prototype": {
      "getId": {
@@ -14867,7 +14884,7 @@
   },
   "swf": {
    "SWF": {
-    "!type": "fn(id: string, swfURL: string, p_oAttributes: +yui.Object) -> +swf.SWF",
+    "!type": "fn(id: string, swfURL: string, p_oAttributes: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/SWF.html",
     "prototype": {
      "callSWF": {
@@ -14883,7 +14900,7 @@
     }
    },
    "UploaderFlash": {
-    "!type": "fn(config: +yui.Object) -> +swf.UploaderFlash",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "queue": {
@@ -15012,7 +15029,7 @@
   },
   "swfdetect": {
    "SWFDetect": {
-    "!type": "fn() -> +swfdetect.SWFDetect",
+    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/SWFDetect.html",
     "prototype": {
      "getFlashVersion": {
@@ -15028,7 +15045,7 @@
     }
    },
    "Tab": {
-    "!type": "fn(config: +yui.Object) -> +swfdetect.Tab",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "triggerEvent": {
@@ -15053,7 +15070,7 @@
   },
   "template": {
    "Template": {
-    "!type": "fn(engine?: +Mixed, defaults?: +yui.Object) -> +template.Template",
+    "!type": "fn(engine?: +Mixed, defaults?: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Template.html",
     "prototype": {
      "defaults": {
@@ -15575,7 +15592,7 @@
      }
     },
     "Reporter": {
-     "!type": "fn(url: string, format: fn()) -> +test.Test.Reporter",
+     "!type": "fn(url: string, format: fn())",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.Reporter.html",
      "prototype": {
       "url": {
@@ -16002,7 +16019,7 @@
   },
   "tree": {
    "Tree": {
-    "!type": "fn(config?: +yui.Object) -> +tree.Tree",
+    "!type": "fn(config?: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "children": {
@@ -16093,10 +16110,10 @@
     },
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Tree.html",
     "Node": {
-     "!type": "fn(node: +HTMLElement) -> +node.Node",
+     "!type": "fn(tree: +tree.Tree, config?: +yui.Object)",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html",
      "Labelable": {
-      "!type": "fn(tree: +tree.Tree, config?: +yui.Object) -> +tree.Tree.Node.Labelable",
+      "!type": "fn(tree: +tree.Tree, config?: +yui.Object)",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Tree.Node.Labelable.html",
       "prototype": {
        "label": {
@@ -16107,7 +16124,7 @@
       }
      },
      "Openable": {
-      "!type": "fn() -> +tree.Tree.Node.Openable",
+      "!type": "fn()",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Tree.Node.Openable.html",
       "prototype": {
        "close": {
@@ -16133,7 +16150,7 @@
       }
      },
      "Selectable": {
-      "!type": "fn() -> +tree.Tree.Node.Selectable",
+      "!type": "fn()",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Tree.Node.Selectable.html",
       "prototype": {
        "isSelected": {
@@ -16154,7 +16171,7 @@
       }
      },
      "Sortable": {
-      "!type": "fn() -> +tree.Tree.Node.Sortable",
+      "!type": "fn()",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Tree.Node.Sortable.html",
       "prototype": {
        "sort": {
@@ -16288,7 +16305,7 @@
      }
     },
     "Openable": {
-     "!type": "fn() -> +tree.Tree.Openable",
+     "!type": "fn()",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Tree.Openable.html",
      "prototype": {
       "closeNode": {
@@ -16309,7 +16326,7 @@
      }
     },
     "Selectable": {
-     "!type": "fn() -> +tree.Tree.Selectable",
+     "!type": "fn()",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Tree.Selectable.html",
      "prototype": {
       "getSelectedNodes": {
@@ -16340,7 +16357,7 @@
      }
     },
     "Sortable": {
-     "!type": "fn(config?: +yui.Object) -> +tree.Tree.Sortable",
+     "!type": "fn(config?: +yui.Object)",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Tree.Sortable.html",
      "prototype": {
       "sortReverse": {
@@ -16374,7 +16391,7 @@
   },
   "uploader_html5": {
    "UploaderHTML5": {
-    "!type": "fn() -> +uploader_html5.UploaderHTML5",
+    "!type": "fn()",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "queue": {
@@ -16516,7 +16533,7 @@
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Uploader.html",
     "Queue": {
-     "!type": "fn() -> +uploader_queue.Uploader.Queue",
+     "!type": "fn()",
      "prototype": {
       "!proto": "base.Base.prototype",
       "startUpload": {
@@ -16827,7 +16844,7 @@
   },
   "widget": {
    "Widget": {
-    "!type": "fn(config: +yui.Object) -> +widget.Widget",
+    "!type": "fn(config: +yui.Object)",
     "prototype": {
      "!proto": "base.Base.prototype",
      "next": {
@@ -17128,7 +17145,7 @@
   },
   "widget_parent": {
    "WidgetParent": {
-    "!type": "fn(config: +yui.Object) -> +widget_parent.WidgetParent",
+    "!type": "fn(config: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetParent.html",
     "prototype": {
      "defaultChildType": {
@@ -17191,7 +17208,7 @@
   },
   "widget_position_align": {
    "WidgetPositionAlign": {
-    "!type": "fn(config: +yui.Object) -> +widget_position_align.WidgetPositionAlign",
+    "!type": "fn(config: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetPositionAlign.html",
     "prototype": {
      "align": {
@@ -17484,7 +17501,7 @@
   },
   "yql": {
    "YQLRequest": {
-    "!type": "fn(sql: string, callback: fn(), params: +yui.Object, opts: +yui.Object) -> +yql.YQLRequest",
+    "!type": "fn(sql: string, callback: fn(), params: +yui.Object, opts: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YQLRequest.html",
     "prototype": {
      "send": {

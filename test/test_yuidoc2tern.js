@@ -49,7 +49,7 @@ exports['test getTernType - YUIClass'] = function() {
     is_constructor: 1
   };
   var type = yuidoc2tern.getTernType(yuiClass, yuiDoc);
-  assert.equal(type, 'fn() -> +anim.Anim');
+  assert.equal(type, 'fn()');
 }
 
 exports['test getTernType - YUIClassItem - method'] = function() {  	
