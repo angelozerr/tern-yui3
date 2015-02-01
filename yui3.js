@@ -174,7 +174,7 @@
      "reverse": {
       "!type": "bool",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Anim.html#attribute_reverse",
-      "!doc": "If true, the `from` and `to` attributes are swapped, \nand the animation is then run starting from `from`."
+      "!doc": "If true, the `from` and `to` attributes are swapped,\nand the animation is then run starting from `from`."
      },
      "run": {
       "!type": "fn() -> !this",
@@ -906,7 +906,7 @@
      "hasRoute": {
       "!type": "fn(url: string) -> bool",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Router.html#method_hasRoute",
-      "!doc": "Returns `true` if this router has at least one route that matches the\nspecified URL, `false` otherwise.\n\nThis method enforces the same-origin security constraint on the specified\n`url`; any URL which is not from the same origin as the current URL will\nalways return `false`."
+      "!doc": "Returns `true` if this router has at least one route that matches the\nspecified URL, `false` otherwise. This also checks that any named `param`\nhandlers also accept app param values in the `url`.\n\nThis method enforces the same-origin security constraint on the specified\n`url`; any URL which is not from the same origin as the current URL will\nalways return `false`."
      },
      "match": {
       "!type": "fn(path: string) -> [+yui.Object]",
@@ -1139,7 +1139,7 @@
      "modifyAttr": {
       "!type": "fn(name: string, config: +yui.Object)",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/AttributeExtras.html#method_modifyAttr",
-      "!doc": "Updates the configuration of an attribute which has already been added.\n<p>\nThe properties which can be modified through this interface are limited\nto the following subset of attributes, which can be safely modified\nafter a value has already been set on the attribute: readOnly, writeOnce,\nbroadcast and getter.\n</p>"
+      "!doc": "Updates the configuration of an attribute which has already been added.\n<p>\nThe properties which can be modified through this interface are limited\nto the following subset of attributes, which can be safely modified\nafter a value has already been set on the attribute:\n</p>\n<dl>\n <dt>readOnly;</dt>\n <dt>writeOnce;</dt>\n <dt>broadcast; and</dt>\n <dt>getter.</dt>\n</dl>\n<p>\nNote: New attributes cannot be added using this interface. New attributes must be\nadded using {{#crossLink \"AttributeCore/addAttr:method\"}}addAttr{{/crossLink}}, or an\nappropriate manner for a class which utilises Attributes (e.g. the\n{{#crossLink \"Base/ATTRS:property\"}}ATTRS{{/crossLink}} property in\n{{#crossLink \"Base\"}}Base{{/crossLink}}).\n</p>"
      },
      "removeAttr": {
       "!type": "fn(name: string)",
@@ -3565,7 +3565,7 @@
      "getClassName": {
       "!type": "fn(classnameSection?: string, skipPrefix: bool)",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/ClassNameManager.html#method_getClassName",
-      "!doc": "Returns a class name prefixed with the the value of the\n<code>Y.config.classNamePrefix</code> attribute + the provided strings.\nUses the <code>Y.config.classNameDelimiter</code> attribute to delimit the\nprovided strings. E.g. Y.ClassNameManager.getClassName(foo,bar); // yui-foo-bar"
+      "!doc": "Returns a class name prefixed with the value of the\n<code>Y.config.classNamePrefix</code> attribute + the provided strings.\nUses the <code>Y.config.classNameDelimiter</code> attribute to delimit the\nprovided strings. E.g. Y.ClassNameManager.getClassName(foo,bar); // yui-foo-bar"
      }
     }
    }
@@ -3850,7 +3850,7 @@
       "!doc": "Executes the named method on the specified YUI instance if that method is\nwhitelisted."
      },
      "add": {
-      "!type": "fn(name: string, fn: fn(Y: +yui.YUI, name: string), version: string, config?: +yui.Object) -> +yui.YUI",
+      "!type": "fn(name: string, fn: fn(Y: +yui.YUI, name: string), version: string, details?: +yui.Object) -> +yui.YUI",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html#method_add",
       "!doc": "Registers a YUI module and makes it available for use in a `YUI().use()` call or\nas a dependency for other modules.\n\nThe easiest way to create a first-class YUI module is to use\n<a href=\"http://yui.github.com/shifter/\">Shifter</a>, the YUI component build\ntool.\n\nShifter will automatically wrap your module code in a `YUI.add()` call along\nwith any configuration info required for the module."
      },
@@ -4097,11 +4097,6 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/config.html#property_timeout",
       "!doc": "Timeout in milliseconds before a dynamic JS or CSS request will be considered a\nfailure. If not set, no timeout will be enforced."
      },
-     "onCSS": {
-      "!type": "fn()",
-      "!url": "http://yuilibrary.com/yui/docs/api/classes/config.html#property_onCSS",
-      "!doc": "Callback for the CSSComplete event. When dynamically loading YUI components\nwith CSS, this property fires when the CSS is finished loading.\n\nThis provides an opportunity to enhance the presentation of a loading page a\nlittle bit before the entire loading process is done."
-     },
      "modules": {
       "!type": "+yui.Object",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/config.html#property_modules",
@@ -4301,7 +4296,7 @@
     "sub": {
      "!type": "fn(s: string, o: +yui.Object) -> string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Lang.html#method_sub",
-     "!doc": "Performs `{placeholder}` substitution on a string. The object passed as the \nsecond parameter provides values to replace the `{placeholder}`s.\n`{placeholder}` token names must match property names of the object. For example,\n\n`var greeting = Y.Lang.sub(\"Hello, {who}!\", { who: \"World\" });`\n\n`{placeholder}` tokens that are undefined on the object map will be left \nin tact (leaving unsightly `{placeholder}`s in the output string)."
+     "!doc": "Performs `{placeholder}` substitution on a string. The object passed as the\nsecond parameter provides values to replace the `{placeholder}`s.\n`{placeholder}` token names must match property names of the object. For example,\n\n`var greeting = Y.Lang.sub(\"Hello, {who}!\", { who: \"World\" });`\n\n`{placeholder}` tokens that are undefined on the object map will be left\nin tact (leaving unsightly `{placeholder}`s in the output string)."
     },
     "trim": {
      "!type": "fn(s: string) -> string",
@@ -4483,6 +4478,11 @@
      "!url": "http://yuilibrary.com/yui/docs/api/classes/UA.html#property_silk",
      "!doc": "Detects Kindle Silk"
     },
+    "ubuntu": {
+     "!type": "number",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/UA.html#property_ubuntu",
+     "!doc": "Detects Ubuntu version"
+    },
     "accel": {
      "!type": "bool",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/UA.html#property_accel",
@@ -4501,7 +4501,7 @@
     "os": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/UA.html#property_os",
-     "!doc": "The operating system.  Currently only detecting windows or macintosh"
+     "!doc": "The operating system.\n\nPossible values are `windows`, `macintosh`, `android`, `symbos`, `linux`, `rhino` and `ios`."
     },
     "nodejs": {
      "!type": "number",
@@ -5795,7 +5795,7 @@
       "width": {
        "!type": "string",
        "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.Column.html#property_width",
-       "!doc": "Adds a style `width` setting to an associated `<col>`\nelement for the column.\n\nNote, the assigned width will not truncate cell content, and\nit will not preserve the configured width if doing so would\ncompromise either the instances `width` configuration or\nthe natural width of the tables containing DOM elements.\n\nIf absolute widths are required, it can be accomplished with\nsome custom CSS and the use of a `cellTemplate`, or\n`formatter`.  \n\nSee the description of \n[datatable-column-widths](DataTable.ColumnWidths.html) \nfor an example of how to do this.\n\n    { key: a, width: 400px },\n    { key: b, width: 10em }"
+       "!doc": "Adds a style `width` setting to an associated `<col>`\nelement for the column.\n\nNote, the assigned width will not truncate cell content, and\nit will not preserve the configured width if doing so would\ncompromise either the instances `width` configuration or\nthe natural width of the tables containing DOM elements.\n\nIf absolute widths are required, it can be accomplished with\nsome custom CSS and the use of a `cellTemplate`, or\n`formatter`.\n\nSee the description of\n[datatable-column-widths](DataTable.ColumnWidths.html)\nfor an example of how to do this.\n\n    { key: a, width: 400px },\n    { key: b, width: 10em }"
       },
       "key": {
        "!type": "string",
@@ -8620,17 +8620,17 @@
      "!doc": "Cache of objects touched by the utility"
     },
     "before": {
-     "!type": "fn(fn: fn(), obj: ?, sFn: string, c: ?, arg: +Mixed) -> string",
+     "!type": "fn(fn: fn(), obj: ?, sFn: string, c: ?, arg: +Mixed) -> +event_custom.EventHandle",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Do.html#method_before",
      "!doc": "<p>Execute the supplied method before the specified function.  Wrapping\nfunction may optionally return an instance of the following classes to\nfurther alter runtime behavior:</p>\n<dl>\n    <dt></code>Y.Do.Halt(message, returnValue)</code></dt>\n        <dd>Immediatly stop execution and return\n        <code>returnValue</code>.  No other wrapping functions will be\n        executed.</dd>\n    <dt></code>Y.Do.AlterArgs(message, newArgArray)</code></dt>\n        <dd>Replace the arguments that the original function will be\n        called with.</dd>\n    <dt></code>Y.Do.Prevent(message)</code></dt>\n        <dd>Dont execute the wrapped function.  Other before phase\n        wrappers will be executed.</dd>\n</dl>"
     },
     "after": {
-     "!type": "fn(fn: fn(), obj: ?, sFn: string, c: ?, arg: +Mixed) -> string",
+     "!type": "fn(fn: fn(), obj: ?, sFn: string, c: ?, arg: +Mixed) -> +event_custom.EventHandle",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Do.html#method_after",
      "!doc": "<p>Execute the supplied method after the specified function.  Wrapping\nfunction may optionally return an instance of the following classes to\nfurther alter runtime behavior:</p>\n<dl>\n    <dt></code>Y.Do.Halt(message, returnValue)</code></dt>\n        <dd>Immediatly stop execution and return\n        <code>returnValue</code>.  No other wrapping functions will be\n        executed.</dd>\n    <dt></code>Y.Do.AlterReturn(message, returnValue)</code></dt>\n        <dd>Return <code>returnValue</code> instead of the wrapped\n        methods original return value.  This can be further altered by\n        other after phase wrappers.</dd>\n</dl>\n\n<p>The static properties <code>Y.Do.originalRetVal</code> and\n<code>Y.Do.currentRetVal</code> will be populated for reference.</p>"
     },
     "detach": {
-     "!type": "fn(handle: string)",
+     "!type": "fn(handle: +event_custom.EventHandle)",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Do.html#method_detach",
      "!doc": "Detach a before or after subscription."
     },
@@ -8759,7 +8759,7 @@
      "on": {
       "!type": "fn(type: string, fn: fn(), context?: +yui.Object, arg?: ?) -> +event_custom.EventHandle",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/EventTarget.html#method_on",
-      "!doc": "Subscribe a callback function to a custom event fired by this object or\nfrom an object that bubbles its events to this object.\n\nCallback functions for events published with `emitFacade = true` will\nreceive an `EventFacade` as the first argument (typically named \"e\").\nThese callbacks can then call `e.preventDefault()` to disable the\nbehavior published to that events `defaultFn`.  See the `EventFacade`\nAPI for all available properties and methods. Subscribers to\nnon-`emitFacade` events will receive the arguments passed to `fire()`\nafter the event name.\n\nTo subscribe to multiple events at once, pass an object as the first\nargument, where the key:value pairs correspond to the eventName:callback,\nor pass an array of event names as the first argument to subscribe to\nall listed events with the same callback.\n\nReturning `false` from a callback is supported as an alternative to\ncalling `e.preventDefault(); e.stopPropagation();`.  However, it is\nrecommended to use the event methods whenever possible."
+      "!doc": "Subscribe a callback function to a custom event fired by this object or\nfrom an object that bubbles its events to this object.\n\n     this.on(\"change\", this._onChange, this);\n\nCallback functions for events published with `emitFacade = true` will\nreceive an `EventFacade` as the first argument (typically named \"e\").\nThese callbacks can then call `e.preventDefault()` to disable the\nbehavior published to that events `defaultFn`.  See the `EventFacade`\nAPI for all available properties and methods. Subscribers to\nnon-`emitFacade` events will receive the arguments passed to `fire()`\nafter the event name.\n\nTo subscribe to multiple events at once, pass an object as the first\nargument, where the key:value pairs correspond to the eventName:callback.\n\n     this.on({\n         \"attrChange\" : this._onAttrChange,\n         \"change\"     : this._onChange\n     });\n\nYou can also pass an array of event names as the first argument to\nsubscribe to all listed events with the same callback.\n\n     this.on([ \"change\", \"attrChange\" ], this._onChange);\n\nReturning `false` from a callback is supported as an alternative to\ncalling `e.preventDefault(); e.stopPropagation();`.  However, it is\nrecommended to use the event methods whenever possible."
      },
      "subscribe": {
       "!type": "fn()",
@@ -11569,7 +11569,7 @@
      "test": {
       "!type": "fn(cat: string, name: string, args: +yui.Array) -> bool",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Features.html#method_test",
-      "!doc": "Run a sepecific test and return a Boolean response.\n\n  ```\n  Y.Features.test(\"load\", \"1\");\n  ```"
+      "!doc": "Run a specific test and return a Boolean response.\n\n  ```\n  Y.Features.test(\"load\", \"1\");\n  ```"
      }
     }
    }
@@ -11627,7 +11627,7 @@
      "send": {
       "!type": "fn(uri: string, config: +yui.Object, id: number) -> +yui.Object",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/IO.html#method_send",
-      "!doc": "Requests a transaction. `send()` is implemented as `Y.io()`.  Each\ntransaction may include a configuration object.  Its properties are:\n\n<dl>\n  <dt>method</dt>\n    <dd>HTTP method verb (e.g., GET or POST). If this property is not\n        not defined, the default value will be GET.</dd>\n\n  <dt>data</dt>\n    <dd>This is the name-value string that will be sent as the\n    transaction data. If the request is HTTP GET, the data become\n    part of querystring. If HTTP POST, the data are sent in the\n    message body.</dd>\n\n  <dt>xdr</dt>\n    <dd>Defines the transport to be used for cross-domain requests.\n    By setting this property, the transaction will use the specified\n    transport instead of XMLHttpRequest. The properties of the\n    transport object are:\n    <dl>\n      <dt>use</dt>\n        <dd>The transport to be used: flash or native</dd>\n      <dt>dataType</dt>\n        <dd>Set the value to XML if that is the expected response\n        content type.</dd>\n      <dt>credentials</dt>\n        <dd>Set the value to true to set XHR.withCredentials property to true.</dd>\n    </dl></dd>\n\n  <dt>form</dt>\n    <dd>Form serialization configuration object.  Its properties are:\n    <dl>\n      <dt>id</dt>\n        <dd>Node object or id of HTML form</dd>\n      <dt>useDisabled</dt>\n        <dd>`true` to also serialize disabled form field values\n        (defaults to `false`)</dd>\n    </dl></dd>\n\n  <dt>on</dt>\n    <dd>Assigns transaction event subscriptions. Available events are:\n    <dl>\n      <dt>start</dt>\n        <dd>Fires when a request is sent to a resource.</dd>\n      <dt>complete</dt>\n        <dd>Fires when the transaction is complete.</dd>\n      <dt>success</dt>\n        <dd>Fires when the HTTP response status is within the 2xx\n        range.</dd>\n      <dt>failure</dt>\n        <dd>Fires when the HTTP response status is outside the 2xx\n        range, if an exception occurs, if the transation is aborted,\n        or if the transaction exceeds a configured `timeout`.</dd>\n      <dt>end</dt>\n        <dd>Fires at the conclusion of the transaction\n           lifecycle, after `success` or `failure`.</dd>\n    </dl>\n\n    <p>Callback functions for `start` and `end` receive the id of the\n    transaction as a first argument. For `complete`, `success`, and\n    `failure`, callbacks receive the id and the response object\n    (usually the XMLHttpRequest instance).  If the `arguments`\n    property was included in the configuration object passed to\n    `Y.io()`, the configured data will be passed to all callbacks as\n    the last argument.</p>\n    </dd>\n\n  <dt>sync</dt>\n    <dd>Pass `true` to make a same-domain transaction synchronous.\n    <strong>CAVEAT</strong>: This will negatively impact the user\n    experience. Have a <em>very</em> good reason if you intend to use\n    this.</dd>\n\n  <dt>context</dt>\n    <dd>The \"`this\" object for all configured event handlers. If a\n    specific context is needed for individual callbacks, bind the\n    callback to a context using `Y.bind()`.</dd>\n\n  <dt>headers</dt>\n    <dd>Object map of transaction headers to send to the server. The\n    object keys are the header names and the values are the header\n    values.</dd>\n\n  <dt>timeout</dt>\n    <dd>Millisecond threshold for the transaction before being\n    automatically aborted.</dd>\n\n  <dt>arguments</dt>\n    <dd>User-defined data passed to all registered event handlers.\n    This value is available as the second argument in the \"start\" and\n    \"end\" event handlers. It is the third argument in the \"complete\",\n    \"success\", and \"failure\" event handlers. <strong>Be sure to quote\n    this property name in the transaction configuration as\n    \"arguments\" is a reserved word in JavaScript</strong> (e.g.\n    `Y.io({ ..., \"arguments\": stuff })`).</dd>\n</dl>"
+      "!doc": "Requests a transaction. `send()` is implemented as `Y.io()`.  Each\ntransaction may include a configuration object.  Its properties are:\n\n<dl>\n  <dt>method</dt>\n    <dd>HTTP method verb (e.g., GET or POST). If this property is not\n        not defined, the default value will be GET.</dd>\n\n  <dt>data</dt>\n    <dd>This is the name-value string that will be sent as the\n    transaction data. If the request is HTTP GET, the data become\n    part of querystring. If HTTP POST, the data are sent in the\n    message body.</dd>\n\n  <dt>xdr</dt>\n    <dd>Defines the transport to be used for cross-domain requests.\n    By setting this property, the transaction will use the specified\n    transport instead of XMLHttpRequest. The properties of the\n    transport object are:\n    <dl>\n      <dt>use</dt>\n        <dd>The transport to be used: flash or native</dd>\n      <dt>dataType</dt>\n        <dd>Set the value to XML if that is the expected response\n        content type.</dd>\n      <dt>credentials</dt>\n        <dd>Set the value to true to set XHR.withCredentials property to true.</dd>\n    </dl></dd>\n\n  <dt>form</dt>\n    <dd>Form serialization configuration object.  Its properties are:\n    <dl>\n      <dt>id</dt>\n        <dd>Node object or id of HTML form</dd>\n      <dt>useDisabled</dt>\n        <dd>`true` to also serialize disabled form field values\n        (defaults to `false`)</dd>\n    </dl></dd>\n\n  <dt>on</dt>\n    <dd>Assigns transaction event subscriptions. Available events are:\n    <dl>\n      <dt>start</dt>\n        <dd>Fires when a request is sent to a resource.</dd>\n      <dt>complete</dt>\n        <dd>Fires when the transaction is complete.</dd>\n      <dt>success</dt>\n        <dd>Fires when the HTTP response status is within the 2xx\n        range.</dd>\n      <dt>failure</dt>\n        <dd>Fires when the HTTP response status is outside the 2xx\n        range, if an exception occurs, if the transation is aborted,\n        or if the transaction exceeds a configured `timeout`.</dd>\n      <dt>end</dt>\n        <dd>Fires at the conclusion of the transaction\n           lifecycle, after `success` or `failure`.</dd>\n    </dl>\n\n    <p>Callback functions for `start` and `end` receive the id of the\n    transaction as a first argument. For `complete`, `success`, and\n    `failure`, callbacks receive the id and the response object\n    (usually the XMLHttpRequest instance).  If the `arguments`\n    property was included in the configuration object passed to\n    `Y.io()`, the configured data will be passed to all callbacks as\n    the last argument.</p>\n    </dd>\n\n  <dt>sync</dt>\n    <dd>Pass `true` to make a same-domain transaction synchronous.\n    <strong>CAVEAT</strong>: This will negatively impact the user\n    experience. Have a <em>very</em> good reason if you intend to use\n    this.</dd>\n\n  <dt>context</dt>\n    <dd>The \"`this\" object for all configured event handlers. If a\n    specific context is needed for individual callbacks, bind the\n    callback to a context using `Y.bind()`.</dd>\n\n  <dt>headers</dt>\n    <dd>Object map of transaction headers to send to the server. The\n    object keys are the header names and the values are the header\n    values.</dd>\n\n  <dt>username</dt>\n    <dd>Username to use in a HTTP authentication.</dd>\n\n  <dt>password</dt>\n    <dd>Password to use in a HTTP authentication.</dd>\n\n  <dt>timeout</dt>\n    <dd>Millisecond threshold for the transaction before being\n    automatically aborted.</dd>\n\n  <dt>arguments</dt>\n    <dd>User-defined data passed to all registered event handlers.\n    This value is available as the second argument in the \"start\" and\n    \"end\" event handlers. It is the third argument in the \"complete\",\n    \"success\", and \"failure\" event handlers. <strong>Be sure to quote\n    this property name in the transaction configuration as\n    \"arguments\" is a reserved word in JavaScript</strong> (e.g.\n    `Y.io({ ..., \"arguments\": stuff })`).</dd>\n</dl>"
      },
      "xdr": {
       "!type": "fn(uri: string, o: +yui.Object, c: +yui.Object)",
@@ -11767,11 +11767,6 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#method_onFailure",
       "!doc": "Callback that will be executed if there is a failure"
      },
-     "onCSS": {
-      "!type": "fn()",
-      "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#method_onCSS",
-      "!doc": "Callback for the CSSComplete event.  When loading YUI components\nwith CSS the CSS is loaded first, then the script.  This provides\na moment you can tie into to improve the presentation of the page\nwhile the script is loading."
-     },
      "onProgress": {
       "!type": "fn()",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#method_onProgress",
@@ -11887,10 +11882,10 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#property_patterns",
       "!doc": "If a module name is predefined when requested, it is checked againsts\nthe patterns provided in this property.  If there is a match, the\nmodule is added with the default configuration.\n\nAt the moment only supporting module prefixes, but anticipate\nsupporting at least regular expressions."
      },
-     "moduleInfo": {
-      "!type": "?",
-      "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#property_moduleInfo",
-      "!doc": "The library metadata"
+     "undefined": {
+      "!type": "fn()",
+      "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html",
+      "!doc": "Internal loader instance metadata. Use accessor `getModuleInfo()` instead."
      },
      "skin": {
       "!type": "+yui.Object",
@@ -11937,6 +11932,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#property_skipped",
       "!doc": "List of skipped modules during insert() because the module\nwas not defined"
      },
+     "getModuleInfo": {
+      "!type": "fn(name: string)",
+      "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#method_getModuleInfo",
+      "!doc": "Gets the module info from the local moduleInfo hash, or from the\ndefault metadata and populate the local moduleInfo hash."
+     },
      "formatSkin": {
       "!type": "fn(skin: string, mod: string) -> string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#method_formatSkin",
@@ -11967,13 +11967,18 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#method_filterRequires",
       "!doc": "Explodes the required array to remove aliases and replace them with real modules"
      },
+     "_canBeAttached": {
+      "!type": "fn(module: string) -> bool",
+      "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#method__canBeAttached",
+      "!doc": "Returns `true` if the module can be attached to the YUI instance. Runs\nthe modules test if there is one and caches its result."
+     },
      "getRequires": {
       "!type": "fn(mod: +yui.Object) -> +yui.Array",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#method_getRequires",
       "!doc": "Returns an object containing properties for all modules required\nin order to load the requested module"
      },
      "isCSSLoaded": {
-      "!type": "fn(name: string) -> ?",
+      "!type": "fn(name: string, skip: bool) -> ?",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#method_isCSSLoaded",
       "!doc": "Check to see if named css module is already loaded on the page"
      },
@@ -12008,7 +12013,7 @@
       "!doc": "Executed every time a module is loaded, and if we are in a load\ncycle, we attempt to load the next script.  Public so that it\nis possible to call this if using a method other than\nY.register to determine when scripts are fully loaded"
      },
      "resolve": {
-      "!type": "fn(calc?: bool, s?: +yui.Array) -> +yui.Object",
+      "!type": "fn(calc?: bool, sorted?: +yui.Array) -> +yui.Object",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Loader.html#method_resolve",
       "!doc": "Returns an Object hash of file arrays built from `loader.sorted` or from an arbitrary list of sorted modules."
      },
@@ -12283,7 +12288,7 @@
       "setBounds": {
        "!type": "fn()",
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Flick.html#method_setBounds",
-       "!doc": "Sets the min/maxÂ boundaries for the flick animation,\nbased on the boundingBox dimensions."
+       "!doc": "Sets the min/maxÂ boundaries for the flick animation,\nbased on the boundingBox dimensions."
       }
      },
      "NAME": {
@@ -12533,22 +12538,22 @@
      "hasClass": {
       "!type": "fn(className: string) -> bool",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html#method_hasClass",
-      "!doc": "Determines whether each node has the given className."
+      "!doc": "Determines whether the node has the given className."
      },
      "addClass": {
       "!type": "fn(className: string) -> !this",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html#method_addClass",
-      "!doc": "Adds a class name to each node."
+      "!doc": "Adds a class name to the node."
      },
      "removeClass": {
       "!type": "fn(className: string) -> !this",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html#method_removeClass",
-      "!doc": "Removes a class name from each node."
+      "!doc": "Removes a class name from the node."
      },
      "replaceClass": {
       "!type": "fn(oldClassName: string, newClassName: string) -> !this",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html#method_replaceClass",
-      "!doc": "Replace a class with another class for each node.\nIf no oldClassName is present, the newClassName is simply added."
+      "!doc": "Replace a class with another class on the node.\nIf no oldClassName is present, the newClassName is simply added."
      },
      "toggleClass": {
       "!type": "fn(className: string, force: bool) -> !this",
@@ -12870,7 +12875,7 @@
      "inRegion": {
       "!type": "fn(node2: +node.Node, all: bool, altRegion: +yui.Object) -> bool",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html#method_inRegion",
-      "!doc": "Determines whether or not the node is within the giving region."
+      "!doc": "Determines whether or not the node is within the given region."
      },
      "winWidth": {
       "!type": "number",
@@ -13076,7 +13081,7 @@
      "toggleClass": {
       "!type": "fn(className: string) -> !this",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/NodeList.html#method_toggleClass",
-      "!doc": "If the className exists on the node it is removed, if it doesnt exist it is added."
+      "!doc": "For each node, if the className exists on the node it is removed, if it doesnt exist it is added."
      },
      "append": {
       "!type": "fn()",
@@ -13349,6 +13354,11 @@
      "!type": "fn(nodelist: +node.NodeList) -> +yui.Array",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/NodeList.html#method_getDOMNodes",
      "!doc": "Retrieves the DOM nodes bound to a NodeList instance"
+    },
+    "importMethod": {
+     "!type": "fn(host: +yui.Object, name: string, altName?: string)",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/NodeList.html#method_importMethod",
+     "!doc": "Import the named method, or methods from the host onto NodeList."
     }
    }
   },
@@ -13550,6 +13560,11 @@
       "!type": "bool",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/PjaxBase.html#attribute_scrollToTop",
       "!doc": "Whether the page should be scrolled to the top after navigating to a URL.\n\nWhen the user clicks the browsers back button, the previous scroll position\nwill be maintained."
+     },
+     "allowFallThrough": {
+      "!type": "bool",
+      "!url": "http://yuilibrary.com/yui/docs/api/classes/PjaxBase.html#attribute_allowFallThrough",
+      "!doc": "Whether to set `window.location` when calling `navigate()`\nif no routes match the specified URL."
      }
     }
    },
@@ -13733,6 +13748,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Promise.html#method_then",
       "!doc": "Schedule execution of a callback to either or both of \"fulfill\" and\n\"reject\" resolutions for this promise. The callbacks are wrapped in a new\npromise and that promise is returned.  This allows operation chaining ala\n`functionA().then(functionB).then(functionC)` where `functionA` returns\na promise, and `functionB` and `functionC` _may_ return promises.\n\nAsynchronicity of the callbacks is guaranteed."
      },
+     "catch": {
+      "!type": "fn(Function?: ?) -> +promise.Promise",
+      "!url": "http://yuilibrary.com/yui/docs/api/classes/Promise.html#method_catch",
+      "!doc": "A shorthand for `promise.then(undefined, callback)`.\n\nReturns a new promise and the error callback gets the same treatment as in\n`then`: errors get caught and turned into rejections, and the return value\nof the callback becomes the fulfilled value of the returned promise."
+     },
      "getStatus": {
       "!type": "fn() -> string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Promise.html#method_getStatus",
@@ -13743,6 +13763,26 @@
      "!type": "fn(obj: ?) -> bool",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Promise.html#method_isPromise",
      "!doc": "Checks if an object or value is a promise. This is cross-implementation\ncompatible, so promises returned from other libraries or native components\nthat are compatible with the Promises A+ spec should be recognized by this\nmethod."
+    },
+    "resolve": {
+     "!type": "fn(Any: ?) -> +promise.Promise",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Promise.html#method_resolve",
+     "!doc": "Ensures that a certain value is a promise. If it is not a promise, it wraps it\nin one.\n\nThis method can be copied or inherited in subclasses. In that case it will\ncheck that the value passed to it is an instance of the correct class.\nThis means that `PromiseSubclass.resolve()` will always return instances of\n`PromiseSubclass`."
+    },
+    "reject": {
+     "!type": "fn(reason: ?) -> +promise.Promise",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Promise.html#method_reject",
+     "!doc": "A shorthand for creating a rejected promise."
+    },
+    "all": {
+     "!type": "fn(values: ?) -> ?",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Promise.html#method_all",
+     "!doc": "Returns a promise that is resolved or rejected when all values are resolved or\nany is rejected. This is useful for waiting for the resolution of multiple\npromises, such as reading multiple files in Node.js or making multiple XHR\nrequests in the browser."
+    },
+    "race": {
+     "!type": "fn(values: ?) -> +promise.Promise",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Promise.html#method_race",
+     "!doc": "Returns a promise that is resolved or rejected when any of values is either\nresolved or rejected. Can be used for providing early feedback in the UI\nwhile other operations are still pending."
     },
     "Resolver": {
      "!type": "fn(promise: +promise.Promise) -> +promise.Promise.Resolver",
@@ -17117,7 +17157,7 @@
       "!doc": "The destructor implementation for Parent widgets. Destroys all children."
      },
      "add": {
-      "!type": "fn(child: +widget.Widget, child: +yui.Array, index: number) -> +collection.ArrayList",
+      "!type": "fn(child: +widget.Widget, index: number) -> +collection.ArrayList",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetParent.html#method_add",
       "!doc": "Adds a Widget as a child.  If the specified Widget already\nhas a parent it will be removed from its current parent before\nbeing added as a child."
      },
