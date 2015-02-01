@@ -155,11 +155,11 @@
   
   var createTernDefItem = function(parent, name, type, proto, effects, url, doc) {
     var item = parent[name] = {};
-    if (type) item["!type"] = type;    
-    if (url) item["!url"] = url;
-    if (doc && doc != '') item["!doc"] = doc;
+    if (type) item["!type"] = type;
     if (proto) getTernClassPrototype(item)["!proto"] = proto;
     if (effects) item["!effects"] = effects;
+    if (url) item["!url"] = url;
+    if (doc && doc != '') item["!doc"] = doc;
     return item;
   }
   
