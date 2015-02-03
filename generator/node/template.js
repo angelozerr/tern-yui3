@@ -57,9 +57,17 @@
       var index = getFnIndex(argNodes);
       if (index) {
         var fn = args[index];
-        if (fn.argNames  && fn.argNames.length > 0) {              
+        if (fn.argNames  && fn.argNames.length > 0) {  
+          var cx = infer.cx(), paths = cx.paths;
+          // Create instance of YUI because fn(modules: string, callback?: fn(Y: +yui.YUI)) -> !this support only signatures with one module
+          // see https://github.com/angelozerr/tern-yui3/issues/12
+          // var Y = fn.args[0];
+          var Y = new infer.Obj(paths["yui.YUI.prototype"]);//fn.args[0];
+          var deps = [];
+          deps[0] = Y.getType();
+          fn.getType().propagate(new infer.IsCallee(infer.cx().topScope, deps, null, infer.Null))
+          
           // Inject local and contributed modules.
-          var Y = fn.args[0];
           injectModules(Y, '*');
           
           for ( var i = 0; i < argNodes.length - 1; i++) {
