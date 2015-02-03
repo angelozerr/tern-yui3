@@ -125,6 +125,7 @@
   "anim": {
    "Anim": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Anim.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "node": {
@@ -208,7 +209,6 @@
       "!doc": "Stops the animation and resets its time."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Anim.html",
     "getBezier": {
      "!type": "fn(points: [number], t: number) -> [number]",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Anim.html#method_getBezier",
@@ -350,10 +350,10 @@
   "app": {
    "App": {
     "!type": "fn(config?: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/App.html",
     "prototype": {
      "!proto": "app.App.Base.prototype"
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/App.html",
     "Content": {
      "!type": "fn()",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/App.Content.html",
@@ -393,6 +393,7 @@
     },
     "Base": {
      "!type": "fn(config?: +yui.Object)",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/App.Base.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "views": {
@@ -455,8 +456,7 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/App.Base.html#attribute_viewContainer",
        "!doc": "The node into which this apps `views` will be rendered when they become\nthe `activeView`.\n\nThe view container node serves as the container to hold the apps\n`activeView`. Each time the `activeView` is set via `showView()`, the\nprevious view will be removed from this node, and the new active views\n`container` node will be appended.\n\nThe default view container is a `<div>` Node, but you can override this\nin a subclass, or by passing in a custom `viewContainer` config value at\ninstantiation time. The `viewContainer` may be provided as a selector\nstring, DOM element, or a `Y.Node` instance (having the `viewContainer`\nand the `container` be the same node is also supported).\n\nThe apps `render()` method will stamp the view container with the CSS\nclass `\"yui3-app-views\"` and append it to the apps `container` node if\nit isnt already, and any `activeView` will be appended to this node if\nit isnt already."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/App.Base.html"
+     }
     },
     "CLASS_NAMES": {
      "!type": "+yui.Object",
@@ -555,6 +555,7 @@
    },
    "View": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/View.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "containerTemplate": {
@@ -608,7 +609,6 @@
       "!doc": "Container node into which this views content will be rendered.\n\nThe container node serves as the host for all DOM events attached by the\nview. Delegation is used to handle events on children of the container,\nallowing the containers contents to be re-rendered at any time without\nlosing event subscriptions.\n\nThe default container is a `<div>` Node, but you can override this in\na subclass, or by passing in a custom `container` config value at\ninstantiation time. If you override the default container in a subclass\nusing `ATTRS`, you must use the `valueFn` property. The views constructor\nwill ignore any assignments using `value`.\n\nWhen `container` is overridden by a subclass or passed as a config\noption at instantiation time, you can provide it as a selector string, a\nDOM element, a `Y.Node` instance, or (if you are subclassing and modifying\nthe attribute), a `valueFn` function that returns a `Y.Node` instance.\nThe value will be converted into a `Y.Node` instance if it isnt one\nalready.\n\nThe container is not added to the page automatically. This allows you to\nhave full control over how and when your view is actually rendered to\nthe page."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/View.html",
     "NodeMap": {
      "!type": "fn()",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/View.NodeMap.html",
@@ -621,6 +621,7 @@
    },
    "LazyModelList": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/LazyModelList.html",
     "prototype": {
      "!proto": "app.ModelList.prototype",
      "free": {
@@ -663,11 +664,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/LazyModelList.html#method_toJSON",
       "!doc": "Overrides ModelList#toJSON() to use toArray() instead, since its more\nefficient for LazyModelList."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/LazyModelList.html"
+    }
    },
    "ModelList": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ModelList.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "model": {
@@ -785,11 +786,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/ModelList.html#method_toJSON",
       "!doc": "Returns an array containing attribute hashes for each model in this list,\nsuitable for being passed to `Y.JSON.stringify()`.\n\nUnder the hood, this method calls `toJSON()` on each model in the list and\npushes the results into an array."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ModelList.html"
+    }
    },
    "Model": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Model.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "changed": {
@@ -902,11 +903,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Model.html#attribute_id",
       "!doc": "A unique identifier for this model. Among other things, this id may be\nused to retrieve model instances from lists, so it should be unique.\n\nIf the id is empty, this model instance is assumed to represent a new\nitem that hasnt yet been saved.\n\nIf you would prefer to use a custom attribute as this models id instead\nof using the `id` attribute (for example, maybe youd rather use `_id`\nor `uid` as the primary id), you may set the `idAttribute` property to\nthe name of your custom id attribute. The `id` attribute will then\nact as an alias for your custom attribute."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Model.html"
+    }
    },
    "Router": {
     "!type": "fn(config?: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Router.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "dispatch": {
@@ -985,7 +986,6 @@
       "!doc": "Array of route objects.\n\nEach item in the array must be an object with the following properties\nin order to be processed by the router:\n\n  * `path`: String or regex representing the path to match. See the docs\n    for the `route()` method for more details.\n\n  * `callbacks`: Function or a string representing the name of a\n    function on this router instance that should be called when the\n    route is triggered. An array of functions and/or strings may also be\n    provided. See the docs for the `route()` method for more details.\n\nIf a route object contains a `regex` or `regexp` property, or if its\n`path` is a regular express, then the route will be considered to be\nfully-processed. Any fully-processed routes may contain the following\nproperties:\n\n  * `regex`: The regular expression representing the path to match, this\n    property may also be named `regexp` for greater compatibility.\n\n  * `keys`: Array of named path parameters used to populate `req.params`\n    objects when dispatching to route handlers.\n\nAny additional data contained on these route objects will be retained.\nThis is useful to store extra metadata about a route; e.g., a `name` to\ngive routes logical names.\n\nThis attribute is intended to be used to set routes at init time, or to\ncompletely reset all routes after init. To add routes after init without\nresetting all existing routes, use the `route()` method."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Router.html",
     "dispatch": {
      "!type": "fn()",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Router.html#method_dispatch",
@@ -1012,6 +1012,7 @@
   "async_queue": {
    "AsyncQueue": {
     "!type": "fn(callback: fn())",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/AsyncQueue.html",
     "prototype": {
      "!proto": "event_custom.EventTarget.prototype",
      "defaults": {
@@ -1075,7 +1076,6 @@
       "!doc": "Returns the number of callbacks in the queue."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/AsyncQueue.html",
     "defaults": {
      "!type": "+yui.Object",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/AsyncQueue.html#property_defaults",
@@ -1520,6 +1520,7 @@
    },
    "AutoCompleteList": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/AutoCompleteList.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "hide": {
@@ -1577,8 +1578,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/AutoCompleteList.html#attribute_tabSelect",
       "!doc": "If `true`, pressing the tab key while the list is visible will select\nthe active item, if any."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/AutoCompleteList.html"
+    }
    }
   },
   "base": {
@@ -1697,6 +1697,7 @@
   "button": {
    "Button": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Button.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "BOUNDING_TEMPLATE": {
@@ -1720,7 +1721,6 @@
       "!doc": "The HTML of the buttons label\n\nThis attribute accepts HTML and inserts it into the DOM **without**\nsanitization.  This attribute should only be used with HTML that has\neither been escaped (using `Y.Escape.html`), or sanitized according to\nthe requirements of your application.\n\nIf all you need is support for text labels, please use the `label`\nattribute instead."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Button.html",
     "CLASS_NAMES": {
      "!type": "+yui.Object",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Button.html#property_CLASS_NAMES",
@@ -1729,6 +1729,7 @@
    },
    "ToggleButton": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ToggleButton.html",
     "prototype": {
      "!proto": "button.Button.prototype",
      "trigger": {
@@ -1767,7 +1768,6 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/ToggleButton.html#attribute_type"
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ToggleButton.html",
     "CLASS_NAMES": {
      "!type": "+yui.Object",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/ToggleButton.html#property_CLASS_NAMES",
@@ -1830,6 +1830,7 @@
   "button_group": {
    "ButtonGroup": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ButtonGroup.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "renderUI": {
@@ -1867,7 +1868,6 @@
       "!doc": "Selector used to find buttons inside a ButtonGroup"
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ButtonGroup.html",
     "CLASS_NAMES": {
      "!type": "+yui.Object",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/ButtonGroup.html#property_CLASS_NAMES",
@@ -1879,6 +1879,7 @@
    "Plugin": {
     "Button": {
      "!type": "fn(config: +yui.Object)",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Button.html",
      "prototype": {
       "!proto": "button_core.ButtonCore.prototype",
       "createNode": {
@@ -1887,7 +1888,6 @@
        "!doc": "A factory that plugs a Y.Node instance with Y.Plugin.Button"
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Button.html",
      "NAME": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Button.html#property_NAME",
@@ -1904,6 +1904,7 @@
   "cache": {
    "Cache": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Cache.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "max": {
@@ -1947,7 +1948,6 @@
       "!doc": "Retrieves cached object for given request, if available, and refreshes\nentry in the cache. Returns null if there is no cache match."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Cache.html",
     "NAME": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Cache.html#property_NAME",
@@ -1956,6 +1956,7 @@
    },
    "CacheOffline": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/CacheOffline.html",
     "prototype": {
      "!proto": "cache.Cache.prototype",
      "sandbox": {
@@ -1989,7 +1990,6 @@
       "!doc": "Retrieves cached object for given request, if available.\nReturns null if there is no cache match."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/CacheOffline.html",
     "NAME": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/CacheOffline.html#property_NAME",
@@ -2004,10 +2004,10 @@
    "Plugin": {
     "Cache": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Cache.html",
      "prototype": {
       "!proto": "cache.Cache.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Cache.html",
      "NS": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Cache.html#property_NS",
@@ -2024,6 +2024,7 @@
   "calendar": {
    "CalendarBase": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/CalendarBase.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "initializer": {
@@ -2091,11 +2092,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/CalendarBase.html#attribute_customRenderer",
       "!doc": "An object of the form {rules:Object, filterFunction:Function},\nproviding  set of rules and a custom rendering function for\ncustomizing specific calendar cells."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/CalendarBase.html"
+    }
    },
    "Calendar": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Calendar.html",
     "prototype": {
      "!proto": "calendar.CalendarBase.prototype",
      "initializer": {
@@ -2143,14 +2144,14 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Calendar.html#attribute_maximumDate",
       "!doc": "Unless maximumDate is null, it will not be possible to display and select dates later than this one."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Calendar.html"
+    }
    }
   },
   "calendarnavigator": {
    "Plugin": {
     "CalendarNavigator": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.CalendarNavigator.html",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "shiftByMonths": {
@@ -2169,7 +2170,6 @@
        "!doc": "The initializer destructor implementation. Responsible for destroying the initialized\ncontrol mechanisms."
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.CalendarNavigator.html",
      "NS": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.CalendarNavigator.html#property_NS",
@@ -2191,6 +2191,7 @@
   "charts": {
    "AreaSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/AreaSeries.html",
     "prototype": {
      "!proto": "charts.CartesianSeries.prototype",
      "type": {
@@ -2203,11 +2204,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/AreaSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing area fills. This attribute is inherited from `Renderer`. Below are the default values:\n\n <dl>\n     <dt>color</dt><dd>The color of the fill. The default value is determined by the order of the series on the graph. The color will be\n     retrieved from the following array:\n     `[\"#66007f\", \"#a86f41\", \"#295454\", \"#996ab2\", \"#e8cdb7\", \"#90bdbd\",\"#000000\",\"#c3b8ca\", \"#968373\", \"#678585\"]`\n     </dd>\n     <dt>alpha</dt><dd>Number between 0 and 1 that indicates the opacity of the fill. The default value is 1</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/AreaSeries.html"
+    }
    },
    "AreaSplineSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/AreaSplineSeries.html",
     "prototype": {
      "!proto": "charts.AreaSeries.prototype",
      "type": {
@@ -2220,11 +2221,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/AreaSplineSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing area fills. This attribute is inherited from `Renderer`. Below are the default values:\n\n <dl>\n     <dt>color</dt><dd>The color of the fill. The default value is determined by the order of the series on the graph. The color will be\n     retrieved from the following array:\n     `[\"#66007f\", \"#a86f41\", \"#295454\", \"#996ab2\", \"#e8cdb7\", \"#90bdbd\",\"#000000\",\"#c3b8ca\", \"#968373\", \"#678585\"]`\n     </dd>\n     <dt>alpha</dt><dd>Number between 0 and 1 that indicates the opacity of the fill. The default value is 1</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/AreaSplineSeries.html"
+    }
    },
    "Axis": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Axis.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "getLabelByIndex": {
@@ -2357,11 +2358,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Axis.html#attribute_styles",
       "!doc": "Style properties used for drawing an axis. This attribute is inherited from `Renderer`. Below are the default values:\n <dl>\n     <dt>majorTicks</dt><dd>Properties used for drawing ticks.\n         <dl>\n             <dt>display</dt><dd>Position of the tick. Possible values are `inside`, `outside`, `cross` and `none`.\n             The default value is `inside`.</dd>\n             <dt>length</dt><dd>The length (in pixels) of the tick. The default value is 4.</dd>\n             <dt>color</dt><dd>The color of the tick. The default value is `#dad8c9`</dd>\n             <dt>weight</dt><dd>Number indicating the width of the tick. The default value is 1.</dd>\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the tick. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>line</dt><dd>Properties used for drawing the axis line.\n         <dl>\n             <dt>weight</dt><dd>Number indicating the width of the axis line. The default value is 1.</dd>\n             <dt>color</dt><dd>The color of the axis line. The default value is `#dad8c9`.</dd>\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the tick. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>majorUnit</dt><dd>Properties used to calculate the `majorUnit` for the axis.\n         <dl>\n             <dt>determinant</dt><dd>The algorithm used for calculating distance between ticks. The possible options are\n             `count` and `distance`. If the `determinant` is `count`, the axis ticks will spaced so that a specified number\n             of ticks appear on the axis. If the `determinant` is `distance`, the axis ticks will spaced out according to\n             the specified distance. The default value is `count`.</dd>\n             <dt>count</dt><dd>Number of ticks to appear on the axis when the `determinant` is `count`. The default value is 11.</dd>\n             <dt>distance</dt><dd>The distance (in pixels) between ticks when the `determinant` is `distance`. The default\n             value is 75.</dd>\n         </dl>\n     </dd>\n     <dt>label</dt><dd>Properties and styles applied to the axis labels.\n         <dl>\n             <dt>color</dt><dd>The color of the labels. The default value is `#808080`.</dd>\n             <dt>alpha</dt><dd>Number between 0 and 1 indicating the opacity of the labels. The default value is 1.</dd>\n             <dt>fontSize</dt><dd>The font-size of the labels. The default value is 85%</dd>\n             <dt>rotation</dt><dd>The rotation, in degrees (between -90 and 90) of the labels. The default value is 0.</dd>\n             <dt>offset</td><dd>A number between 0 and 1 indicating the relationship of the label to a tick. For a horizontal axis\n             label, a value of 0 will position the labels left side even to the the tick. A position of 1 would position the\n             right side of the label with the tick. A position of 0.5 would center the label horizontally with the tick. For a\n             vertical axis, a value of 0 would position the top of the label with the tick, a value of 1 would position the bottom\n             of the label with the tick and a value 0 would center the label vertically with the tick. The default value is 0.5.</dd>\n             <dt>margin</dt><dd>The distance between the label and the axis/tick. Depending on the position of the `Axis`,\n             only one of the properties used.\n                 <dl>\n                     <dt>top</dt><dd>Pixel value used for an axis with a `position` of `bottom`. The default value is 4.</dd>\n                     <dt>right</dt><dd>Pixel value used for an axis with a `position` of `left`. The default value is 4.</dd>\n                     <dt>bottom</dt><dd>Pixel value used for an axis with a `position` of `top`. The default value is 4.</dd>\n                     <dt>left</dt><dd>Pixel value used for an axis with a `position` of `right`. The default value is 4.</dd>\n                 </dl>\n             </dd>\n         </dl>\n     </dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Axis.html"
+    }
    },
    "AxisBase": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/AxisBase.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "getOrigin": {
@@ -2464,11 +2465,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/AxisBase.html#attribute_labelFunctionScope",
       "!doc": "Object which should have by the labelFunction"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/AxisBase.html"
+    }
    },
    "BarSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/BarSeries.html",
     "prototype": {
      "!proto": "charts.MarkerSeries.prototype",
      "type": {
@@ -2486,11 +2487,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/BarSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing markers. This attribute is inherited from `MarkerSeries`. Below are the default values:\n <dl>\n     <dt>fill</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>Color of the fill. The default value is determined by the order of the series on the graph. The color\n             will be retrieved from the below array:<br/>\n             `[\"#66007f\", \"#a86f41\", \"#295454\", \"#996ab2\", \"#e8cdb7\", \"#90bdbd\",\"#000000\",\"#c3b8ca\", \"#968373\", \"#678585\"]`\n             </dd>\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker fill. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>border</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>Color of the border. The default value is determined by the order of the series on the graph. The color\n             will be retrieved from the below array:<br/>\n             `[\"#205096\", \"#b38206\", \"#000000\", \"#94001e\", \"#9d6fa0\", \"#e55b00\", \"#5e85c9\", \"#adab9e\", \"#6ac291\", \"#006457\"]`\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.</dd>\n             <dt>weight</dt><dd>Number indicating the width of the border. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>height</dt><dd>indicates the width of the marker. The default value is 12.</dd>\n     <dt>over</dt><dd>hash containing styles for markers when highlighted by a `mouseover` event. The default\n     values for each style is null. When an over style is not set, the non-over value will be used. For example,\n     the default value for `marker.over.fill.color` is equivalent to `marker.fill.color`.</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/BarSeries.html"
+    }
    },
    "CandlestickSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/CandlestickSeries.html",
     "prototype": {
      "!proto": "charts.RangeSeries.prototype",
      "type": {
@@ -2523,11 +2524,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/CandlestickSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing candles and wicks. This attribute is inherited from `RangeSeries`. Below are the default values:\n <dl>\n     <dt>upcandle</dt><dd>Properties for a candle representing a period that closes higher than it opens.\n         <dl>\n             <dt>fill</dt><dd>A hash containing the following values:\n                 <dl>\n                     <dt>color</dt><dd>Color of the fill. The default value is \"#00aa00\".</dd>\n                     </dd>\n                     <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker fill. The default value is 1.</dd>\n                 </dl>\n             </dd>\n             <dt>border</dt><dd>A hash containing the following values:\n                 <dl>\n                     <dt>color</dt><dd>Color of the border. The default value is \"#000000\".</dd>\n                     <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.</dd>\n                     <dt>weight</dt><dd>Number indicating the width of the border. The default value is 0.</dd>\n                 </dl>\n             </dd>\n         </dl>\n     </dd>\n     <dt>downcandle</dt><dd>Properties for a candle representing a period that opens higher than it closes.\n         <dl>\n             <dt>fill</dt><dd>A hash containing the following values:\n                 <dl>\n                     <dt>color</dt><dd>Color of the fill. The default value is \"#aa0000\".</dd>\n                     </dd>\n                     <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker fill. The default value is 1.</dd>\n                 </dl>\n             </dd>\n             <dt>border</dt><dd>A hash containing the following values:\n                 <dl>\n                     <dt>color</dt><dd>Color of the border. The default value is \"#000000\".</dd>\n                     <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.</dd>\n                     <dt>weight</dt><dd>Number indicating the width of the border. The default value is 0.</dd>\n                 </dl>\n             </dd>\n         </dl>\n     </dd>\n     <dt>wick</dt><dd>Properties for the wick, which is a line drawn from the high point of the period to the low point of the period.\n         <dl>\n             <dt>color</dt><dd>The color of the wick. The default value is \"#000000\".</dd>\n             <dt>weight</dt><dd>The weight of the wick. The default value is 1.</dd>\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the wick. The default value is 1.</dd>\n         </dl>\n     </dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/CandlestickSeries.html"
+    }
    },
    "CartesianChart": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/CartesianChart.html",
     "prototype": {
      "!proto": "charts.ChartBase.prototype",
      "_addToAxesCollection": {
@@ -2620,11 +2621,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/CartesianChart.html#attribute_categoryAxis",
       "!doc": "Reference to the category axis used by the chart."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/CartesianChart.html"
+    }
    },
    "CartesianSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/CartesianSeries.html",
     "prototype": {
      "!proto": "charts.SeriesBase.prototype",
      "seriesTypeCollection": {
@@ -2732,11 +2733,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/CartesianSeries.html#attribute_direction",
       "!doc": "Direction of the series"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/CartesianSeries.html"
+    }
    },
    "CategoryAxis": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/CategoryAxis.html",
     "prototype": {
      "!proto": "charts.Axis.prototype",
      "getMinimumValue": {
@@ -2749,8 +2750,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/CategoryAxis.html#method_getMaximumValue",
       "!doc": "Returns a string corresponding to the last label on an\naxis."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/CategoryAxis.html"
+    }
    },
    "CategoryImpl": {
     "!type": "fn()",
@@ -2886,6 +2886,7 @@
    },
    "ChartLegend": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ChartLegend.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "chart": {
@@ -2938,11 +2939,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/ChartLegend.html#attribute_styles",
       "!doc": "Properties used to display and style the ChartLegend.  This attribute is inherited from `Renderer`.\nBelow are the default values:\n\n <dl>\n     <dt>gap</dt><dd>Distance, in pixels, between the `ChartLegend` instance and the charts content. When `ChartLegend`\n     is rendered within a `Chart` instance this value is applied.</dd>\n     <dt>hAlign</dt><dd>Defines the horizontal alignment of the `items` in a `ChartLegend` rendered in a horizontal direction.\n     This value is applied when the instances `position` is set to top or bottom. This attribute can be set to left, center\n     or right. The default value is center.</dd>\n     <dt>vAlign</dt><dd>Defines the vertical alignment of the `items` in a `ChartLegend` rendered in vertical direction. This\n     value is applied when the instances `position` is set to left or right. The attribute can be set to top, middle or\n     bottom. The default value is middle.</dd>\n     <dt>item</dt><dd>Set of style properties applied to the `items` of the `ChartLegend`.\n         <dl>\n             <dt>hSpacing</dt><dd>Horizontal distance, in pixels, between legend `items`.</dd>\n             <dt>vSpacing</dt><dd>Vertical distance, in pixels, between legend `items`.</dd>\n             <dt>label</dt><dd>Properties for the text of an `item`.\n                 <dl>\n                     <dt>color</dt><dd>Color of the text. The default values is \"#808080\".</dd>\n                     <dt>fontSize</dt><dd>Font size for the text. The default value is \"85%\".</dd>\n                 </dl>\n             </dd>\n             <dt>marker</dt><dd>Properties for the `item` markers.\n                 <dl>\n                     <dt>width</dt><dd>Specifies the width of the markers.</dd>\n                     <dt>height</dt><dd>Specifies the height of the markers.</dd>\n                 </dl>\n             </dd>\n         </dl>\n     </dd>\n     <dt>background</dt><dd>Properties for the `ChartLegend` background.\n         <dl>\n             <dt>fill</dt><dd>Properties for the background fill.\n                 <dl>\n                     <dt>color</dt><dd>Color for the fill. The default value is \"#faf9f2\".</dd>\n                 </dl>\n             </dd>\n             <dt>border</dt><dd>Properties for the background border.\n                 <dl>\n                     <dt>color</dt><dd>Color for the border. The default value is \"#dad8c9\".</dd>\n                     <dt>weight</dt><dd>Weight of the border. The default values is 1.</dd>\n                 </dl>\n             </dd>\n         </dl>\n     </dd>\n</dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ChartLegend.html"
+    }
    },
    "ColumnSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ColumnSeries.html",
     "prototype": {
      "!proto": "charts.MarkerSeries.prototype",
      "type": {
@@ -2955,11 +2956,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/ColumnSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing markers. This attribute is inherited from `MarkerSeries`. Below are the default values:\n <dl>\n     <dt>fill</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>Color of the fill. The default value is determined by the order of the series on the graph. The color\n             will be retrieved from the below array:<br/>\n             `[\"#66007f\", \"#a86f41\", \"#295454\", \"#996ab2\", \"#e8cdb7\", \"#90bdbd\",\"#000000\",\"#c3b8ca\", \"#968373\", \"#678585\"]`\n             </dd>\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker fill. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>border</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>Color of the border. The default value is determined by the order of the series on the graph. The color\n             will be retrieved from the below array:<br/>\n             `[\"#205096\", \"#b38206\", \"#000000\", \"#94001e\", \"#9d6fa0\", \"#e55b00\", \"#5e85c9\", \"#adab9e\", \"#6ac291\", \"#006457\"]`\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.</dd>\n             <dt>weight</dt><dd>Number indicating the width of the border. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>width</dt><dd>indicates the width of the marker. The default value is 12.</dd>\n     <dt>over</dt><dd>hash containing styles for markers when highlighted by a `mouseover` event. The default\n     values for each style is null. When an over style is not set, the non-over value will be used. For example,\n     the default value for `marker.over.fill.color` is equivalent to `marker.fill.color`.</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ColumnSeries.html"
+    }
    },
    "ComboSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ComboSeries.html",
     "prototype": {
      "!proto": "charts.CartesianSeries.prototype",
      "type": {
@@ -3002,11 +3003,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/ComboSeries.html#attribute_styles",
       "!doc": "Style properties for the series. Contains a key indexed hash of the following:\n <dl>\n     <dt>marker</dt><dd>Style properties for the markers in the series. Specific style attributes are listed\n     <a href=\"#attr_marker\">here</a>.</dd>\n     <dt>line</dt><dd>Style properties for the lines in the series. Specific\n     style attributes are listed <a href=\"#attr_line\">here</a>.</dd>\n     <dt>area</dt><dd>Style properties for the area fills in the series. Specific style attributes are listed\n     <a href=\"#attr_area\">here</a>.</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ComboSeries.html"
+    }
    },
    "ComboSplineSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ComboSplineSeries.html",
     "prototype": {
      "!proto": "charts.ComboSeries.prototype",
      "type": {
@@ -3014,11 +3015,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/ComboSplineSeries.html#attribute_type",
       "!doc": "Read-only attribute indicating the type of series."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ComboSplineSeries.html"
+    }
    },
    "Graph": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Graph.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "getSeriesByIndex": {
@@ -3086,11 +3087,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Graph.html#attribute_styles",
       "!doc": "Style properties used for drawing a background. Below are the default values:\n <dl>\n     <dt>background</dt><dd>An object containing the following values:\n         <dl>\n             <dt>fill</dt><dd>Defines the style properties for the fill. Contains the following values:\n                 <dl>\n                     <dt>color</dt><dd>Color of the fill. The default value is #faf9f2.</dd>\n                     <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the background fill.\n                     The default value is 1.</dd>\n                 </dl>\n             </dd>\n             <dt>border</dt><dd>Defines the style properties for the border. Contains the following values:\n                 <dl>\n                     <dt>color</dt><dd>Color of the border. The default value is #dad8c9.</dd>\n                     <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the background border.\n                     The default value is 1.</dd>\n                     <dt>weight</dt><dd>Number indicating the width of the border. The default value is 1.</dd>\n                 </dl>\n             </dd>\n         </dl>\n     </dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Graph.html"
+    }
    },
    "Gridlines": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Gridlines.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "direction": {
@@ -3113,11 +3114,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Gridlines.html#attribute_count",
       "!doc": "Indicates the number of gridlines to display. If no value is set, gridlines will equal the number of ticks in\nthe corresponding axis."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Gridlines.html"
+    }
    },
    "LineSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/LineSeries.html",
     "prototype": {
      "!proto": "charts.CartesianSeries.prototype",
      "type": {
@@ -3130,11 +3131,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/LineSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing lines. This attribute is inherited from `Renderer`. Below are the\ndefault values:\n <dl>\n     <dt>color</dt><dd>The color of the line. The default value is determined by the order of the series\n     on the graph. The color will be retrieved from the following array:\n     `[\"#426ab3\", \"#d09b2c\", \"#000000\", \"#b82837\", \"#b384b5\", \"#ff7200\", \"#779de3\", \"#cbc8ba\", \"#7ed7a6\", \"#007a6c\"]`\n     <dt>weight</dt><dd>Number that indicates the width of the line. The default value is 6.</dd>\n     <dt>alpha</dt><dd>Number between 0 and 1 that indicates the opacity of the line. The default value is 1.</dd>\n     <dt>lineType</dt><dd>Indicates whether the line is solid or dashed. The default value is solid.</dd>\n     <dt>dashLength</dt><dd>When the `lineType` is dashed, indicates the length of the dash. The default\n     value is 10.</dd>\n     <dt>gapSpace</dt><dd>When the `lineType` is dashed, indicates the distance between dashes. The default\n     value is 10.</dd>\n     <dt>connectDiscontinuousPoints</dt><dd>Indicates whether or not to connect lines when there is a missing\n     or null value between points. The default value is true.</dd>\n     <dt>discontinuousType</dt><dd>Indicates whether the line between discontinuous points is solid or dashed.\n     The default value is solid.</dd>\n     <dt>discontinuousDashLength</dt><dd>When the `discontinuousType` is dashed, indicates the length of the\n     dash. The default value is 10.</dd>\n     <dt>discontinuousGapSpace</dt><dd>When the `discontinuousType` is dashed, indicates the distance between\n     dashes. The default value is 10.</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/LineSeries.html"
+    }
    },
    "MarkerSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/MarkerSeries.html",
     "prototype": {
      "!proto": "charts.CartesianSeries.prototype",
      "type": {
@@ -3147,8 +3148,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/MarkerSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing markers. This attribute is inherited from `Renderer`. Below are the default\nvalues:\n <dl>\n     <dt>fill</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>Color of the fill. The default value is determined by the order of the series on\n             the graph. The color will be retrieved from the below array:<br/>\n             `[\"#6084d0\", \"#eeb647\", \"#6c6b5f\", \"#d6484f\", \"#ce9ed1\", \"#ff9f3b\", \"#93b7ff\", \"#e0ddd0\", \"#94ecba\", \"#309687\"]`\n             </dd>\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker fill. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>border</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>Color of the border. The default value is determined by the order of the series on\n             the graph. The color will be retrieved from the below array:<br/>\n             `[\"#205096\", \"#b38206\", \"#000000\", \"#94001e\", \"#9d6fa0\", \"#e55b00\", \"#5e85c9\", \"#adab9e\", \"#6ac291\", \"#006457\"]`\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.</dd>\n             <dt>weight</dt><dd>Number indicating the width of the border. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>width</dt><dd>indicates the width of the marker. The default value is 10.</dd>\n     <dt>height</dt><dd>indicates the height of the marker The default value is 10.</dd>\n     <dt>over</dt><dd>hash containing styles for markers when highlighted by a `mouseover` event. The default\n     values for each style is null. When an over style is not set, the non-over value will be used. For example,\n     the default value for `marker.over.fill.color` is equivalent to `marker.fill.color`.</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/MarkerSeries.html"
+    }
    },
    "NumericImpl": {
     "!type": "fn()",
@@ -3193,6 +3193,7 @@
    },
    "OHLCSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/OHLCSeries.html",
     "prototype": {
      "!proto": "charts.RangeSeries.prototype",
      "type": {
@@ -3210,11 +3211,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/OHLCSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing markers. This attribute is inherited from `RangeSeries`. Below are the default values:\n <dl>\n     <dt>upmarker</dt><dd>Properties for a marker representing a period that closes higher than it opens.\n         <dl>\n             <dt>fill</dt><dd>A hash containing the following values:\n                 <dl>\n                     <dt>color</dt><dd>Color of the fill. The default value is \"#00aa00\".</dd>\n                     </dd>\n                     <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker fill. The default value is 1.</dd>\n                 </dl>\n             </dd>\n             <dt>border</dt><dd>A hash containing the following values:\n                 <dl>\n                     <dt>color</dt><dd>Color of the border. The default value is \"#000000\".</dd>\n                     <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.</dd>\n                     <dt>weight</dt><dd>Number indicating the width of the border. The default value is 0.</dd>\n                 </dl>\n             </dd>\n         </dl>\n     </dd>\n     <dt>downmarker</dt><dd>Properties for a marker representing a period that opens higher than it closes.\n         <dl>\n             <dt>fill</dt><dd>A hash containing the following values:\n                 <dl>\n                     <dt>color</dt><dd>Color of the fill. The default value is \"#aa0000\".</dd>\n                     </dd>\n                     <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker fill. The default value is 1.</dd>\n                 </dl>\n             </dd>\n             <dt>border</dt><dd>A hash containing the following values:\n                 <dl>\n                     <dt>color</dt><dd>Color of the border. The default value is \"#000000\".</dd>\n                     <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.</dd>\n                     <dt>weight</dt><dd>Number indicating the width of the border. The default value is 0.</dd>\n                 </dl>\n             </dd>\n         </dl>\n     </dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/OHLCSeries.html"
+    }
    },
    "PieChart": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/PieChart.html",
     "prototype": {
      "!proto": "charts.ChartBase.prototype",
      "getSeriesItem": {
@@ -3247,11 +3248,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/PieChart.html#attribute_type",
       "!doc": "Type of chart when there is no series collection specified."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/PieChart.html"
+    }
    },
    "PieSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/PieSeries.html",
     "prototype": {
      "!proto": "charts.SeriesBase.prototype",
      "": {
@@ -3309,11 +3310,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/PieSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing markers. This attribute is inherited from `MarkerSeries`. Below are  the default\nvalues:\n <dl>\n     <dt>fill</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>colors</dt><dd>An array of colors to be used for the marker fills. The color for each marker  is\n             retrieved from the array below:<br/>\n             `[\"#66007f\", \"#a86f41\", \"#295454\", \"#996ab2\", \"#e8cdb7\", \"#90bdbd\",\"#000000\",\"#c3b8ca\", \"#968373\", \"#678585\"]`\n             </dd>\n             <dt>alphas</dt><dd>An array of alpha references (Number from 0 to 1) indicating the opacity of each marker\n             fill. The default value is [1].</dd>\n         </dl>\n     </dd>\n     <dt>border</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>An array of colors to be used for the marker borders. The color for each marker is\n             retrieved from the array below:<br/>\n             `[\"#205096\", \"#b38206\", \"#000000\", \"#94001e\", \"#9d6fa0\", \"#e55b00\", \"#5e85c9\", \"#adab9e\", \"#6ac291\", \"#006457\"]`\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.</dd>\n             <dt>weight</dt><dd>Number indicating the width of the border. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>over</dt><dd>hash containing styles for markers when highlighted by a `mouseover` event. The default\n     values for each style is null. When an over style is not set, the non-over value will be used. For example,\n     the default value for `marker.over.fill.color` is equivalent to `marker.fill.color`.</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/PieSeries.html"
+    }
    },
    "RangeSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/RangeSeries.html",
     "prototype": {
      "!proto": "charts.CartesianSeries.prototype",
      "type": {
@@ -3326,8 +3327,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/RangeSeries.html#attribute_ohlc",
       "!doc": "Values to be used for open, high, low and close keys."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/RangeSeries.html"
+    }
    },
    "Renderer": {
     "!type": "fn()",
@@ -3347,6 +3347,7 @@
    },
    "SeriesBase": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/SeriesBase.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "getTotalValues": {
@@ -3389,11 +3390,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/SeriesBase.html#attribute_groupMarkers",
       "!doc": "Indicates whether or not markers for a series will be grouped and rendered in a single complex shape instance."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/SeriesBase.html"
+    }
    },
    "SplineSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/SplineSeries.html",
     "prototype": {
      "!proto": "charts.LineSeries.prototype",
      "type": {
@@ -3406,11 +3407,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/SplineSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing lines. This attribute is inherited from `Renderer`.\nBelow are the default values:\n <dl>\n     <dt>color</dt><dd>The color of the line. The default value is determined by the order of the series on\n     the graph. The color will be retrieved from the following array:\n     `[\"#426ab3\", \"#d09b2c\", \"#000000\", \"#b82837\", \"#b384b5\", \"#ff7200\", \"#779de3\", \"#cbc8ba\", \"#7ed7a6\", \"#007a6c\"]`\n     <dt>weight</dt><dd>Number that indicates the width of the line. The default value is 6.</dd>\n     <dt>alpha</dt><dd>Number between 0 and 1 that indicates the opacity of the line. The default value is 1.</dd>\n     <dt>lineType</dt><dd>Indicates whether the line is solid or dashed. The default value is solid.</dd>\n     <dt>dashLength</dt><dd>When the `lineType` is dashed, indicates the length of the dash. The default value\n     is 10.</dd>\n     <dt>gapSpace</dt><dd>When the `lineType` is dashed, indicates the distance between dashes. The default value is\n     10.</dd>\n     <dt>connectDiscontinuousPoints</dt><dd>Indicates whether or not to connect lines when there is a missing or null\n     value between points. The default value is true.</dd>\n     <dt>discontinuousType</dt><dd>Indicates whether the line between discontinuous points is solid or dashed. The\n     default value is solid.</dd>\n     <dt>discontinuousDashLength</dt><dd>When the `discontinuousType` is dashed, indicates the length of the dash.\n     The default value is 10.</dd>\n     <dt>discontinuousGapSpace</dt><dd>When the `discontinuousType` is dashed, indicates the distance between dashes.\n     The default value is 10.</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/SplineSeries.html"
+    }
    },
    "StackedAreaSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedAreaSeries.html",
     "prototype": {
      "!proto": "charts.AreaSeries.prototype",
      "type": {
@@ -3418,11 +3419,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedAreaSeries.html#attribute_type",
       "!doc": "Read-only attribute indicating the type of series."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedAreaSeries.html"
+    }
    },
    "StackedAreaSplineSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedAreaSplineSeries.html",
     "prototype": {
      "!proto": "charts.AreaSeries.prototype",
      "type": {
@@ -3430,11 +3431,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedAreaSplineSeries.html#attribute_type",
       "!doc": "Read-only attribute indicating the type of series."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedAreaSplineSeries.html"
+    }
    },
    "StackedBarSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedBarSeries.html",
     "prototype": {
      "!proto": "charts.BarSeries.prototype",
      "type": {
@@ -3452,11 +3453,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedBarSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing markers. This attribute is inherited from `BarSeries`. Below are the default values:\n <dl>\n     <dt>fill</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>Color of the fill. The default value is determined by the order of the series on the graph. The color\n             will be retrieved from the below array:<br/>\n             `[\"#66007f\", \"#a86f41\", \"#295454\", \"#996ab2\", \"#e8cdb7\", \"#90bdbd\",\"#000000\",\"#c3b8ca\", \"#968373\", \"#678585\"]`\n             </dd>\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker fill. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>border</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>Color of the border. The default value is determined by the order of the series on the graph. The color\n             will be retrieved from the below array:<br/>\n             `[\"#205096\", \"#b38206\", \"#000000\", \"#94001e\", \"#9d6fa0\", \"#e55b00\", \"#5e85c9\", \"#adab9e\", \"#6ac291\", \"#006457\"]`\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.</dd>\n             <dt>weight</dt><dd>Number indicating the width of the border. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>height</dt><dd>indicates the width of the marker. The default value is 24.</dd>\n     <dt>over</dt><dd>hash containing styles for markers when highlighted by a `mouseover` event. The default\n     values for each style is null. When an over style is not set, the non-over value will be used. For example,\n     the default value for `marker.over.fill.color` is equivalent to `marker.fill.color`.</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedBarSeries.html"
+    }
    },
    "StackedColumnSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedColumnSeries.html",
     "prototype": {
      "!proto": "charts.ColumnSeries.prototype",
      "type": {
@@ -3469,11 +3470,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedColumnSeries.html#attribute_styles",
       "!doc": "Style properties used for drawing markers. This attribute is inherited from `ColumnSeries`. Below are the default values:\n <dl>\n     <dt>fill</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>Color of the fill. The default value is determined by the order of the series on the graph. The color\n             will be retrieved from the below array:<br/>\n             `[\"#66007f\", \"#a86f41\", \"#295454\", \"#996ab2\", \"#e8cdb7\", \"#90bdbd\",\"#000000\",\"#c3b8ca\", \"#968373\", \"#678585\"]`\n             </dd>\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker fill. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>border</dt><dd>A hash containing the following values:\n         <dl>\n             <dt>color</dt><dd>Color of the border. The default value is determined by the order of the series on the graph. The color\n             will be retrieved from the below array:<br/>\n             `[\"#205096\", \"#b38206\", \"#000000\", \"#94001e\", \"#9d6fa0\", \"#e55b00\", \"#5e85c9\", \"#adab9e\", \"#6ac291\", \"#006457\"]`\n             <dt>alpha</dt><dd>Number from 0 to 1 indicating the opacity of the marker border. The default value is 1.</dd>\n             <dt>weight</dt><dd>Number indicating the width of the border. The default value is 1.</dd>\n         </dl>\n     </dd>\n     <dt>width</dt><dd>indicates the width of the marker. The default value is 24.</dd>\n     <dt>over</dt><dd>hash containing styles for markers when highlighted by a `mouseover` event. The default\n     values for each style is null. When an over style is not set, the non-over value will be used. For example,\n     the default value for `marker.over.fill.color` is equivalent to `marker.fill.color`.</dd>\n </dl>"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedColumnSeries.html"
+    }
    },
    "StackedComboSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedComboSeries.html",
     "prototype": {
      "!proto": "charts.ComboSeries.prototype",
      "type": {
@@ -3486,11 +3487,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedComboSeries.html#attribute_showAreaFill",
       "!doc": "Indicates whether a fill is displayed."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedComboSeries.html"
+    }
    },
    "StackedComboSplineSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedComboSplineSeries.html",
     "prototype": {
      "!proto": "charts.StackedComboSeries.prototype",
      "type": {
@@ -3503,11 +3504,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedComboSplineSeries.html#attribute_showAreaFill",
       "!doc": "Indicates whether a fill is displayed."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedComboSplineSeries.html"
+    }
    },
    "StackedLineSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedLineSeries.html",
     "prototype": {
      "!proto": "charts.LineSeries.prototype",
      "type": {
@@ -3515,11 +3516,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedLineSeries.html#attribute_type",
       "!doc": "Read-only attribute indicating the type of series."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedLineSeries.html"
+    }
    },
    "StackedMarkerSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedMarkerSeries.html",
     "prototype": {
      "!proto": "charts.MarkerSeries.prototype",
      "type": {
@@ -3527,11 +3528,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedMarkerSeries.html#attribute_type",
       "!doc": "Read-only attribute indicating the type of series."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedMarkerSeries.html"
+    }
    },
    "StackedSplineSeries": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedSplineSeries.html",
     "prototype": {
      "!proto": "charts.SplineSeries.prototype",
      "type": {
@@ -3539,8 +3540,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedSplineSeries.html#attribute_type",
       "!doc": "Read-only attribute indicating the type of series."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/StackedSplineSeries.html"
+    }
    },
    "TimeImpl": {
     "!type": "fn()",
@@ -4896,6 +4896,7 @@
   "console": {
    "Console": {
     "!type": "fn(config?: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Console.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "log": {
@@ -5039,7 +5040,6 @@
       "!doc": "Allows the Console to flow in the document.  Available values are\ninline, block, and separate (the default)."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Console.html",
     "NAME": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Console.html#property_NAME",
@@ -5152,10 +5152,10 @@
    "DataSchema": {
     "Array": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.Array.html",
      "prototype": {
       "!proto": "dataschema.DataSchema.Base.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.Array.html",
      "apply": {
       "!type": "fn(schema?: +yui.Object, data: +yui.Array) -> +yui.Object",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.Array.html#method_apply",
@@ -5180,10 +5180,10 @@
     },
     "JSON": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.JSON.html",
      "prototype": {
       "!proto": "dataschema.DataSchema.Base.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.JSON.html",
      "getPath": {
       "!type": "fn(locator: string) -> [string]",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.JSON.html#method_getPath",
@@ -5202,10 +5202,10 @@
     },
     "Text": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.Text.html",
      "prototype": {
       "!proto": "dataschema.DataSchema.Base.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.Text.html",
      "apply": {
       "!type": "fn(schema: +yui.Object, data: string) -> +yui.Object",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.Text.html#method_apply",
@@ -5214,10 +5214,10 @@
     },
     "XML": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.XML.html",
      "prototype": {
       "!proto": "dataschema.DataSchema.Base.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.XML.html",
      "apply": {
       "!type": "fn(schema: +yui.Object, data: +XMLDocument) -> +yui.Object",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSchema.XML.html#method_apply",
@@ -5229,10 +5229,10 @@
   "datasource": {
    "DataSourceArraySchema": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceArraySchema.html",
     "prototype": {
      "!proto": "plugin.Plugin.Base.prototype"
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceArraySchema.html",
     "NS": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceArraySchema.html#property_NS",
@@ -5260,10 +5260,10 @@
    },
    "DataSourceCache": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceCache.html",
     "prototype": {
      "!proto": "cache.Cache.prototype"
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceCache.html",
     "NS": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceCache.html#property_NS",
@@ -5278,6 +5278,7 @@
    "DataSource": {
     "Function": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.Function.html",
      "prototype": {
       "!proto": "datasource.DataSource.Local.prototype",
       "source": {
@@ -5286,7 +5287,6 @@
        "!doc": "Stores the function that will serve the response data."
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.Function.html",
      "NAME": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.Function.html#property_NAME",
@@ -5295,6 +5295,7 @@
     },
     "Get": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.Get.html",
      "prototype": {
       "!proto": "datasource.DataSource.Local.prototype",
       "get": {
@@ -5318,7 +5319,6 @@
        "!doc": "Accepts the DataSource instance and a callback ID, and returns a callback\nparam/value string that gets appended to the script URI. Implementers\ncan customize this string to match their servers query syntax."
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.Get.html",
      "NAME": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.Get.html#property_NAME",
@@ -5327,6 +5327,7 @@
     },
     "IO": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.IO.html",
      "prototype": {
       "!proto": "datasource.DataSource.Local.prototype",
       "io": {
@@ -5340,7 +5341,6 @@
        "!doc": "Default IO Config."
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.IO.html",
      "NAME": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.IO.html#property_NAME",
@@ -5349,6 +5349,7 @@
     },
     "Local": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.Local.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "source": {
@@ -5362,7 +5363,6 @@
        "!doc": "Generates a unique transaction ID and fires <code>request</code> event.\n<strong>Note</strong>: the property <code>callback</code> is a\ndeprecated alias for the <code>on</code> transaction configuration\nproperty described below."
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.Local.html",
      "NAME": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSource.Local.html#property_NAME",
@@ -5382,10 +5382,10 @@
    },
    "DataSourceJSONSchema": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceJSONSchema.html",
     "prototype": {
      "!proto": "plugin.Plugin.Base.prototype"
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceJSONSchema.html",
     "NS": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceJSONSchema.html#property_NS",
@@ -5399,6 +5399,7 @@
    },
    "Pollable": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Pollable.html",
     "prototype": {
      "!proto": "datasource.DataSource.Local.prototype",
      "setInterval": {
@@ -5416,15 +5417,14 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Pollable.html#method_clearAllIntervals",
       "!doc": "Clears all intervals."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Pollable.html"
+    }
    },
    "DataSourceTextSchema": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceTextSchema.html",
     "prototype": {
      "!proto": "plugin.Plugin.Base.prototype"
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceTextSchema.html",
     "NS": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceTextSchema.html#property_NS",
@@ -5438,10 +5438,10 @@
    },
    "DataSourceXMLSchema": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceXMLSchema.html",
     "prototype": {
      "!proto": "plugin.Plugin.Base.prototype"
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceXMLSchema.html",
     "NS": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/DataSourceXMLSchema.html#property_NS",
@@ -5457,6 +5457,7 @@
   "datatable": {
    "DataTable": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.html",
     "prototype": {
      "!proto": "datatable.DataTable.Base.prototype",
      "COL_TEMPLATE": {
@@ -5670,9 +5671,9 @@
       "!doc": "Reverse the current sort direction of one or more fields currently being\nsorted by.\n\nPass the `key` of the column or columns you want the sort order reversed\nfor."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.html",
     "Base": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.Base.html",
      "prototype": {
       "!proto": "widget.Widget.prototype",
       "delegate": {
@@ -5720,11 +5721,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.Base.html#attribute_bodyView",
        "!doc": "If the View class assigned to the DataTables `view` attribute supports\nit, this class will be used for rendering the contents of the `<tbody>`\nincluding all data rows.\n\nSimilar to `view`, the instance of this View will be assigned to the\nDataTable instances `body` property.\n\nIt is not strictly necessary that the class function assigned here be\na View subclass.  It must however have a `render()` method."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.Base.html"
+     }
     },
     "BodyView": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.BodyView.html",
      "prototype": {
       "!proto": "app.View.prototype",
       "CELL_TEMPLATE": {
@@ -5798,7 +5799,6 @@
        "!doc": "Locates the row within the tbodyNode and returns the found index, or Null\nif it is not found in the tbodyNode"
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.BodyView.html",
      "Formatters": {
       "!type": "+yui.Object",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.BodyView.html#property_Formatters",
@@ -5948,6 +5948,7 @@
     },
     "HeaderView": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.HeaderView.html",
      "prototype": {
       "!proto": "app.View.prototype",
       "CELL_TEMPLATE": {
@@ -5980,8 +5981,7 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.HeaderView.html#method_render",
        "!doc": "Creates the `<thead>` Node content by assembling markup generated by\npopulating the `ROW_TEMPLATE` and `CELL_TEMPLATE` templates with content\nfrom the `columns` property."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.HeaderView.html"
+     }
     },
     "Highlight": {
      "!type": "fn()",
@@ -6024,6 +6024,7 @@
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Paginator.html",
      "View": {
       "!type": "fn()",
+      "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.Paginator.View.html",
       "prototype": {
        "!proto": "app.View.prototype",
        "containerTemplate": {
@@ -6059,8 +6060,7 @@
         "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.Paginator.View.html#attribute_model",
         "!doc": "Model used for this view"
        }
-      },
-      "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.Paginator.View.html"
+      }
      },
      "prototype": {
       "paginatorModel": {
@@ -6117,6 +6117,7 @@
     },
     "TableView": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.TableView.html",
      "prototype": {
       "!proto": "app.View.prototype",
       "CAPTION_TEMPLATE": {
@@ -6219,13 +6220,13 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.TableView.html#attribute_bodyConfig",
        "!doc": "Configuration overrides used when instantiating the `bodyView`\ninstance."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.TableView.html"
+     }
     }
    },
    "Plugin": {
     "DataTableDataSource": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DataTableDataSource.html",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "datasource": {
@@ -6249,7 +6250,6 @@
        "!doc": "Callback function passed to DataSources sendRequest() method populates\nan entire DataTable with new data, clearing previous data, if any."
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DataTableDataSource.html",
      "NS": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DataTableDataSource.html#property_NS",
@@ -6266,16 +6266,16 @@
   "datatable_formatters": {
    "DataTable": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.html",
     "prototype": {
      "!proto": "datatable.DataTable.Base.prototype"
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.html",
     "BodyView": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/BodyView.html",
      "prototype": {
       "!proto": "app.View.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/BodyView.html",
      "Formatters": {
       "!type": "fn()",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.BodyView.Formatters.html",
@@ -6422,6 +6422,7 @@
    "Plugin": {
     "DDConstrained": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDConstrained.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "stickX": {
@@ -6509,11 +6510,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDConstrained.html#method_drag",
        "!doc": "Fires after drag:drag. Handle the tickX and tickX align events."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDConstrained.html"
+     }
     },
     "Drop": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Drop.html",
      "prototype": {
       "!proto": "dd.DD.Drop.prototype",
       "NAME": {
@@ -6526,11 +6527,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Drop.html#property_NS",
        "!doc": "The Drop instance will be placed on the Node instance under the drop namespace. It can be accessed via Node.drop;"
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Drop.html"
+     }
     },
     "Drag": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Drag.html",
      "prototype": {
       "!proto": "dd.DD.Drag.prototype",
       "NAME": {
@@ -6543,11 +6544,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Drag.html#property_NS",
        "!doc": "The Drag instance will be placed on the Node instance under the dd namespace. It can be accessed via Node.dd;"
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Drag.html"
+     }
     },
     "DDProxy": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDProxy.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "moveOnEnd": {
@@ -6580,11 +6581,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDProxy.html#attribute_cloneNode",
        "!doc": "Should the node be cloned into the proxy for you. Default: false"
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDProxy.html"
+     }
     },
     "DDWindowScroll": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDWindowScroll.html",
      "prototype": {
       "!proto": "Scroll.prototype",
       "windowScroll": {
@@ -6592,11 +6593,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDWindowScroll.html#attribute_windowScroll",
        "!doc": "Turn on window scroll support, default: true"
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDWindowScroll.html"
+     }
     },
     "DDNodeScroll": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDNodeScroll.html",
      "prototype": {
       "!proto": "Scroll.prototype",
       "node": {
@@ -6604,13 +6605,13 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDNodeScroll.html#attribute_node",
        "!doc": "The node we want to scroll. Used to set the internal parentScroll attribute."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.DDNodeScroll.html"
+     }
     }
    },
    "DD": {
     "DDM": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.DDM.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "dragCursor": {
@@ -6738,11 +6739,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.DDM.html#method_getDelegate",
        "!doc": "Get a delegate instance from a container node"
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.DDM.html"
+     }
     },
     "Delegate": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Delegate.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "dd": {
@@ -6810,11 +6811,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Delegate.html#attribute_handles",
        "!doc": "The handles config option added to the temp DD instance."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Delegate.html"
+     }
     },
     "Drag": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Drag.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "node": {
@@ -7003,7 +7004,6 @@
        "!doc": "Method will forcefully stop a drag operation. For example calling this from inside an ESC keypress handler will stop this drag."
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Drag.html",
      "START_EVENT": {
       "!type": "?",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Drag.html#property_START_EVENT",
@@ -7012,6 +7012,7 @@
     },
     "Drop": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Drop.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "node": {
@@ -7079,11 +7080,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Drop.html#method_sizeShim",
        "!doc": "Positions and sizes the shim with the raw data from the node,\nthis can be used to programatically adjust the Targets shim for Animation.."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Drop.html"
+     }
     },
     "Scroll": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Scroll.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "buffer": {
@@ -7131,14 +7132,14 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Scroll.html#method_end",
        "!doc": "Called from the drag:end event"
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/DD.Scroll.html"
+     }
     }
    }
   },
   "dial": {
    "Dial": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Dial.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "min": {
@@ -7211,8 +7212,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Dial.html#method_syncUI",
       "!doc": "Synchronizes the DOM state with the attribute settings."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Dial.html"
+    }
    }
   },
   "dom": {
@@ -7467,6 +7467,7 @@
   "editor": {
    "ContentEditable": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ContentEditable.html",
     "prototype": {
      "!proto": "Y.Plugin.Base.prototype",
      "use": {
@@ -7549,7 +7550,6 @@
       "!doc": "The Node instance of the container."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ContentEditable.html",
     "THROTTLE_TIME": {
      "!type": "number",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/ContentEditable.html#property_THROTTLE_TIME",
@@ -7598,6 +7598,7 @@
     },
     "ExecCommand": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/ExecCommand.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "bidi": {
@@ -7616,7 +7617,6 @@
        "!doc": "Gets the instance of YUI bound to the parent frame"
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/ExecCommand.html",
      "COMMANDS": {
       "!type": "fn()",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ExecCommand.COMMANDS.html",
@@ -7739,10 +7739,10 @@
     },
     "EditorBidi": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorBidi.html",
      "prototype": {
       "!proto": "base.Base.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorBidi.html",
      "EVENTS": {
       "!type": "?",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorBidi.html#property_EVENTS",
@@ -7796,10 +7796,10 @@
     },
     "EditorBR": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorBR.html",
      "prototype": {
       "!proto": "base.Base.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorBR.html",
      "NAME": {
       "!type": "?",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorBR.html#property_NAME",
@@ -7813,10 +7813,10 @@
     },
     "EditorParaBase": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorParaBase.html",
      "prototype": {
       "!proto": "base.Base.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorParaBase.html",
      "NAME": {
       "!type": "?",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorParaBase.html#property_NAME",
@@ -7830,10 +7830,10 @@
     },
     "EditorParaIE": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorParaIE.html",
      "prototype": {
       "!proto": "editor.Plugin.EditorParaBase.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorParaIE.html",
      "NAME": {
       "!type": "?",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorParaIE.html#property_NAME",
@@ -7847,10 +7847,10 @@
     },
     "EditorPara": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorPara.html",
      "prototype": {
       "!proto": "editor.Plugin.EditorParaBase.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorPara.html",
      "NAME": {
       "!type": "?",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorPara.html#property_NAME",
@@ -7864,10 +7864,10 @@
     },
     "EditorTab": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorTab.html",
      "prototype": {
       "!proto": "base.Base.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorTab.html",
      "NAME": {
       "!type": "?",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorTab.html#property_NAME",
@@ -7881,10 +7881,10 @@
     },
     "EditorLists": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorLists.html",
      "prototype": {
       "!proto": "base.Base.prototype"
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorLists.html",
      "NON": {
       "!type": "?",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.EditorLists.html#property_NON",
@@ -7914,6 +7914,7 @@
    },
    "EditorBase": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/EditorBase.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "frame": {
@@ -7992,7 +7993,6 @@
       "!doc": "The default tag to use for block level items, defaults to: p"
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/EditorBase.html",
     "NORMALIZE_FONTSIZE": {
      "!type": "fn()",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/EditorBase.html#method_NORMALIZE_FONTSIZE",
@@ -8247,6 +8247,7 @@
    },
    "Frame": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Frame.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "use": {
@@ -8350,7 +8351,6 @@
       "!doc": "The default tag to use for block level items, defaults to: p"
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Frame.html",
     "THROTTLE_TIME": {
      "!type": "number",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Frame.html#property_THROTTLE_TIME",
@@ -9261,6 +9261,7 @@
   "file_flash": {
    "FileFlash": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/FileFlash.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "startUpload": {
@@ -9313,13 +9314,13 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/FileFlash.html#attribute_uploder",
       "!doc": "The instance of Y.SWF wrapping the Flash player uploader associated with this file."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/FileFlash.html"
+    }
    }
   },
   "file_html5": {
    "FileHTML5": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/FileHTML5.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "startUpload": {
@@ -9393,7 +9394,6 @@
       "!doc": "The bound event handler used to handle events from XMLHttpRequest."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/FileHTML5.html",
     "isValidFile": {
      "!type": "fn(file: +file.File)",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/FileHTML5.html#method_isValidFile",
@@ -10210,6 +10210,7 @@
    },
    "Circle": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Circle.html",
     "prototype": {
      "!proto": "graphics.Shape.prototype",
      "radius": {
@@ -10217,11 +10218,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Circle.html#config_radius",
       "!doc": "Radius of the circle"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Circle.html"
+    }
    },
    "Path": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Path.html",
     "prototype": {
      "!proto": "graphics.Shape.prototype",
      "path": {
@@ -10229,8 +10230,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Path.html#config_path",
       "!doc": "Indicates the path used for the node."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Path.html"
+    }
    },
    "Graphic": {
     "!type": "fn()",
@@ -11413,10 +11413,10 @@
    },
    "HistoryHTML5": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/HistoryHTML5.html",
     "prototype": {
      "!proto": "history.HistoryBase.prototype"
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/HistoryHTML5.html",
     "SRC_POPSTATE": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/HistoryHTML5.html#property_SRC_POPSTATE",
@@ -11427,6 +11427,7 @@
   "imageloader": {
    "ImgLoadGroup": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ImgLoadGroup.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "name": {
@@ -11474,11 +11475,11 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/ImgLoadGroup.html#method_fetch",
       "!doc": "Displays the images in the group.\nThis method is called when a trigger fires or the time limit expires; it shouldnt be called externally, but is not private in the rare event that it needs to be called immediately."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ImgLoadGroup.html"
+    }
    },
    "ImgLoadImgObj": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ImgLoadImgObj.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "domId": {
@@ -11531,8 +11532,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/ImgLoadImgObj.html#method_fetch",
       "!doc": "Displays the image; puts the URL into the DOM.\nThis method shouldnt be called externally, but is not private in the rare event that it needs to be called immediately."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ImgLoadImgObj.html"
+    }
    }
   },
   "features": {
@@ -12468,6 +12468,7 @@
    "Plugin": {
     "ScrollInfo": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollInfo.html",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "getOffscreenNodes": {
@@ -12505,8 +12506,7 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollInfo.html#attribute_scrollMargin",
        "!doc": "Additional margin in pixels beyond the onscreen region of the host node\nthat should be considered \"onscreen\".\n\nFor example, if set to 50, then a `scrollToBottom` event would be fired\nwhen the user scrolls to within 50 pixels of the bottom of the\nscrollable region, even if they dont actually scroll completely to the\nvery bottom pixel.\n\nThis margin also applies to the `getOffscreenNodes()` and\n`getOnscreenNodes()` methods by default."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollInfo.html"
+     }
     }
    }
   },
@@ -13512,6 +13512,7 @@
   "panel": {
    "Panel": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Panel.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "BUTTONS": {
@@ -13519,8 +13520,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Panel.html#property_BUTTONS",
       "!doc": "Collection of predefined buttons mapped from name => config.\n\nPanel includes a \"close\" button which can be use by name. When the close\nbutton is in the header (which is the default), it will look like: [x].\n\nSee `addButton()` for a list of possible configuration values."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Panel.html"
+    }
    }
   },
   "parallel": {
@@ -13631,6 +13631,7 @@
    },
    "Pjax": {
     "!type": "fn(config?: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Pjax.html",
     "prototype": {
      "!proto": "app.Router.prototype",
      "container": {
@@ -13639,7 +13640,6 @@
       "!doc": "Node into which content should be inserted when a page is loaded via\nPjax. This nodes existing contents will be removed to make way for the\nnew content.\n\nIf not set, loaded content will not be automatically inserted into the\npage."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Pjax.html",
     "defaultRoute": {
      "!type": "+yui.Array",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Pjax.html#property_defaultRoute",
@@ -13651,6 +13651,7 @@
    "Plugin": {
     "Base": {
      "!type": "fn(config: +yui.Object)",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Base.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "host": {
@@ -13709,7 +13710,6 @@
        "!doc": "Injects a function to be executed after a given method on host object.\n\nThe function will be detached when the plugin is unplugged."
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Base.html",
      "ATTRS": {
       "!type": "+yui.Object",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Base.html#property_ATTRS",
@@ -13894,6 +13894,7 @@
   "recordset": {
    "Recordset": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Recordset.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "getRecord": {
@@ -13961,8 +13962,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Recordset.html#attribute_key",
       "!doc": "The ID to use as the key in the hash table."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Recordset.html"
+    }
    },
    "RecordsetFilter": {
     "!type": "fn()",
@@ -14046,6 +14046,7 @@
   "resize": {
    "Resize": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Resize.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "autoHide": {
@@ -14189,7 +14190,6 @@
       "!doc": "<p>Loop through each handle which is being used and executes a callback.</p>\n<p>Example:</p>\n<pre><code>instance.eachHandle(\n     function(handleName, index) { ... }\n );</code></pre>"
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Resize.html",
     "NAME": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Resize.html#property_NAME",
@@ -14255,6 +14255,7 @@
     },
     "Resize": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Resize.html",
      "prototype": {
       "!proto": "resize.Resize.prototype",
       "NAME": {
@@ -14278,7 +14279,6 @@
        "!doc": "Stores the widget that the node belongs to, if one exists"
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Resize.html",
      "ATTRS": {
       "!type": "+yui.Object",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.Resize.html#property_ATTRS",
@@ -14287,6 +14287,7 @@
     },
     "ResizeProxy": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ResizeProxy.html",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "proxyNode": {
@@ -14299,8 +14300,7 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ResizeProxy.html#property_PROXY_TEMPLATE",
        "!doc": "Template used to create the resize proxy."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ResizeProxy.html"
+     }
     }
    }
   },
@@ -14308,6 +14308,7 @@
    "Plugin": {
     "ScrollViewList": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollViewList.html",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "isAttached": {
@@ -14321,7 +14322,6 @@
        "!doc": "Designated initializer"
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollViewList.html",
      "NAME": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollViewList.html#property_NAME",
@@ -14344,6 +14344,7 @@
    "Plugin": {
     "ScrollViewPaginator": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollViewPaginator.html",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "initializer": {
@@ -14392,7 +14393,6 @@
        "!doc": "The total number of pages"
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollViewPaginator.html",
      "NS": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollViewPaginator.html#property_NS",
@@ -14415,6 +14415,7 @@
    "Plugin": {
     "ScrollViewScrollbars": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollViewScrollbars.html",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "verticalNode": {
@@ -14448,7 +14449,6 @@
        "!doc": "Momentarily flash the scroll bars to indicate current scroll position"
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollViewScrollbars.html",
      "NAME": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.ScrollViewScrollbars.html#property_NAME",
@@ -14473,6 +14473,7 @@
    },
    "ScrollView": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/ScrollView.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "lastScrolledAmt": {
@@ -14561,7 +14562,6 @@
       "!doc": "The default bounce distance in pixels"
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/ScrollView.html",
     "CLASS_NAMES": {
      "!type": "+yui.Object",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/ScrollView.html#property_CLASS_NAMES",
@@ -14613,6 +14613,7 @@
    },
    "SliderBase": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/SliderBase.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "rail": {
@@ -14675,8 +14676,7 @@
       "!url": "http://yuilibrary.com/yui/docs/api/classes/SliderBase.html#attribute_thumbUrl",
       "!doc": "Path to the thumb image.  This will be used as both the thumb and\nshadow as a sprite.  Defaults at render() to thumb-x.png or\nthumb-y.png in the skin directory of the current skin."
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/SliderBase.html"
+    }
    },
    "SliderValueRange": {
     "!type": "fn()",
@@ -14723,6 +14723,7 @@
   "sortable": {
    "Sortable": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Sortable.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "delegate": {
@@ -14796,7 +14797,6 @@
       "!doc": "A selector string to test if a list item is invalid and not sortable"
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Sortable.html",
     "_test": {
      "!type": "fn(node: +node.Node, test: string)",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Sortable.html#method__test",
@@ -14909,6 +14909,7 @@
    },
    "UploaderFlash": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/UploaderFlash.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "queue": {
@@ -15017,7 +15018,6 @@
       "!doc": "The number of times to try re-uploading a file that failed to upload before\ncancelling its upload."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/UploaderFlash.html",
     "FLASH_CONTAINER": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/UploaderFlash.html#property_FLASH_CONTAINER",
@@ -15054,6 +15054,7 @@
    },
    "Tab": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Tab.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "triggerEvent": {
@@ -15072,8 +15073,7 @@
       "!type": "+Y.Node",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Tab.html#attribute_panelNode"
      }
-    },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Tab.html"
+    }
    }
   },
   "template": {
@@ -15411,6 +15411,7 @@
     },
     "ComparisonFailure": {
      "!type": "fn(message: string, expected: +yui.Object, actual: +yui.Object)",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.ComparisonFailure.html",
      "prototype": {
       "!proto": "AssertionError.prototype",
       "expected": {
@@ -15433,8 +15434,7 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.ComparisonFailure.html#method_getMessage",
        "!doc": "Returns a fully formatted error for an assertion failure. This message\nprovides information about the expected and actual values."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.ComparisonFailure.html"
+     }
     },
     "CoverageFormat": {
      "!type": "fn()",
@@ -15683,6 +15683,7 @@
     },
     "ShouldError": {
      "!type": "fn(message: string)",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.ShouldError.html",
      "prototype": {
       "!proto": "AssertionError.prototype",
       "name": {
@@ -15690,11 +15691,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.ShouldError.html#property_name",
        "!doc": "The name of the error that occurred."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.ShouldError.html"
+     }
     },
     "ShouldFail": {
      "!type": "fn(message: string)",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.ShouldFail.html",
      "prototype": {
       "!proto": "YUITest.AssertionError.prototype",
       "name": {
@@ -15702,8 +15703,7 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.ShouldFail.html#property_name",
        "!doc": "The name of the error that occurred."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.ShouldFail.html"
+     }
     },
     "TestCase": {
      "!type": "fn(template: ?)",
@@ -15879,6 +15879,7 @@
     },
     "UnexpectedError": {
      "!type": "fn(cause: +Error)",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.UnexpectedError.html",
      "prototype": {
       "!proto": "YUITest.AssertionError.prototype",
       "cause": {
@@ -15896,11 +15897,11 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.UnexpectedError.html#property_stack",
        "!doc": "Stack information for the error (if provided)."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.UnexpectedError.html"
+     }
     },
     "UnexpectedValue": {
      "!type": "fn(message: string, unexpected: +yui.Object)",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.UnexpectedValue.html",
      "prototype": {
       "!proto": "AssertionError.prototype",
       "unexpected": {
@@ -15918,8 +15919,7 @@
        "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.UnexpectedValue.html#method_getMessage",
        "!doc": "Returns a fully formatted error for an assertion failure. This message\nprovides information about the expected and actual values."
       }
-     },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Test.UnexpectedValue.html"
+     }
     },
     "Wait": {
      "!type": "fn(segment: fn(), delay: number)",
@@ -16028,6 +16028,7 @@
   "tree": {
    "Tree": {
     "!type": "fn(config?: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Tree.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "children": {
@@ -16116,7 +16117,6 @@
       "!doc": "Performs a depth-first traversal of _node_, passing it and each of its\ndescendants to the specified _callback_.\n\nIf the callback function returns `Tree.STOP_TRAVERSAL`, traversal will be\nstopped immediately. Otherwise, it will continue until the deepest\ndescendant of _node_ has been traversed, or until each branch has been\ntraversed to the optional maximum depth limit.\n\nSince traversal is depth-first, that means nodes are traversed like this:\n\n            1\n          / | \\\n         2  8  9\n        / \\     \\\n       3   7    10\n     / | \\      / \\\n    4  5  6    11 12"
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Tree.html",
     "Node": {
      "!type": "fn(tree: +tree.Tree, config?: +yui.Object)",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html",
@@ -16400,6 +16400,7 @@
   "uploader_html5": {
    "UploaderHTML5": {
     "!type": "fn()",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/UploaderHTML5.html",
     "prototype": {
      "!proto": "widget.Widget.prototype",
      "queue": {
@@ -16518,7 +16519,6 @@
       "!doc": "The number of times to try re-uploading a file that failed to upload before\ncancelling its upload."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/UploaderHTML5.html",
     "HTML5FILEFIELD_TEMPLATE": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/UploaderHTML5.html#property_HTML5FILEFIELD_TEMPLATE",
@@ -16542,6 +16542,7 @@
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Uploader.html",
     "Queue": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Uploader.Queue.html",
      "prototype": {
       "!proto": "base.Base.prototype",
       "startUpload": {
@@ -16635,7 +16636,6 @@
        "!doc": "The number of times to try re-uploading a file that failed to upload before\ncancelling its upload."
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Uploader.Queue.html",
      "CONTINUE": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Uploader.Queue.html#property_CONTINUE",
@@ -16684,6 +16684,7 @@
    "Plugin": {
     "WidgetAnim": {
      "!type": "fn()",
+     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.WidgetAnim.html",
      "prototype": {
       "!proto": "plugin.Plugin.Base.prototype",
       "duration": {
@@ -16712,7 +16713,6 @@
        "!doc": "The initializer destructor implementation. Responsible for destroying the configured\nanimation instances."
       }
      },
-     "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.WidgetAnim.html",
      "NS": {
       "!type": "string",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Plugin.WidgetAnim.html#property_NS",
@@ -16853,6 +16853,7 @@
   "widget": {
    "Widget": {
     "!type": "fn(config: +yui.Object)",
+    "!url": "http://yuilibrary.com/yui/docs/api/classes/Widget.html",
     "prototype": {
      "!proto": "base.Base.prototype",
      "next": {
@@ -17025,7 +17026,6 @@
       "!doc": "Map of DOM events that should be fired as Custom Events by the\nWidget instance."
      }
     },
-    "!url": "http://yuilibrary.com/yui/docs/api/classes/Widget.html",
     "NAME": {
      "!type": "string",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Widget.html#property_NAME",
