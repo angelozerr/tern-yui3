@@ -22,26 +22,32 @@
     ternDef["YUI"] = "fn() -> +yui.YUI";
   }
   
-  var getType = function(moduleName, className, name) {
-    switch(className) {
-    case 'YUI':
-      switch(name) {
-      case 'use':
-    	  return 'fn(modules: string, callback?: fn(Y: +yui.YUI)) -> !this';
-      } 
-      break;
+  var overrideDef = {
+    "yui": {
+      "YUI": {
+        "use": {
+          "!type": "fn(modules: string, callback?: fn(Y: +yui.YUI)) -> !this",
+          "!effects": ["custom yui_use"] 
+        }        
+      }
     }
   }
+  
+  var getType = function(moduleName, className, methodName) {
+    var base = getBase(moduleName, className, methodName);
+    if (base) return base["!type"];
+  }
 
-  var getEffects = function(moduleName, className, name) {
-    switch(className) {
-    case 'YUI':
-      switch(name) {
-      case 'use':
-    	  return ["custom yui_use"];
-      } 
-      break;
-    }
+  var getEffects = function(moduleName, className, methodName) {
+    var base = getBase(moduleName, className, methodName);
+    if (base) return base["!effects"];
+  }
+  
+  var getBase = function(moduleName, className, methodName) {
+    var mod = overrideDef[moduleName];
+    if (!mod) return null;
+    var base = className ? mod[className]: mod;
+    if (base) return base[methodName];
   }
   
 });  
