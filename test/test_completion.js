@@ -75,7 +75,7 @@ exports['test !proto completion'] = function() {
         "isObjectKey":false,
         "completions":[{"name":"unplug","type":"fn()", "origin":"yui3"}
                       ]
-    }); 	
+    });
 }
 
 exports['test Y.Anim completion'] = function() {
@@ -86,5 +86,10 @@ exports['test Y.Anim completion'] = function() {
   }, "Anim");
 }
 
+exports['test ignore config (AreaSeriesConfig)'] = function() {
+
+  util.assertCompletion("YUI().use('', function(Y) { new Y.", {}, 
+      "AreaSeriesConfig");
+}
 
 if (module == require.main) require("test").run(exports);

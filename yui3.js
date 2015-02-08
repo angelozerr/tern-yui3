@@ -17,7 +17,7 @@
   
   function copyModules(modules, Y) {
     for (var name in modules) {
-      copyModule(modules[name], Y);	  
+      if (name != "config") copyModule(modules[name], Y);	  
     }
   }
   
