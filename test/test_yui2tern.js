@@ -15,7 +15,7 @@ exports['test admin.Anim'] = function() {
 exports['test app.App'] = function() {
   var App = yuiDef["!define"]["app"]["App"];
   assert.notEqual(App, null, 'cannot find app.App');
-  assert.equal(App["!type"], "fn(config?: +yui.Object)");
+  assert.equal(App["!type"], "fn(config?: +config.AppConfig)");
   // extends Base
   assert.equal(App["prototype"]["!proto"], "app.App.Base.prototype");
   // showContent

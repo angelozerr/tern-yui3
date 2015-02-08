@@ -47,13 +47,14 @@ exports['test Y.one completion with 2 modules (issue 12)'] = function() {
 
 exports['test !proto completion'] = function() {
 	// check methods of Anim.anim
-	util.assertCompletion("YUI().use('', function(Y) { var anim = new Y.Anim(); anim.du", {
+	util.assertCompletion("YUI().use('', function(Y) { var anim = new Y.Anim(); anim.p", {
 	    "start":{"line":0,"ch":58},
-	    "end":{"line":0,"ch":60},
+	    "end":{"line":0,"ch":59},
 	    "isProperty":true,
 	    "isObjectKey":false,
-	    "completions":[{"name":"duration","type":"number",
-	    "origin":"yui3"}]
+	    "completions":[{"name":"pause","type":"fn()", "origin":"yui3"},
+	                   {"name":"propertyIsEnumerable","type":"fn(prop: string) -> bool", "origin":"ecma5"}
+	                  ]
 	});
 	//  Anim.anim extends base.Base
 	util.assertCompletion("YUI().use('', function(Y) { var anim = new Y.Anim(); anim.unpl", {
@@ -61,8 +62,8 @@ exports['test !proto completion'] = function() {
 	    "end":{"line":0,"ch":62},
 	    "isProperty":true,
 	    "isObjectKey":false,
-	    "completions":[{"name":"unplug","type":"fn()",
-	    "origin":"yui3"}]
+	    "completions":[{"name":"unplug","type":"fn()", "origin":"yui3"}
+	                  ]
 	});
 	
     //  Anim.anim extends base.Base with 2 modules
@@ -72,8 +73,8 @@ exports['test !proto completion'] = function() {
         "end":{"line":0,"ch":73},
         "isProperty":true,
         "isObjectKey":false,
-        "completions":[{"name":"unplug","type":"fn()",
-        "origin":"yui3"}]
+        "completions":[{"name":"unplug","type":"fn()", "origin":"yui3"}
+                      ]
     }); 	
 }
 

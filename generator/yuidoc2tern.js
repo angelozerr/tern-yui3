@@ -12,7 +12,9 @@
   Generator.prototype.process = function(yuiDoc) {
     var ternDef = {
       "!name" : this.options.name,
-      "!define" : {}
+      "!define" : {
+        "config": {}
+      }
     };
     this.options.initialize(ternDef);
     this.visitDoc(yuiDoc, ternDef);
@@ -27,15 +29,15 @@
     	if (isEventType(yuiClassItem)) {
     		// TODO : add event inside !data
     	} else {
-          var moduleName = getModuleName(yuiClassItem, yuiDoc), className = yuiClassItem["class"], isStatic = yuiClassItem["static"] === 1;
+          var moduleName = getModuleName(yuiClassItem, yuiDoc), className = yuiClassItem["class"], attributeType = isAttributeType(yuiClassItem), 
+              isStatic = (yuiClassItem["static"] === 1 || attributeType);
     	  if (moduleName) {
     	    var ternModule = getTernModule(moduleName, ternDef, this.options.isSubModule);
-    	    var ternClass = this.getTernClass(className, ternModule, yuiDoc);
-    	    var ternClassItem = ternClass;
-    	    if (!isStatic) {
-    	      ternClassItem = getTernClassPrototype(ternClass, moduleName, className);
-    	    }
-    	    this.visitClassItem(yuiClassItem, yuiDoc, ternClassItem);
+    	    var ternClass = attributeType ? this.getTernClassConfig(className, ternDef["!define"], yuiDoc) : 
+    	                                    this.getTernClass(className, ternModule, yuiDoc);
+            var ternClassItem = ternClass;
+        	if (!isStatic) ternClassItem = getTernClassPrototype(ternClass, moduleName, className);
+        	this.visitClassItem(yuiClassItem, yuiDoc, ternClassItem);    	    
     	  }
     	}
       }
@@ -99,6 +101,18 @@
     return ternClass;
   }
   
+  Generator.prototype.getTernClassConfig = function(className, parent) {
+    var names = getConfigType(className).split(".");
+    var ternClass = parent;
+    for (var i = 0; i < names.length; i++) {
+      var name = names[i];
+      ternClass = parent[name];
+      if (!ternClass) ternClass = parent[name] = {};
+      parent = ternClass;
+    }
+    return ternClass;
+  }
+    
   var getTernClassPrototype = function(ternClass, moduleName, className) {
     var ternPrototype = ternClass["prototype"];
     if (!ternPrototype) {
@@ -119,6 +133,11 @@
   var isEventType = function(yuiClassItem) {
     var itemtype = yuiClassItem["itemtype"];
     return itemtype === 'event';  
+  }
+  
+  var isAttributeType = function(yuiClassItem) {
+    var itemtype = yuiClassItem["itemtype"];
+    return itemtype === 'attribute';  
   }
   
   var getDescription = function(yuiClassItem) {
@@ -241,7 +260,12 @@
           type += '?';
         type += ': ';
         if (param.type) {
-          type += getPropertyTernType(param.type, param.props, yuiDoc, isSubModule);
+          if (param.name == 'config' && param.type == 'Object') {
+            // case for config Object Literal (filled with attribute itemtype)
+            type += "+" + getConfigType(className);
+          } else {
+            type += getPropertyTernType(param.type, param.props, yuiDoc, isSubModule); 
+          }
         } else {
             type += '?';	
         }
@@ -262,6 +286,11 @@
     return type;	  
   }
 
+  var getConfigType = function(className) {
+    var index = className.lastIndexOf('.'), name = index !=- 1 ? className.substring(index+1, className.length) : className;
+    return "config." + className + "Config";  
+  }
+  
   var getPropertyTernType = exports.getPropertyTernType = function(yuiType, props, yuiDoc, isSubModule) {
     var type = extractYUIType(yuiType);
     if (!type) return "?";
