@@ -24,7 +24,20 @@ exports['test Anim Methods+Properties static'] = function() {
 	                  ]
 	});
 }
-   
+
+exports['test Anim Methods+Properties (not static) without var'] = function() {
+  util.assertCompletion("YUI().use('', function(Y) { new Y.Anim().", {
+      "start":{"line":0,"ch":41},
+      "end":{"line":0,"ch":41},
+      "isProperty":true,
+      "isObjectKey":false,
+      "completions":[{"name":"pause","type":"fn()", "origin":"yui3"},
+                     {"name":"run","type":"fn()", "origin":"yui3"},
+                     {"name":"stop","type":"fn(finish: bool)", "origin":"yui3"}
+                    ]
+  });
+}
+
 exports['test Anim Methods+Properties (not static)'] = function() {
   util.assertCompletion("YUI().use('', function(Y) { var anim = new Y.Anim(); anim.", {
       "start":{"line":0,"ch":58},

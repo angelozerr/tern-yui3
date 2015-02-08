@@ -17,7 +17,7 @@ exports['test YUI().use completion'] = function() {
 	    "end":{"line":0,"ch":7},
 	    "isProperty":true,
 	    "isObjectKey":false,
-	    "completions":[{"name":"use","type":"fn(modules: string, callback?: fn(Y: yui.YUI))",
+	    "completions":[{"name":"use","type":"fn(modules: string, callback?: fn(Y: ?))",
 	    "origin":"yui3"}]
 	});
 }

@@ -6062,7 +6062,7 @@
       "!doc": "Registers a YUI module and makes it available for use in a `YUI().use()` call or\nas a dependency for other modules.\n\nThe easiest way to create a first-class YUI module is to use\n<a href=\"http://yui.github.com/shifter/\">Shifter</a>, the YUI component build\ntool.\n\nShifter will automatically wrap your module code in a `YUI.add()` call along\nwith any configuration info required for the module."
      },
      "use": {
-      "!type": "fn(modules: string, callback?: fn(Y: +yui.YUI)) -> !this",
+      "!type": "fn(modules: string, callback?: fn(Y: ?)) -> !this",
       "!effects": [
        "custom yui_use"
       ],

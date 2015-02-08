@@ -26,7 +26,7 @@
     "yui": {
       "YUI": {
         "use": {
-          "!type": "fn(modules: string, callback?: fn(Y: +yui.YUI)) -> !this",
+          "!type": "fn(modules: string, callback?: fn(Y: ?)) -> !this",
           "!effects": ["custom yui_use"] 
         }        
       }
