@@ -91,7 +91,7 @@
     },
 
     getProp: function(prop) {
-      if (prop == "__proto__" || prop == "✖") return ANull;
+      if (prop == "__proto__" || prop == "âœ–") return ANull;
       var found = (this.props || (this.props = Object.create(null)))[prop];
       if (!found) {
         found = this.props[prop] = new AVal;
@@ -139,7 +139,7 @@
       var props = Object.create(null), foundProp = null;
       for (var i = 0; i < this.forward.length; ++i) {
         var prop = this.forward[i].propHint();
-        if (prop && prop != "length" && prop != "<i>" && prop != "✖" && prop != cx.completingProperty) {
+        if (prop && prop != "length" && prop != "<i>" && prop != "âœ–" && prop != cx.completingProperty) {
           props[prop] = true;
           foundProp = prop;
         }
@@ -450,7 +450,7 @@
         if (originNode && !found.originNode) found.originNode = originNode;
         return found;
       }
-      if (prop == "__proto__" || prop == "✖") return ANull;
+      if (prop == "__proto__" || prop == "âœ–") return ANull;
 
       var av = this.maybeProps && this.maybeProps[prop];
       if (av) {
@@ -470,7 +470,7 @@
     getProp: function(prop) {
       var found = this.hasProp(prop, true) || (this.maybeProps && this.maybeProps[prop]);
       if (found) return found;
-      if (prop == "__proto__" || prop == "✖") return ANull;
+      if (prop == "__proto__" || prop == "âœ–") return ANull;
       var av = this.ensureMaybeProps()[prop] = new AVal;
       av.propertyOf = this;
       return av;
@@ -931,7 +931,7 @@
 
       for (var i = 0; i < node.properties.length; ++i) {
         var prop = node.properties[i], key = prop.key, name;
-        if (prop.value.name == "✖") continue;
+        if (prop.value.name == "âœ–") continue;
         
         if (key.type == "Identifier") {
           name = key.name;
@@ -1383,7 +1383,7 @@
 
   exports.findExpressionAt = function(ast, start, end, defaultScope, filter) {
     var test = filter || function(_t, node) {
-      if (node.type == "Identifier" && node.name == "✖") return false;
+      if (node.type == "Identifier" && node.name == "âœ–") return false;
       return typeFinder.hasOwnProperty(node.type);
     };
     return walk.findNodeAt(ast, start, end, test, searchVisitor, defaultScope || cx.topScope);
@@ -1392,7 +1392,7 @@
   exports.findExpressionAround = function(ast, start, end, defaultScope, filter) {
     var test = filter || function(_t, node) {
       if (start != null && node.start > start) return false;
-      if (node.type == "Identifier" && node.name == "✖") return false;
+      if (node.type == "Identifier" && node.name == "âœ–") return false;
       return typeFinder.hasOwnProperty(node.type);
     };
     return walk.findNodeAround(ast, end, test, searchVisitor, defaultScope || cx.topScope);

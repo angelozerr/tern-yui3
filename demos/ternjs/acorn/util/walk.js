@@ -197,10 +197,10 @@
         c(cs.consequent[j], st, "Statement");
     }
   };
-  base.ReturnStatement = function(node, st, c) {
+  base.ReturnStatement = base.YieldExpression = function(node, st, c) {
     if (node.argument) c(node.argument, st, "Expression");
   };
-  base.ThrowStatement = function(node, st, c) {
+  base.ThrowStatement = base.SpreadElement = base.RestElement = function(node, st, c) {
     c(node.argument, st, "Expression");
   };
   base.TryStatement = function(node, st, c) {
@@ -219,7 +219,7 @@
     if (node.update) c(node.update, st, "Expression");
     c(node.body, st, "Statement");
   };
-  base.ForInStatement = function(node, st, c) {
+  base.ForInStatement = base.ForOfStatement = function(node, st, c) {
     c(node.left, st, "ForInit");
     c(node.right, st, "Expression");
     c(node.body, st, "Statement");
@@ -249,25 +249,25 @@
 
   base.Expression = skipThrough;
   base.ThisExpression = ignore;
-  base.ArrayExpression = function(node, st, c) {
+  base.ArrayExpression = base.ArrayPattern =  function(node, st, c) {
     for (var i = 0; i < node.elements.length; ++i) {
       var elt = node.elements[i];
       if (elt) c(elt, st, "Expression");
     }
   };
-  base.ObjectExpression = function(node, st, c) {
+  base.ObjectExpression = base.ObjectPattern = function(node, st, c) {
     for (var i = 0; i < node.properties.length; ++i)
-      c(node.properties[i].value, st, "Expression");
+      c(node.properties[i], st);
   };
-  base.FunctionExpression = base.FunctionDeclaration;
-  base.SequenceExpression = function(node, st, c) {
+  base.FunctionExpression = base.ArrowFunctionExpression = base.FunctionDeclaration;
+  base.SequenceExpression = base.TemplateLiteral = function(node, st, c) {
     for (var i = 0; i < node.expressions.length; ++i)
       c(node.expressions[i], st, "Expression");
   };
   base.UnaryExpression = base.UpdateExpression = function(node, st, c) {
     c(node.argument, st, "Expression");
   };
-  base.BinaryExpression = base.AssignmentExpression = base.LogicalExpression = function(node, st, c) {
+  base.BinaryExpression = base.AssignmentExpression = base.AssignmentPattern = base.LogicalExpression = function(node, st, c) {
     c(node.left, st, "Expression");
     c(node.right, st, "Expression");
   };
@@ -285,7 +285,36 @@
     c(node.object, st, "Expression");
     if (node.computed) c(node.property, st, "Expression");
   };
-  base.Identifier = base.Literal = ignore;
+  base.ExportDeclaration = function (node, st, c) {
+    c(node.declaration, st);
+  };
+  base.ImportDeclaration = function (node, st, c) {
+    node.specifiers.forEach(function (specifier) {
+      c(specifier, st);
+    });
+  };
+  base.ImportSpecifier = base.ImportBatchSpecifier = base.Identifier = base.Literal = ignore;
+
+  base.TaggedTemplateExpression = function(node, st, c) {
+    c(node.tag, st, "Expression");
+    c(node.quasi, st);
+  };
+  base.ClassDeclaration = base.ClassExpression = function(node, st, c) {
+    if (node.superClass) c(node.superClass, st, "Expression");
+    for (var i = 0; i < node.body.body.length; i++)
+      c(node.body.body[i], st);
+  };
+  base.MethodDefinition = base.Property = function(node, st, c) {
+    if (node.computed) c(node.key, st, "Expression");
+    c(node.value, st, "Expression");
+  };
+  base.ComprehensionExpression = function(node, st, c) {
+    for (var i = 0; i < node.blocks.length; i++)
+      c(node.blocks[i].right, st, "Expression");
+    c(node.body, st, "Expression");
+  };
+
+  // NOTE: the stuff below is deprecated, and will be removed when 1.0 is released
 
   // A custom walker that keeps track of the scope chain and the
   // variables defined in it.

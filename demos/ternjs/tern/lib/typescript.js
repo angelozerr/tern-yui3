@@ -12,9 +12,6 @@ var fs = require("fs");
 var tsFileName = __dirname + "/../node_modules/typescript/bin/typescript.js";
 var box = {};
 for (var prop in global) box[prop] = global[prop];
-
-
-console.error(require('vm').runInNewContext)
 require('vm').runInNewContext(fs.readFileSync(tsFileName, "utf8"), box, {filename: tsFileName});
 
 var ts = box.TypeScript;

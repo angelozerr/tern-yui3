@@ -87,7 +87,7 @@
         // !type
         type = this.getTernType(yuiClass, yuiDoc);      
         // !proto
-        proto = this.getProto(yuiClass, yuiDoc);
+        proto = this.getProto(yuiClass, yuiDoc, true);
         effects = null;
         // !doc
         doc = null;
@@ -101,7 +101,7 @@
     return ternClass;
   }
   
-  Generator.prototype.getTernClassConfig = function(className, parent) {
+  Generator.prototype.getTernClassConfig = function(className, parent, yuiDoc) {
     var names = getConfigType(className).split(".");
     var ternClass = parent;
     for (var i = 0; i < names.length; i++) {
@@ -109,6 +109,17 @@
       ternClass = parent[name];
       if (!ternClass) ternClass = parent[name] = {};
       parent = ternClass;
+    }
+    var yuiClass = yuiDoc.classes[className];
+    if (yuiClass) {
+      var yuiExtends = yuiClass["extends"];
+      if (yuiExtends) {
+        ternClass["!proto"] = getConfigType(yuiExtends);
+      }
+      /*var proto = this.getProto(yuiClass, yuiDoc);
+      if (proto) {
+        ternClass["!proto"] = getConfigType(proto);
+      }*/
     }
     return ternClass;
   }
@@ -337,13 +348,13 @@
     return className;
   } 
   
-  Generator.prototype.getProto = function(yuiClassItem, yuiDoc) {
+  Generator.prototype.getProto = function(yuiClassItem, yuiDoc, withPrototype) {
     var yuiExtends = yuiClassItem["extends"];
     if (!yuiExtends) {
 	  return this.options.getProto ? this.options.getProto() : null;
     }
     var className = getClassName(yuiExtends, yuiDoc, this.options.isSubModule)
-    return className + '.prototype';
+    return withPrototype ? (className + '.prototype') : className;
   }
   
   var toTernName = exports.toTernName = function(yuiName) {
