@@ -25,29 +25,43 @@
   var overrideDef = {
     "yui": {
       "YUI": {
-        "use": {
-          "!type": "fn(modules: string, callback?: fn(Y: ?)) -> !this",
-          "!effects": ["custom yui_use"] 
+        "prototype": {
+          "use": {
+            "!type": "fn(modules: string, callback?: fn(Y: ?)) -> !this",
+            "!effects": ["custom yui_use"]
+          }
         }        
+      }
+    },
+    "node": {
+      "Node": {
+        "prototype": {
+          "on": {
+            "!type": "fn(type: string, fn: fn(e: +event.DOMEventFacade), context?: ?, arg?: ?) -> +event_custom.EventHandle"
+          }
+        }
       }
     }
   }
   
-  var getType = function(moduleName, className, methodName) {
-    var base = getBase(moduleName, className, methodName);
+  var getType = function(moduleName, className, methodName, isProtoType) {
+    var base = getBase(moduleName, className, methodName, isProtoType);
     if (base) return base["!type"];
   }
 
-  var getEffects = function(moduleName, className, methodName) {
-    var base = getBase(moduleName, className, methodName);
+  var getEffects = function(moduleName, className, methodName, isProtoType) {
+    var base = getBase(moduleName, className, methodName, isProtoType);
     if (base) return base["!effects"];
   }
   
-  var getBase = function(moduleName, className, methodName) {
+  var getBase = function(moduleName, className, methodName, isProtoType) {
     var mod = overrideDef[moduleName];
     if (!mod) return null;
     var base = className ? mod[className]: mod;
-    if (base) return base[methodName];
+    if (base) {
+      if (isProtoType) base = base["prototype"]; 
+      return base ? base[methodName] : null;
+    }
   }
   
 });  

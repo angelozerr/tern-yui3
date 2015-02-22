@@ -31,4 +31,17 @@ exports['test test.EventTarget'] = function() {
   assert.equal(EventTarget["!type"], "fn()");
 }
 
+//Test with http://yuilibrary.com/yui/docs/api/classes/Node.html
+
+exports['test node.Node'] = function() {
+  var Node = yuiDef["!define"]["node"]["Node"];
+  assert.notEqual(Node, null, 'cannot find node.Node');
+  var prototypeNode = Node["prototype"];
+  assert.notEqual(prototypeNode, null, 'cannot find node.Node.prototype');
+  // see https://github.com/angelozerr/tern-yui3/issues/9
+  var on = prototypeNode["on"];
+  assert.notEqual(on, null, 'cannot find node.Node.prototype.on');
+  assert.equal(on["!type"], "fn(type: string, fn: fn(e: +event.DOMEventFacade), context?: ?, arg?: ?) -> +event_custom.EventHandle");
+}
+
 if (module == require.main) require("test").run(exports);

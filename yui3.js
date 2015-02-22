@@ -13853,7 +13853,7 @@
       "!doc": "Removes event listeners from the node and (optionally) its subtree"
      },
      "on": {
-      "!type": "fn(type: string, fn: fn(), context?: +yui.Object, arg?: ?) -> +event_custom.EventHandle",
+      "!type": "fn(type: string, fn: fn(e: +event.DOMEventFacade), context?: ?, arg?: ?) -> +event_custom.EventHandle",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html#method_on",
       "!doc": "Subscribe a callback function to execute in response to a DOM event or custom\nevent.\n\nMost DOM events are associated with a preventable default behavior such as\nlink clicks navigating to a new page.  Callbacks are passed a `DOMEventFacade`\nobject as their first argument (usually called `e`) that can be used to\nprevent this default behavior with `e.preventDefault()`. See the\n`DOMEventFacade` API for all available properties and methods on the object.\n\nIf the event name passed as the first parameter is not a whitelisted DOM event,\nit will be treated as a custom event subscriptions, allowing\n`node.fire(customEventName)` later in the code.  Refer to the Event user guide\nfor the full DOM event whitelist.\n\nBy default, the `this` object in the callback will refer to the subscribed\n`Node`.\n\nReturning `false` from a callback is supported as an alternative to calling\n`e.preventDefault(); e.stopPropagation();`.  However, it is recommended to use\nthe event methods."
      },

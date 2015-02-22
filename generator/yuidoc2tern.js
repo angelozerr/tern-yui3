@@ -30,13 +30,13 @@
     		// TODO : add event inside !data
     	} else {
           var moduleName = getModuleName(yuiClassItem, yuiDoc), className = yuiClassItem["class"], attributeType = isAttributeType(yuiClassItem), 
-              isStatic = (yuiClassItem["static"] === 1 || attributeType);
+              isStaticMethod = (isStatic(yuiClassItem) || attributeType);
     	  if (moduleName) {
     	    var ternModule = getTernModule(moduleName, ternDef, this.options.isSubModule);
     	    var ternClass = attributeType ? this.getTernClassConfig(className, ternDef["!define"], yuiDoc) : 
     	                                    this.getTernClass(className, ternModule, yuiDoc);
             var ternClassItem = ternClass;
-        	if (!isStatic) ternClassItem = getTernClassPrototype(ternClass, moduleName, className);
+        	if (!isStaticMethod) ternClassItem = getTernClassPrototype(ternClass, moduleName, className);
         	this.visitClassItem(yuiClassItem, yuiDoc, ternClassItem);    	    
     	  }
     	}
@@ -47,10 +47,10 @@
   Generator.prototype.visitClassItem = function(yuiClassItem, yuiDoc, ternClassItem) {
 	var moduleName = getModuleName(yuiClassItem, yuiDoc), className = yuiClassItem["class"], name = yuiClassItem["name"];	
     // !type
-	var type = this.getTernType(yuiClassItem, yuiDoc, moduleName, className, name); 
+	var type = this.getTernType(yuiClassItem, yuiDoc); 
     // !proto
     var proto = null;
-    var effects = this.options.getEffects ? this.options.getEffects(moduleName, className, name) : null;
+    var effects = this.options.getEffects ? this.options.getEffects(moduleName, className, name, !isStatic(yuiClassItem)) : null;
     // !doc
     var doc = getDescription(yuiClassItem);
     // !url
@@ -60,7 +60,7 @@
   
   Generator.prototype.getTernType = function(yuiClass, yuiDoc) {
 	var moduleName = getModuleName(yuiClass, yuiDoc), className = yuiClass["class"], name = yuiClass["name"];	
-	var overridedType = this.options.getType ? this.options.getType(moduleName, className, name) : null;
+	var overridedType = this.options.getType ? this.options.getType(moduleName, className, name, !isStatic(yuiClass)) : null;
 	if (overridedType) return overridedType;
 	return getTernType(yuiClass, yuiDoc, this.options.isSubModule);
   }
@@ -139,6 +139,10 @@
     }
     var access = yuiClassItem["access"];
     return access != 'private' && access != 'protected';
+  }
+  
+  var isStatic = function(yuiClassItem) {
+    return yuiClassItem["static"] === 1;
   }
   
   var isEventType = function(yuiClassItem) {
