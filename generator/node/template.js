@@ -96,9 +96,10 @@
 	});
     
     return {defs: defs,
-            passes: {preLoadDef: preLoadDef,
-                     postLoadDef: postLoadDef}};
-  });        
+      passes: {preLoadDef: preLoadDef,
+               postLoadDef: postLoadDef,
+               completion: findCompletions}};
+  });
     
   function preLoadDef(data) {
     var cx = infer.cx(), localDefs = cx.localDefs;
@@ -117,6 +118,91 @@
       mod.origin = origin;
       mods.props[name].propagate(mod);
     }
+  }
+  
+  function findCompletions(file, query) {
+    var wordEnd = tern.resolvePos(file, query.end);
+    var callExpr = infer.findExpressionAround(file.ast, null, wordEnd, file.scope, "CallExpression");
+    if (!callExpr) return;
+    var callNode = callExpr.node;
+    if (!callNode.callee.object || !callNode.callee.object.callee || !(callNode.callee.object.callee.name === "YUI" || callNode.callee.object.callee.name === "AUI") ||
+        callNode.callee.type != "MemberExpression" || !callNode.callee.property || callNode.callee.property.name != "use" ||
+        callNode.arguments.length < 1) return;
+    // here completion for modules YUI().use('Ctrl+Space'
+    var argNode = findNodeModule(callNode.arguments, wordEnd);
+    if (!argNode) return;
+    var word = argNode.raw.slice(1, wordEnd - argNode.start), quote = argNode.raw.charAt(0);
+    if (word && word.charAt(word.length - 1) == quote)
+      word = word.slice(0, word.length - 1);
+    var completions = completeModuleName(query, file, word);
+    if (argNode.end == wordEnd + 1 && file.text.charAt(wordEnd) == quote)
+      ++wordEnd;
+    return {
+      start: tern.outputPos(query, file, argNode.start),
+      end: tern.outputPos(query, file, wordEnd),
+      isProperty: false,
+      isObjectKey: false,
+      completions: completions.map(function(rec) {
+        var name = typeof rec == "string" ? rec : rec.name;
+        var string = JSON.stringify(name);
+        if (quote == "'") string = quote + string.slice(1, string.length -1).replace(/'/g, "\\'") + quote;
+        if (typeof rec == "string") return string;
+        rec.displayName = name;
+        rec.name = string;
+        return rec;
+      })
+    };
+  }
+  
+  function findNodeModule(argsNode, wordEnd) {
+    for (var i = 0; i < argsNode.length; i++) {
+      var argNode = argsNode[i];
+      if (argNode.type == "Literal" && typeof argNode.value == "string" &&
+          argNode.start < wordEnd && argNode.end > wordEnd) return argNode;
+    }
+  }
+  
+  function completeModuleName(query, file, word) {
+    var completions = [];
+    var cx = infer.cx(), server = cx.parent, modules = server._yui.modules;
+    var wrapAsObjs = query.types || query.depths || query.docs || query.urls || query.origins;
+
+    function maybeSet(obj, prop, val) {
+      if (val != null) obj[prop] = val;
+    }
+    
+    function gather(modules) {
+      for (var name in modules) {
+        
+        var moduleName = name;
+        if (moduleName &&
+            !(query.filter !== false && word &&
+              (query.caseInsensitive ? moduleName.toLowerCase() : moduleName).indexOf(word) !== 0)) {
+          var rec = wrapAsObjs ? {name: moduleName} : moduleName;
+          completions.push(rec);
+
+          if (query.types || query.docs || query.urls || query.origins) {
+            var val = modules[name];
+            infer.resetGuessing();
+            var type = val.getType();
+            rec.guess = infer.didGuess();
+            if (query.types)
+              rec.type = infer.toString(val);
+            if (query.docs)
+              maybeSet(rec, "doc", val.doc || type && type.doc);
+            if (query.urls)
+              maybeSet(rec, "url", val.url || type && type.url);
+            if (query.origins)
+              maybeSet(rec, "origin", val.origin || type && type.origin);
+          }
+        }
+      }
+    }
+
+    if (query.caseInsensitive) word = word.toLowerCase();
+    gather(cx.definitions["yui3"]);
+    gather(modules);
+    return completions;
   }
   
   var defs = '!def';

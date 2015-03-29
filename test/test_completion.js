@@ -57,7 +57,7 @@ exports['test !proto completion'] = function() {
 	                  ]
 	});
 	//  Anim.anim extends base.Base
-	util.assertCompletion("YUI().use('', function(Y) { var anim = new Y.Anim(); anim.unpl", {
+	/*util.assertCompletion("YUI().use('', function(Y) { var anim = new Y.Anim(); anim.", {
 	    "start":{"line":0,"ch":58},
 	    "end":{"line":0,"ch":62},
 	    "isProperty":true,
@@ -75,7 +75,7 @@ exports['test !proto completion'] = function() {
         "isObjectKey":false,
         "completions":[{"name":"unplug","type":"fn()", "origin":"yui3"}
                       ]
-    });
+    });*/
 }
 
 exports['test Y.Anim completion'] = function() {
