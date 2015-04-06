@@ -99,8 +99,10 @@
           var argNode = node.arguments[i];
           if (argNode.type == "Literal" && typeof argNode.value == "string") {
             var name = argNode.value;
+            // check the module name exists for locals (YUI3) and custom (ex : AlloyUI) modules
             if (!localModules[name] && !customModules[name]) addMessage(argNode, "Unknown module '" + name + "'", rule.severity);
           } else {
+            // the node is not a literal string, check if it's the last parameter which is a function type
             if (!(i == (node.arguments.length - 1) && argNode.type == "FunctionExpression")) addMessage(argNode, "Expected string type for YUI module", rule.severity);            
           }
         }
