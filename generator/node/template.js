@@ -21,8 +21,9 @@
     }
   }
   
-  function copyModule(module, Y) {
-    var type = module.getType();
+  function copyModule(mod, Y) {
+    var type = mod.getType();
+    if (!type) return; // Unknown module
     var yuiType = type.hasProp('A');
     var from  = yuiType ? yuiType : type;  
     from.forAllProps(function(prop, val, local) {
@@ -86,7 +87,32 @@
     }
   });
   
+  function registerLints() {
+    if (!tern.registerLint) return;
+    
+    // validate existing modules for YUI().use(' 
+    tern.registerLint("yui_use_lint", function(node, addMessage, getRule) {
+      var rule = getRule("UnknownModule");
+      if (rule && node.arguments) {
+        var cx = infer.cx(), server = cx.parent, localModules = cx.definitions.yui3, customModules = server._yui.modules;
+        for (var i = 0; i < node.arguments.length; i++) {
+          var argNode = node.arguments[i];
+          if (argNode.type == "Literal" && typeof argNode.value == "string") {
+            var name = argNode.value;
+            // check the module name exists for locals (YUI3) and custom (ex : AlloyUI) modules
+            if (!localModules[name] && !customModules[name]) addMessage(argNode, "Unknown module '" + name + "'", rule.severity);
+          } else {
+            // the node is not a literal string, check if it's the last parameter which is a function type
+            if (!(i == (node.arguments.length - 1) && argNode.type == "FunctionExpression")) addMessage(argNode, "Expected string type for YUI module", rule.severity);            
+          }
+        }
+      }      
+    });
+    
+  }
+
   tern.registerPlugin("yui3", function(server, options) {
+    registerLints();
     server._yui = {
       modules: Object.create(null)		
     };

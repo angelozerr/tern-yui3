@@ -55,7 +55,9 @@
     var doc = getDescription(yuiClassItem);
     // !url
     var url = this.options.baseURL ? getURL(this.options.baseURL, className, yuiClassItem.itemtype, name) : null;
-    createTernDefItem(ternClassItem, name, type, proto, effects, url, doc);	
+    // !data
+    var data = this.options.getData ? this.options.getData(moduleName, className, name, !isStatic(yuiClassItem)) : null;
+    createTernDefItem(ternClassItem, name, type, proto, effects, url, doc, data);	
   }
   
   Generator.prototype.getTernType = function(yuiClass, yuiDoc) {
@@ -81,7 +83,7 @@
     
     var ternClass = parent[name];
     if (!ternClass) {
-      var yuiClass = fullClassName ? yuiDoc.classes[fullClassName] : yuiDoc.classes[className], type, proto, effects, doc, url;
+      var yuiClass = fullClassName ? yuiDoc.classes[fullClassName] : yuiDoc.classes[className], type, proto, effects, doc, url, data;
       if (!yuiClass) yuiClass = yuiDoc.classes[className]
       if (yuiClass) {
         // !type
@@ -96,7 +98,7 @@
         // !url
         url = this.options.baseURL ? getURL(this.options.baseURL, className) : null;
       }
-      ternClass = createTernDefItem(parent, name, type, proto, effects, url, doc);
+      ternClass = createTernDefItem(parent, name, type, proto, effects, url, doc, data);
     }    
     return ternClass;
   }
@@ -194,12 +196,13 @@
     return ternModule;
   }
   
-  var createTernDefItem = function(parent, name, type, proto, effects, url, doc) {
+  var createTernDefItem = function(parent, name, type, proto, effects, url, doc, data) {
     var item = parent[name] = {};
     if (type) item["!type"] = type;
     if (effects) item["!effects"] = effects;
     if (url) item["!url"] = url;
     if (doc && doc != '') item["!doc"] = doc;
+    if (data) item["!data"] = data;
     if (proto) getTernClassPrototype(item)["!proto"] = proto;
     return item;
   }

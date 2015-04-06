@@ -12,6 +12,7 @@
       "initialize" : initialize,
       "getType" : getType,
       "getEffects" : getEffects,
+      "getData" : getData,
       "baseURL": "http://yuilibrary.com/yui/docs/api/"
     };
     var generator = new yuidoc2tern.Generator(options);
@@ -28,7 +29,10 @@
         "prototype": {
           "use": {
             "!type": "fn(modules: string, callback?: fn(Y: ?)) -> !this",
-            "!effects": ["custom yui_use"]
+            "!effects": ["custom yui_use"],
+            "!data": {
+              "!lint": "yui_use_lint"  
+            }
           }
         }        
       }
@@ -52,6 +56,11 @@
   var getEffects = function(moduleName, className, methodName, isProtoType) {
     var base = getBase(moduleName, className, methodName, isProtoType);
     if (base) return base["!effects"];
+  }
+  
+  var getData = function(moduleName, className, methodName, isProtoType) {
+    var base = getBase(moduleName, className, methodName, isProtoType);
+    if (base) return base["!data"];
   }
   
   var getBase = function(moduleName, className, methodName, isProtoType) {

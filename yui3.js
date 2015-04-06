@@ -21,8 +21,9 @@
     }
   }
   
-  function copyModule(module, Y) {
-    var type = module.getType();
+  function copyModule(mod, Y) {
+    var type = mod.getType();
+    if (!type) return; // Unknown module
     var yuiType = type.hasProp('A');
     var from  = yuiType ? yuiType : type;  
     from.forAllProps(function(prop, val, local) {
@@ -86,7 +87,30 @@
     }
   });
   
+  function registerLints() {
+    if (!tern.registerLint) return;
+    
+    // validate existing modules for YUI().use(' 
+    tern.registerLint("yui_use_lint", function(node, addMessage, getRule) {
+      var rule = getRule("UnknownModule");
+      if (rule && node.arguments) {
+        var cx = infer.cx(), server = cx.parent, localModules = cx.definitions.yui3, customModules = server._yui.modules;
+        for (var i = 0; i < node.arguments.length; i++) {
+          var argNode = node.arguments[i];
+          if (argNode.type == "Literal" && typeof argNode.value == "string") {
+            var name = argNode.value;
+            if (!localModules[name] && !customModules[name]) addMessage(argNode, "Unknown module '" + name + "'", rule.severity);
+          } else {
+            if (!(i == (node.arguments.length - 1) && argNode.type == "FunctionExpression")) addMessage(argNode, "Expected string type for YUI module", rule.severity);            
+          }
+        }
+      }      
+    });
+    
+  }
+
   tern.registerPlugin("yui3", function(server, options) {
+    registerLints();
     server._yui = {
       modules: Object.create(null)		
     };
@@ -6244,7 +6268,10 @@
        "custom yui_use"
       ],
       "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html#method_use",
-      "!doc": "Attaches one or more modules to this YUI instance. When this is executed,\nthe requirements of the desired modules are analyzed, and one of several\nthings can happen:\n\n\n  * All required modules have already been loaded, and just need to be\n    attached to this YUI instance. In this case, the `use()` callback will\n    be executed synchronously after the modules are attached.\n\n  * One or more modules have not yet been loaded, or the Get utility is not\n    available, or the `bootstrap` config option is `false`. In this case,\n    a warning is issued indicating that modules are missing, but all\n    available modules will still be attached and the `use()` callback will\n    be executed synchronously.\n\n  * One or more modules are missing and the Loader is not available but the\n    Get utility is, and `bootstrap` is not `false`. In this case, the Get\n    utility will be used to load the Loader, and we will then proceed to\n    the following state:\n\n  * One or more modules are missing and the Loader is available. In this\n    case, the Loader will be used to resolve the dependency tree for the\n    missing modules and load them and their dependencies. When the Loader is\n    finished loading modules, the `use()` callback will be executed\n    asynchronously."
+      "!doc": "Attaches one or more modules to this YUI instance. When this is executed,\nthe requirements of the desired modules are analyzed, and one of several\nthings can happen:\n\n\n  * All required modules have already been loaded, and just need to be\n    attached to this YUI instance. In this case, the `use()` callback will\n    be executed synchronously after the modules are attached.\n\n  * One or more modules have not yet been loaded, or the Get utility is not\n    available, or the `bootstrap` config option is `false`. In this case,\n    a warning is issued indicating that modules are missing, but all\n    available modules will still be attached and the `use()` callback will\n    be executed synchronously.\n\n  * One or more modules are missing and the Loader is not available but the\n    Get utility is, and `bootstrap` is not `false`. In this case, the Get\n    utility will be used to load the Loader, and we will then proceed to\n    the following state:\n\n  * One or more modules are missing and the Loader is available. In this\n    case, the Loader will be used to resolve the dependency tree for the\n    missing modules and load them and their dependencies. When the Loader is\n    finished loading modules, the `use()` callback will be executed\n    asynchronously.",
+      "!data": {
+       "!lint": "yui_use_lint"
+      }
      },
      "require": {
       "!type": "fn(modules?: string, callback: fn())",
