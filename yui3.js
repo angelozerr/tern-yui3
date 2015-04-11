@@ -136,12 +136,12 @@
   }        
 	  
   function postLoadDef(data) {
-    var cx = infer.cx(), mods = cx.definitions[data["!name"]]["_yui"];
+    var cx = infer.cx(), defName = data["!name"], mods = cx.definitions[defName]["_yui"];
     var data = cx.parent._yui;
     if (mods) for (var name in mods.props) {
       var origin = name.replace(/`/g, ".");
       var mod = getModule(data, origin);
-      mod.origin = origin;
+      mod.origin = defName;
       mods.props[name].propagate(mod);
     }
   }
