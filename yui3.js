@@ -38,10 +38,7 @@
   function injectModules(Y, name) {
     var cx = infer.cx(), server = cx.parent, data = server._yui;
     if (name == '*') {
-      // inject local YUI modules
-      var defs = cx.definitions["yui3"];
-      copyModules(defs, Y);
-      // inject contributed modules (like AUI)
+      // inject local (YUI3) and contributed (AlloyUI) YUI modules
       copyModules(data.modules, Y);      
     } else {
         var module = findModule(data, name);
@@ -94,13 +91,13 @@
     tern.registerLint("yui_use_lint", function(node, addMessage, getRule) {
       var rule = getRule("UnknownModule");
       if (rule && node.arguments) {
-        var cx = infer.cx(), server = cx.parent, localModules = cx.definitions.yui3, customModules = server._yui.modules;
+        var cx = infer.cx(), server = cx.parent, mods = server._yui.modules;
         for (var i = 0; i < node.arguments.length; i++) {
           var argNode = node.arguments[i];
           if (argNode.type == "Literal" && typeof argNode.value == "string") {
             var name = argNode.value;
             // check the module name exists for locals (YUI3) and custom (ex : AlloyUI) modules
-            if (!localModules[name] && !customModules[name]) addMessage(argNode, "Unknown module '" + name + "'", rule.severity);
+            if (!mods[name]) addMessage(argNode, "Unknown module '" + name + "'", rule.severity);
           } else {
             // the node is not a literal string, check if it's the last parameter which is a function type
             if (!(i == (node.arguments.length - 1) && argNode.type == "FunctionExpression")) addMessage(argNode, "Expected string type for YUI module", rule.severity);            
@@ -136,13 +133,14 @@
   }        
 	  
   function postLoadDef(data) {
-    var cx = infer.cx(), defName = data["!name"], mods = cx.definitions[defName]["_yui"];
-    var data = cx.parent._yui;
-    if (mods) for (var name in mods.props) {
-      var origin = name.replace(/`/g, ".");
-      var mod = getModule(data, origin);
-      mod.origin = defName;
-      mods.props[name].propagate(mod);
+    var cx = infer.cx(), defName = data["!name"], mods = null;
+    if (defName == "yui3") mods = cx.definitions[defName];
+    else if (cx.definitions[defName]["_yui"]) mods = cx.definitions[defName]["_yui"].props;
+    var _yui = cx.parent._yui;
+    if (mods) for (var name in mods) {
+      var mod = mods[name], name = (mod.metaData && mod.metaData.module) ? mod.metaData.module : name, modToPropagate = getModule(_yui, name);
+      modToPropagate.origin = defName;      
+      mod.propagate(modToPropagate);
     }
   }
   
@@ -226,7 +224,6 @@
     }
 
     if (query.caseInsensitive) word = word.toLowerCase();
-    gather(cx.definitions["yui3"]);
     gather(modules);
     return completions;
   }
@@ -4795,6 +4792,9 @@
    }
   },
   "async_queue": {
+   "!data": {
+    "module": "async-queue"
+   },
    "AsyncQueue": {
     "!type": "fn(callback: fn())",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/AsyncQueue.html",
@@ -5382,6 +5382,9 @@
    }
   },
   "button_core": {
+   "!data": {
+    "module": "button-core"
+   },
    "ButtonCore": {
     "!type": "fn(config: +config.ButtonCoreConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ButtonCore.html",
@@ -5434,6 +5437,9 @@
    }
   },
   "button_group": {
+   "!data": {
+    "module": "button-group"
+   },
    "ButtonGroup": {
     "!type": "fn(config: +config.ButtonGroupConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ButtonGroup.html",
@@ -5478,6 +5484,9 @@
    }
   },
   "button_plugin": {
+   "!data": {
+    "module": "button-plugin"
+   },
    "Plugin": {
     "Button": {
      "!type": "fn(config: +config.Plugin.ButtonConfig)",
@@ -7205,6 +7214,9 @@
    }
   },
   "console_filters": {
+   "!data": {
+    "module": "console-filters"
+   },
    "Plugin": {
     "ConsoleFilters": {
      "!type": "fn()",
@@ -8275,6 +8287,9 @@
    }
   },
   "datatable_formatters": {
+   "!data": {
+    "module": "datatable-formatters"
+   },
    "DataTable": {
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.html",
@@ -8362,6 +8377,9 @@
    }
   },
   "datatype_date": {
+   "!data": {
+    "module": "datatype-date"
+   },
    "Date": {
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Date.html",
@@ -9890,6 +9908,9 @@
    }
   },
   "event_custom": {
+   "!data": {
+    "module": "event-custom"
+   },
    "CustomEvent": {
     "!type": "fn(type: string, defaults: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/CustomEvent.html",
@@ -10708,6 +10729,9 @@
    }
   },
   "event_valuechange": {
+   "!data": {
+    "module": "event-valuechange"
+   },
    "ValueChange": {
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/ValueChange.html",
@@ -10724,6 +10748,9 @@
    }
   },
   "file_flash": {
+   "!data": {
+    "module": "file-flash"
+   },
    "FileFlash": {
     "!type": "fn(config: +config.FileFlashConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/FileFlash.html",
@@ -10743,6 +10770,9 @@
    }
   },
   "file_html5": {
+   "!data": {
+    "module": "file-html5"
+   },
    "FileHTML5": {
     "!type": "fn(config: +config.FileHTML5Config)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/FileHTML5.html",
@@ -10772,6 +10802,9 @@
    }
   },
   "get_nodejs": {
+   "!data": {
+    "module": "get-nodejs"
+   },
    "GetNodeJS": {
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/GetNodeJS.html",
@@ -13555,6 +13588,9 @@
    }
   },
   "node_flick": {
+   "!data": {
+    "module": "node-flick"
+   },
    "Plugin": {
     "Flick": {
      "!type": "fn(config: +config.Plugin.FlickConfig)",
@@ -13610,6 +13646,9 @@
    }
   },
   "node_focusmanager": {
+   "!data": {
+    "module": "node-focusmanager"
+   },
    "plugin": {
     "NodeFocusManager": {
      "!type": "fn()",
@@ -13645,6 +13684,9 @@
    }
   },
   "node_menunav": {
+   "!data": {
+    "module": "node-menunav"
+   },
    "plugin": {
     "NodeMenuNav": {
      "!type": "fn()",
@@ -13665,6 +13707,9 @@
    }
   },
   "node_scroll_info": {
+   "!data": {
+    "module": "node-scroll-info"
+   },
    "Plugin": {
     "ScrollInfo": {
      "!type": "fn()",
@@ -13701,6 +13746,9 @@
    }
   },
   "align_plugin": {
+   "!data": {
+    "module": "align-plugin"
+   },
    "Plugin": {
     "Align": {
      "!type": "fn(User: +yui.Object)",
@@ -14578,6 +14626,9 @@
    }
   },
   "shim_plugin": {
+   "!data": {
+    "module": "shim-plugin"
+   },
    "Plugin": {
     "Shim": {
      "!type": "fn(User: +yui.Object)",
@@ -14608,6 +14659,9 @@
    }
   },
   "datatype_number": {
+   "!data": {
+    "module": "datatype-number"
+   },
    "Number": {
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Number.html",
@@ -14844,6 +14898,9 @@
    }
   },
   "pluginhost_base": {
+   "!data": {
+    "module": "pluginhost-base"
+   },
    "Plugin": {
     "Host": {
      "!type": "fn()",
@@ -14984,6 +15041,9 @@
    }
   },
   "queue_promote": {
+   "!data": {
+    "module": "queue-promote"
+   },
    "Record": {
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Record.html",
@@ -15275,6 +15335,9 @@
    }
   },
   "scrollview_list": {
+   "!data": {
+    "module": "scrollview-list"
+   },
    "Plugin": {
     "ScrollViewList": {
      "!type": "fn()",
@@ -15306,6 +15369,9 @@
    }
   },
   "scrollview_paginator": {
+   "!data": {
+    "module": "scrollview-paginator"
+   },
    "Plugin": {
     "ScrollViewPaginator": {
      "!type": "fn()",
@@ -15835,6 +15901,9 @@
    }
   },
   "test_console": {
+   "!data": {
+    "module": "test-console"
+   },
    "Test": {
     "Console": {
      "!type": "fn()",
@@ -17069,6 +17138,9 @@
    }
   },
   "uploader_html5": {
+   "!data": {
+    "module": "uploader-html5"
+   },
    "UploaderHTML5": {
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/UploaderHTML5.html",
@@ -17118,6 +17190,9 @@
    }
   },
   "uploader_queue": {
+   "!data": {
+    "module": "uploader-queue"
+   },
    "Uploader": {
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Uploader.html",
@@ -17207,6 +17282,9 @@
    }
   },
   "widget_anim": {
+   "!data": {
+    "module": "widget-anim"
+   },
    "Plugin": {
     "WidgetAnim": {
      "!type": "fn()",
@@ -17248,6 +17326,9 @@
    }
   },
   "widget_autohide": {
+   "!data": {
+    "module": "widget-autohide"
+   },
    "WidgetAutohide": {
     "!type": "fn(config: +config.WidgetAutohideConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetAutohide.html",
@@ -17259,6 +17340,9 @@
    }
   },
   "widget_buttons": {
+   "!data": {
+    "module": "widget-buttons"
+   },
    "WidgetButtons": {
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetButtons.html",
@@ -17307,6 +17391,9 @@
    }
   },
   "widget_child": {
+   "!data": {
+    "module": "widget-child"
+   },
    "WidgetChild": {
     "!type": "fn(config: +config.WidgetChildConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetChild.html",
@@ -17464,6 +17551,9 @@
    }
   },
   "widget_modality": {
+   "!data": {
+    "module": "widget-modality"
+   },
    "WidgetModality": {
     "!type": "fn(config: +config.WidgetModalityConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetModality.html",
@@ -17547,6 +17637,9 @@
    }
   },
   "widget_parent": {
+   "!data": {
+    "module": "widget-parent"
+   },
    "WidgetParent": {
     "!type": "fn(config: +config.WidgetParentConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetParent.html",
@@ -17590,6 +17683,9 @@
    }
   },
   "widget_position_align": {
+   "!data": {
+    "module": "widget-position-align"
+   },
    "WidgetPositionAlign": {
     "!type": "fn(config: +config.WidgetPositionAlignConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetPositionAlign.html",
@@ -17653,6 +17749,9 @@
    }
   },
   "widget_position_constrain": {
+   "!data": {
+    "module": "widget-position-constrain"
+   },
    "WidgetPositionConstrain": {
     "!type": "fn(User: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetPositionConstrain.html",
@@ -17676,6 +17775,9 @@
    }
   },
   "widget_position": {
+   "!data": {
+    "module": "widget-position"
+   },
    "WidgetPosition": {
     "!type": "fn(config: +config.WidgetPositionConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetPosition.html",
@@ -17704,6 +17806,9 @@
    }
   },
   "widget_stack": {
+   "!data": {
+    "module": "widget-stack"
+   },
    "WidgetStack": {
     "!type": "fn(User: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetStack.html",
@@ -17742,6 +17847,9 @@
    }
   },
   "widget_stdmod": {
+   "!data": {
+    "module": "widget-stdmod"
+   },
    "WidgetStdMod": {
     "!type": "fn(The: +yui.Object)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/WidgetStdMod.html",
@@ -17815,6 +17923,9 @@
    }
   },
   "datatype_xml": {
+   "!data": {
+    "module": "datatype-xml"
+   },
    "XML": {
     "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/XML.html",

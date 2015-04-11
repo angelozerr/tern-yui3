@@ -38,10 +38,7 @@
   function injectModules(Y, name) {
     var cx = infer.cx(), server = cx.parent, data = server._yui;
     if (name == '*') {
-      // inject local YUI modules
-      var defs = cx.definitions["yui3"];
-      copyModules(defs, Y);
-      // inject contributed modules (like AUI)
+      // inject local (YUI3) and contributed (AlloyUI) YUI modules
       copyModules(data.modules, Y);      
     } else {
         var module = findModule(data, name);
@@ -94,13 +91,13 @@
     tern.registerLint("yui_use_lint", function(node, addMessage, getRule) {
       var rule = getRule("UnknownModule");
       if (rule && node.arguments) {
-        var cx = infer.cx(), server = cx.parent, localModules = cx.definitions.yui3, customModules = server._yui.modules;
+        var cx = infer.cx(), server = cx.parent, mods = server._yui.modules;
         for (var i = 0; i < node.arguments.length; i++) {
           var argNode = node.arguments[i];
           if (argNode.type == "Literal" && typeof argNode.value == "string") {
             var name = argNode.value;
             // check the module name exists for locals (YUI3) and custom (ex : AlloyUI) modules
-            if (!localModules[name] && !customModules[name]) addMessage(argNode, "Unknown module '" + name + "'", rule.severity);
+            if (!mods[name]) addMessage(argNode, "Unknown module '" + name + "'", rule.severity);
           } else {
             // the node is not a literal string, check if it's the last parameter which is a function type
             if (!(i == (node.arguments.length - 1) && argNode.type == "FunctionExpression")) addMessage(argNode, "Expected string type for YUI module", rule.severity);            
@@ -136,13 +133,14 @@
   }        
 	  
   function postLoadDef(data) {
-    var cx = infer.cx(), defName = data["!name"], mods = cx.definitions[defName]["_yui"];
-    var data = cx.parent._yui;
-    if (mods) for (var name in mods.props) {
-      var origin = name.replace(/`/g, ".");
-      var mod = getModule(data, origin);
-      mod.origin = defName;
-      mods.props[name].propagate(mod);
+    var cx = infer.cx(), defName = data["!name"], mods = null;
+    if (defName == "yui3") mods = cx.definitions[defName];
+    else if (cx.definitions[defName]["_yui"]) mods = cx.definitions[defName]["_yui"].props;
+    var _yui = cx.parent._yui;
+    if (mods) for (var name in mods) {
+      var mod = mods[name], name = (mod.metaData && mod.metaData.module) ? mod.metaData.module : name, modToPropagate = getModule(_yui, name);
+      modToPropagate.origin = defName;      
+      mod.propagate(modToPropagate);
     }
   }
   
@@ -226,7 +224,6 @@
     }
 
     if (query.caseInsensitive) word = word.toLowerCase();
-    gather(cx.definitions["yui3"]);
     gather(modules);
     return completions;
   }

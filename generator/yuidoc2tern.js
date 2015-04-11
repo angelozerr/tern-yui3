@@ -29,7 +29,7 @@
     	if (isEventType(yuiClassItem)) {
     		// TODO : add event inside !data
     	} else {
-          var moduleName = getModuleName(yuiClassItem, yuiDoc), className = yuiClassItem["class"], attributeType = isAttributeType(yuiClassItem), 
+          var moduleName = getModuleName(yuiClassItem, yuiDoc, true), className = yuiClassItem["class"], attributeType = isAttributeType(yuiClassItem), 
               isStaticMethod = (isStatic(yuiClassItem) || attributeType);
     	  if (moduleName) {
     	    var ternModule = getTernModule(moduleName, ternDef, this.options.isSubModule);
@@ -192,7 +192,7 @@
     }    
     var ternModule = parent[name];
     if (!ternModule) ternModule = parent[name]= {};
-    // TODO : add !data to set the real module name + submodules
+    if (name != moduleName) ternModule["!data"] = {module: moduleName};
     return ternModule;
   }
   
@@ -339,11 +339,11 @@
     }    
   }
 
-  var getModuleName = function(yuiClassItem, yuiDoc) {
+  var getModuleName = function(yuiClassItem, yuiDoc, dontReplace) {
     var className = yuiClassItem["class"];
     var yuiClass = yuiDoc.classes[className];
     var moduleName = yuiClass ? yuiClass["module"] : yuiClassItem["module"];
-    return moduleName.replace(/-/g, '_');
+    return dontReplace ? moduleName : moduleName.replace(/-/g, '_');
   }
   
   var getClassName = function(className, yuiDoc, isSubModule) {
