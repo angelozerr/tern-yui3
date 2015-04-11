@@ -138,7 +138,7 @@
     else if (cx.definitions[defName]["_yui"]) mods = cx.definitions[defName]["_yui"].props;
     var _yui = cx.parent._yui;
     if (mods) for (var name in mods) {
-      var mod = mods[name], name = (mod.metaData && mod.metaData.module) ? mod.metaData.module : name, modToPropagate = getModule(_yui, name);
+      var mod = mods[name], name = (mod.getType() && mod.getType().metaData && mod.getType().metaData.module) ? mod.getType().metaData.module : name, modToPropagate = getModule(_yui, name);
       modToPropagate.origin = defName;      
       mod.propagate(modToPropagate);
     }
