@@ -221,16 +221,15 @@
           completions.push(rec);
 
           if (query.types || query.docs || query.urls || query.origins) {
-            var val = modules[name];
-            infer.resetGuessing();            
+            var val = modules[name];          
             if (query.types)
               rec.type = isSubModule ? "submodule" : "module";
             if (query.docs)
-              maybeSet(rec, "doc", val.doc || type && type.doc);
+              maybeSet(rec, "doc", val.doc);
             if (query.urls)
-              maybeSet(rec, "url", val.url || type && type.url);
+              maybeSet(rec, "url", val.url);
             if (query.origins)
-              maybeSet(rec, "origin", val.origin || type && type.origin);
+              maybeSet(rec, "origin", val.origin);
           }
         }
       }
