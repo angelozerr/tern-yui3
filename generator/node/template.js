@@ -210,7 +210,7 @@
       if (val != null) obj[prop] = val;
     }
     
-    function gather(modules) {
+    function gather(modules, isSubModule) {
       for (var name in modules) {
         
         var moduleName = name;
@@ -222,11 +222,9 @@
 
           if (query.types || query.docs || query.urls || query.origins) {
             var val = modules[name];
-            infer.resetGuessing();
-            var type = val.getType();
-            rec.guess = infer.didGuess();
+            infer.resetGuessing();            
             if (query.types)
-              rec.type = infer.toString(val);
+              rec.type = isSubModule ? "submodule" : "module";
             if (query.docs)
               maybeSet(rec, "doc", val.doc || type && type.doc);
             if (query.urls)
