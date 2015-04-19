@@ -13,7 +13,12 @@ exports['test YUI module validation'] = function() {
   });
   
   // known module
-  util.assertLint("YUI().use('node', function(Y) {});", {
+  util.assertLint("YUI().use('anim', function(Y) {});", {
+          messages : []
+  });
+  
+  // known submodule
+  util.assertLint("YUI().use('anim-color', function(Y) {});", {
           messages : []
   });
   
