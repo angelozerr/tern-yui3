@@ -237,8 +237,8 @@
     }
 
     if (query.caseInsensitive) word = word.toLowerCase();
-    gather(modules);
-    gather(submodules);
+    gather(modules, false);
+    gather(submodules, true);
     return completions;
   }
   

@@ -9,15 +9,15 @@ exports['test YUI Module Completion'] = function() {
 	    "isProperty":false,
 	    "isObjectKey":false,
 	    "completions":[{"name":"'anim'","type":"module","origin":"yui3","displayName":"anim"},
-	                   {"name":"'anim-color'","type":"module","origin":"yui3","displayName":"anim-color"},
-	                   {"name":"'anim-curve'","type":"module","origin":"yui3","displayName":"anim-curve"},
-	                   {"name":"'anim-easing'","type":"module","origin":"yui3","displayName":"anim-easing"},
-	                   {"name":"'anim-node-plugin'","type":"module","origin":"yui3","displayName":"anim-node-plugin"},
-	                   {"name":"'anim-scroll'","type":"module","origin":"yui3","displayName":"anim-scroll"},
-	                   {"name":"'anim-shape-transform'","type":"module","origin":"yui3","displayName":"anim-shape-transform"},
-	                   {"name":"'anim-shape'","type":"module","origin":"yui3","displayName":"anim-shape"},
-	                   {"name":"'anim-xy'","type":"module","origin":"yui3","displayName":"anim-xy"},
-	                   {"name":"'anim-base'","type":"module","origin":"yui3","displayName":"anim-base"}]
+	                   {"name":"'anim-color'","type":"submodule","origin":"yui3","displayName":"anim-color"},
+	                   {"name":"'anim-curve'","type":"submodule","origin":"yui3","displayName":"anim-curve"},
+	                   {"name":"'anim-easing'","type":"submodule","origin":"yui3","displayName":"anim-easing"},
+	                   {"name":"'anim-node-plugin'","type":"submodule","origin":"yui3","displayName":"anim-node-plugin"},
+	                   {"name":"'anim-scroll'","type":"submodule","origin":"yui3","displayName":"anim-scroll"},
+	                   {"name":"'anim-shape-transform'","type":"submodule","origin":"yui3","displayName":"anim-shape-transform"},
+	                   {"name":"'anim-shape'","type":"submodule","origin":"yui3","displayName":"anim-shape"},
+	                   {"name":"'anim-xy'","type":"submodule","origin":"yui3","displayName":"anim-xy"},
+	                   {"name":"'anim-base'","type":"submodule","origin":"yui3","displayName":"anim-base"}]
 	}, null, 1);
 	
 	// Test completion with '-' inside module name like async-queue 
