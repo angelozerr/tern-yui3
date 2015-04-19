@@ -32,7 +32,7 @@
           var moduleName = getModuleName(yuiClassItem, yuiDoc, true), className = yuiClassItem["class"], attributeType = isAttributeType(yuiClassItem), 
               isStaticMethod = (isStatic(yuiClassItem) || attributeType);
     	  if (moduleName) {
-    	    var ternModule = getTernModule(moduleName, ternDef, this.options.isSubModule);
+    	    var ternModule = getTernModule(moduleName, ternDef, this.options.isSubModule, yuiDoc);
     	    var ternClass = attributeType ? this.getTernClassConfig(className, ternDef["!define"], yuiDoc) : 
     	                                    this.getTernClass(className, ternModule, yuiDoc);
             var ternClassItem = ternClass;
@@ -56,7 +56,12 @@
     // !url
     var url = this.options.baseURL ? getURL(this.options.baseURL, className, yuiClassItem.itemtype, name) : null;
     // !data
+    var submodule = yuiClassItem["submodule"];
     var data = this.options.getData ? this.options.getData(moduleName, className, name, !isStatic(yuiClassItem)) : null;
+    if (submodule) {
+      if (!data) data = {};
+      data["submodule"] = submodule;
+    }
     createTernDefItem(ternClassItem, name, type, proto, effects, url, doc, data);	
   }
   
@@ -181,7 +186,11 @@
     return url;
   }
   
-  var getTernModule = function(moduleName, ternDef, isSubModule) {
+  function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+  }
+  
+  var getTernModule = function(moduleName, ternDef, isSubModule, yuiDoc) {
     // YUI module uses '-' in their name, and tern cannot support that, replace '-' with '_'
     var name = moduleName.replace(/-/g, '_');
     var parent = ternDef["!define"];
@@ -191,8 +200,23 @@
     	parent = sub;
     }    
     var ternModule = parent[name];
-    if (!ternModule) ternModule = parent[name]= {};
-    if (name != moduleName) ternModule["!data"] = {module: moduleName};
+    if (!ternModule) {
+      // create module
+      ternModule = parent[name]= {};
+      var data = {}, mods = yuiDoc.modules, mod = mods ? mods[moduleName] : null;      
+      if (name != moduleName ) data["module"] =  moduleName;
+      if (mod && mod.submodules) {
+        var submodules = {};
+        for(var submodule in mod.submodules) {
+          submodules[submodule] = {};
+        }
+        if (!isEmpty(submodules)) {
+          if (!data) data = {};
+          data["submodules"] = submodules;
+        }
+      }
+      if (!isEmpty(data)) ternModule["!data"] = data;
+    }
     return ternModule;
   }
   

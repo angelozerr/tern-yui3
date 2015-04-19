@@ -11,6 +11,10 @@
     return data.modules[name] || (data.modules[name] = new infer.AVal);
   }
   
+  function getSubModule(data, name) {   
+    return data.submodules[name] || (data.submodules[name] = new infer.AVal);
+  }
+  
   function findModule(data, name) {   
     return data.modules[name];
   }
@@ -111,11 +115,13 @@
   tern.registerPlugin("yui3", function(server, options) {
     registerLints();
     server._yui = {
-      modules: Object.create(null)		
+      modules: Object.create(null),
+      submodules: Object.create(null)
     };
     
     server.on("reset", function() {
-	  this._yui.modules = Object.create(null);      
+	  this._yui.modules = Object.create(null);
+	  this._yui.submodules = Object.create(null); 
 	});
     
     return {defs: defs,
@@ -138,9 +144,18 @@
     else if (cx.definitions[defName]["_yui"]) mods = cx.definitions[defName]["_yui"].props;
     var _yui = cx.parent._yui;
     if (mods) for (var name in mods) {
+      // add module type
       var mod = mods[name], name = (mod.getType() && mod.getType().metaData && mod.getType().metaData.module) ? mod.getType().metaData.module : name, modToPropagate = getModule(_yui, name);
       modToPropagate.origin = defName;      
       mod.propagate(modToPropagate);
+      // update submodules
+      var submodules = (mod.getType() && mod.getType().metaData && mod.getType().metaData.submodules) ? mod.getType().metaData.submodules : null;
+      if (submodules) {
+        for(var subname in submodules) {
+          var submodule = getSubModule(_yui, subname);
+          submodule.origin = defName;
+        }
+      }
     }
   }
   
@@ -188,7 +203,7 @@
   
   function completeModuleName(query, file, word) {
     var completions = [];
-    var cx = infer.cx(), server = cx.parent, modules = server._yui.modules;
+    var cx = infer.cx(), server = cx.parent, modules = server._yui.modules, submodules = server._yui.submodules;
     var wrapAsObjs = query.types || query.depths || query.docs || query.urls || query.origins;
 
     function maybeSet(obj, prop, val) {
@@ -225,6 +240,7 @@
 
     if (query.caseInsensitive) word = word.toLowerCase();
     gather(modules);
+    gather(submodules);
     return completions;
   }
   
