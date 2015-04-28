@@ -25,23 +25,31 @@
     // Iterate over all class items
     for ( var i = 0; i < yuiDoc.classitems.length; i++) {
       var yuiClassItem = yuiDoc.classitems[i];
-      if (isAccess(yuiClassItem, this.options.isSubModule)) {
+      if (!this.isIgnoreClassItem(yuiClassItem) && isAccess(yuiClassItem, this.options.isSubModule)) {
     	if (isEventType(yuiClassItem)) {
     		// TODO : add event inside !data
     	} else {
           var moduleName = getModuleName(yuiClassItem, yuiDoc, true), className = yuiClassItem["class"], attributeType = isAttributeType(yuiClassItem), 
               isStaticMethod = (isStatic(yuiClassItem) || attributeType);
+          // case of DataTable.BodyView.Formatters which is a Class and object property
+          var isObjectAndClassBoth = (yuiClassItem["type"] == "Object") && yuiClassItem["itemtype"] == "property" && yuiDoc.classes[className + "."  + yuiClassItem["name"]];
+          if (isObjectAndClassBoth) className = className + "."  + yuiClassItem["name"];
     	  if (moduleName) {
     	    var ternModule = getTernModule(moduleName, ternDef, this.options.isSubModule, yuiDoc);
     	    var ternClass = attributeType ? this.getTernClassConfig(className, ternDef["!define"], yuiDoc) : 
-    	                                    this.getTernClass(className, ternModule, yuiDoc);
-            var ternClassItem = ternClass;
-        	if (!isStaticMethod) ternClassItem = getTernClassPrototype(ternClass, moduleName, className);
-        	this.visitClassItem(yuiClassItem, yuiDoc, ternClassItem);    	    
+    	                                    this.getTernClass(className, ternModule, moduleName.replace(/-/g, '_'), yuiDoc);
+    	    if (!isObjectAndClassBoth) {
+              var ternClassItem = isStaticMethod ? ternClass : getTernClassPrototype(ternClass);
+              this.visitClassItem(yuiClassItem, yuiDoc, ternClassItem);
+            }	    
     	  }
     	}
       }
     }
+  }
+  
+  Generator.prototype.isIgnoreClassItem = function(yuiClassItem) {    
+    return this.options.isIgnoreClassItem ? this.options.isIgnoreClassItem(yuiClassItem) : false;
   }
   
   Generator.prototype.visitClassItem = function(yuiClassItem, yuiDoc, ternClassItem) {
@@ -72,7 +80,7 @@
 	return getTernType(yuiClass, yuiDoc, this.options.isSubModule);
   }
   
-  Generator.prototype.getTernClass = function(className, parent, yuiDoc, fullClassName) {
+  Generator.prototype.getTernClass = function(className, parent, moduleName, yuiDoc, fullClassName) {
 	// get name
     var name = className;
     if (className.indexOf('.') != -1) {
@@ -81,7 +89,7 @@
       for (var i = 0; i < length; i++) {
         if (i > 0) locFullClassName+=".";
         locFullClassName+=names[i];
-        parent = this.getTernClass(names[i], parent, yuiDoc, locFullClassName);
+        parent = this.getTernClass(names[i], parent, moduleName, yuiDoc, locFullClassName);
       }
       name = names[length];
     }
@@ -102,10 +110,37 @@
           //  ternClass["!doc"] = yuiClass.description;
         // !url
         url = this.options.baseURL ? getURL(this.options.baseURL, className) : null;
+        var uses = yuiClass["uses"], forClass = this.getForClass(className, moduleName, yuiDoc), augments = [], exts = [];
+        if (uses) {
+          for (var i = 0; i < uses.length; i++) {
+            var useClassName = uses[i], useFullClassName = getClassName(useClassName, yuiDoc, this.options.isSubModule);
+            if (useFullClassName && useFullClassName != forClass) {
+              if (isExtensionFor(useClassName, className, yuiDoc)) {
+                exts.push(useFullClassName);
+              } else {
+                augments.push(useFullClassName);
+              }
+            }
+          }                    
+        } 
+        if (augments.length > 0 || exts.length > 0 || forClass) {
+          data = {};
+          if (augments.length > 0) data["augments"] = augments;
+          if (exts.length > 0) data["extends"] = exts;
+          if (forClass) data["for"] = forClass;
+        }
       }
       ternClass = createTernDefItem(parent, name, type, proto, effects, url, doc, data);
     }    
     return ternClass;
+  }
+  
+  Generator.prototype.getForClass = function(className, moduleName, yuiDoc) {
+    var forCLass = this.options.getForClass ? this.options.getForClass(className) : null;
+    if (forCLass) return forCLass;
+    var yuiClass = yuiDoc.classes[className];
+    var forClassModuleName = yuiClass ? yuiClass["module"] && yuiClass["module"].replace(/-/g, '_') : null;
+    if (forClassModuleName && forClassModuleName != moduleName) return forClassModuleName + "." + className;
   }
   
   Generator.prototype.getTernClassConfig = function(className, parent, yuiDoc) {
@@ -120,9 +155,7 @@
     var yuiClass = yuiDoc.classes[className];
     if (yuiClass) {
       var yuiExtends = yuiClass["extends"];
-      if (yuiExtends) {
-        ternClass["!proto"] = getConfigType(yuiExtends);
-      }
+      if (yuiExtends) ternClass["!proto"] = getConfigType(yuiExtends);      
       /*var proto = this.getProto(yuiClass, yuiDoc);
       if (proto) {
         ternClass["!proto"] = getConfigType(proto);
@@ -131,12 +164,9 @@
     return ternClass;
   }
     
-  var getTernClassPrototype = function(ternClass, moduleName, className) {
+  var getTernClassPrototype = function(ternClass) {
     var ternPrototype = ternClass["prototype"];
-    if (!ternPrototype) {
-      ternPrototype = {};
-      ternClass["prototype"] = ternPrototype;
-    }    
+    if (!ternPrototype) ternClass["prototype"] = ternPrototype = {};
     return ternPrototype;
   }  
   
@@ -160,6 +190,16 @@
   var isAttributeType = function(yuiClassItem) {
     var itemtype = yuiClassItem["itemtype"];
     return itemtype === 'attribute';  
+  }
+  
+  var isExtensionFor = function(useClassName, className, yuiDoc) {
+    var clazz = yuiDoc.classes[useClassName], extension_for = clazz ? clazz.extension_for : null;
+    if (extension_for) {
+      for (var i = 0; i < extension_for.length; i++) {
+        if (extension_for[i] == className) return true;
+      }
+    }
+    return false;
   }
   
   var getDescription = function(yuiClassItem) {
@@ -364,9 +404,9 @@
   }
 
   var getModuleName = function(yuiClassItem, yuiDoc, dontReplace) {
-    var className = yuiClassItem["class"];
-    var yuiClass = yuiDoc.classes[className];
-    var moduleName = yuiClass ? yuiClass["module"] : yuiClassItem["module"];
+    //var className = yuiClassItem["class"];
+    //var yuiClass = yuiDoc.classes[className];
+    var moduleName = /*yuiClass ? yuiClass["module"] :*/ yuiClassItem["module"];
     return dontReplace ? moduleName : moduleName.replace(/-/g, '_');
   }
   

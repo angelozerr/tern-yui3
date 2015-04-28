@@ -7,8 +7,15 @@
 })(function(infer, tern) {
     "use strict";
     
-  function getModule(data, name) {   
-    return data.modules[name] || (data.modules[name] = new infer.AVal);
+  function emptyObj(ctor) {
+    var empty = Object.create(ctor.prototype);
+    empty.props = Object.create(null);
+    //empty.isShell = true;
+    return empty;
+  }
+  
+  function getModule(data, name) {
+    return data.modules[name] || (data.modules[name] = emptyObj(infer.Obj));
   }
   
   function getSubModule(data, name) {   
@@ -21,15 +28,13 @@
   
   function copyModules(modules, Y) {
     for (var name in modules) {
-      if (name != "config") copyModule(modules[name], Y);	  
+      copyModule(modules[name], Y);	  
     }
   }
   
   function copyModule(mod, Y) {
-    var type = mod.getType();
-    if (!type) return; // Unknown module
-    var yuiType = type.hasProp('A');
-    var from  = yuiType ? yuiType : type;  
+    var from = mod.getType();
+    if (!from) return; // Unknown module
     from.forAllProps(function(prop, val, local) {
       if (local && prop != "<i>") {
         var t = new infer.PropHasSubset(prop, val);
@@ -137,26 +142,85 @@
       cx.localDefs["yui3"] = cx.definitions["yui3"];
     }
   }        
-	  
+	
+  function findClassByPath(paths, props, props2) {
+    var clazz = null;
+    for (var i = 0; i < paths.length; i++) {
+      var path = paths[i];
+      clazz = props[path] ? props[path] : props2[path];
+      if (clazz) props = clazz.getType().props; else break;     
+    }
+    return clazz;
+  }
+  
   function postLoadDef(data) {
     var cx = infer.cx(), defName = data["!name"], mods = null;
     if (defName == "yui3") mods = cx.definitions[defName];
     else if (cx.definitions[defName]["_yui"]) mods = cx.definitions[defName]["_yui"].props;
     var _yui = cx.parent._yui;
     if (mods) for (var name in mods) {
-      // add module type
-      var mod = mods[name], name = (mod.getType() && mod.getType().metaData && mod.getType().metaData.module) ? mod.getType().metaData.module : name, modToPropagate = getModule(_yui, name);
-      modToPropagate.origin = defName;      
-      mod.propagate(modToPropagate);
-      // update submodules
-      var submodules = (mod.getType() && mod.getType().metaData && mod.getType().metaData.submodules) ? mod.getType().metaData.submodules : null;
-      if (submodules) {
-        for(var subname in submodules) {
+      
+      // loop for YUI modules
+      var mod = mods[name].getType()
+      if (mod && mod.name != 'config') {      
+        var name = (mod.metaData && mod.metaData.module) ? mod.metaData.module : name, 
+            submodules = (mod.metaData && mod.metaData.submodules) ? mod.metaData.submodules : null, 
+            modToPropagate = getModule(_yui, name);
+        if (!modToPropagate.origin) modToPropagate.origin = defName;
+        
+        // for AlloyUI, module is declared inside A
+        var a = mod.hasProp("A");
+        if (a) mod = a.getType();
+        
+        // Loop for YUI classes of the current module
+        for(var className in mod.props) {
+          var clazz = mod.props[className].getType(), metaData = clazz.metaData, 
+              forClass = (metaData && metaData["for"]), augments = (metaData && metaData["augments"]), exts = (metaData && metaData["extends"]);
+          if (!forClass) {
+            var t = new infer.PropHasSubset(className, clazz);
+            t.origin = clazz.origin;
+            modToPropagate.propagate(t);                       
+          } else {
+            var classToUpdate = findClassByPath(forClass.split("."), mods, _yui.modules);
+            if (classToUpdate) mix(clazz, classToUpdate.getType());
+          }
+          if (augments) mixall(augments, clazz, mods,  _yui.modules, true);
+          if (exts) mixall(exts, clazz, mods,  _yui.modules, false);
+        }
+        
+        // update submodules
+        if (submodules) for(var subname in submodules) {
           var submodule = getSubModule(_yui, subname);
           submodule.origin = defName;
         }
       }
     }
+  }
+  
+  function mixall(froms, to, mods, mods2, augments) {
+    // update classes with extends or augments
+    for (var i = 0; i < froms.length; i++) {
+      var useClass = findClassByPath(froms[i].split("."), mods, mods2);
+      if (useClass) {
+        if (!augments) mix(useClass.getType(), to); else mix(to, useClass.getType());
+      }
+    }    
+  }
+  
+  function mix(from, to) {
+    from.forAllProps(function(prop, val, local) {
+      if (local && prop != "<i>") {
+        if (prop == "prototype") {          
+          var fromProto = val.getType();
+          var toProto = to.hasProp("prototype") && to.hasProp("prototype").getType() ? to.hasProp("prototype").getType() : null;
+          if (toProto) mix(fromProto, toProto);          
+        } else {
+          var t = new infer.PropHasSubset(prop, val);
+          t.origin = from.origin;
+          to.propagate(t);  
+        }
+      }
+    });
   }
   
   function findCompletions(file, query) {
