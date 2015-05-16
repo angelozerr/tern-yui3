@@ -6,4 +6,4 @@
 
 ## Demo
 
-You can play with [online demo](http://demo-angelozerr.rhcloud.com/CodeMirror-Java/yui3.html) or see demo with CodeMirror (inside Web Browser) [demos/liferay.html](https://github.com/angelozerr/tern-yui3/blob/master/demos/yui.html) :
+You can play with [online demo](http://demo-angelozerr.rhcloud.com/CodeMirror-Java/yui3.html) or see demo with CodeMirror (inside Web Browser) [demos/yui3.html](https://github.com/angelozerr/tern-yui3/blob/master/demos/yui3.html) :
