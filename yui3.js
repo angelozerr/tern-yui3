@@ -8470,7 +8470,6 @@
     }
    },
    "Array": {
-    "!type": "fn(thing: ?, startIndex?: number, force?: bool) -> +yui.Array",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Array.html",
     "!data": {
      "for": "yui.Array"
@@ -9990,7 +9989,6 @@
       }
      },
      "Formatters": {
-      "!type": "fn()",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.BodyView.Formatters.html",
       "!data": {
        "for": "datatable_formatters.DataTable.BodyView.Formatters"
@@ -10267,7 +10265,6 @@
      }
     },
     "Paginator": {
-     "!type": "fn()",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Paginator.html",
      "!data": {
       "for": "paginator.Paginator"
@@ -10487,7 +10484,6 @@
     "module": "datatable-formatters"
    },
    "DataTable": {
-    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.html",
     "!data": {
      "for": "datatable.DataTable"
@@ -10562,7 +10558,6 @@
      }
     },
     "Column": {
-     "!type": "fn()",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.Column.html",
      "!data": {
       "for": "datatable.DataTable.Column"
@@ -10612,7 +10607,6 @@
     "module": "datatable-scroll"
    },
    "DataTable": {
-    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/DataTable.html",
     "!data": {
      "for": "datatable.DataTable"
@@ -11675,7 +11669,6 @@
   },
   "dump": {
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -13605,7 +13598,6 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -13734,7 +13726,6 @@
     "module": "event-simulate"
    },
    "Event": {
-    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Event.html",
     "!data": {
      "for": "event.Event"
@@ -13931,7 +13922,6 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -14316,7 +14306,6 @@
     "module": "gesture-simulate"
    },
    "Event": {
-    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Event.html",
     "!data": {
      "for": "event.Event"
@@ -16161,7 +16150,6 @@
     }
    },
    "Handlebars": {
-    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Handlebars.html",
     "!data": {
      "for": "handlebars.Handlebars"
@@ -16526,7 +16514,6 @@
     }
    },
    "config": {
-    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/config.html",
     "!data": {
      "for": "yui.config"
@@ -16586,7 +16573,6 @@
   },
   "intl": {
    "Intl": {
-    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Intl.html",
     "!data": {
      "extends": [
@@ -16784,7 +16770,6 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -16810,7 +16795,6 @@
     }
    },
    "JSON": {
-    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/JSON.html",
     "!data": {
      "for": "json.JSON"
@@ -16848,7 +16832,6 @@
     "module": "io-nodejs"
    },
    "IO": {
-    "!type": "fn(config: +config.IOConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/IO.html",
     "!data": {
      "for": "io.IO"
@@ -16932,7 +16915,6 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -16955,7 +16937,6 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -19165,7 +19146,6 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -19259,7 +19239,6 @@
   },
   "oop": {
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -19637,7 +19616,6 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -19733,7 +19711,6 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -19801,7 +19778,6 @@
     "module": "queue-promote"
    },
    "Queue": {
-    "!type": "fn(item: +MIXED)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Queue.html",
     "!data": {
      "for": "yui.Queue"
@@ -21760,7 +21736,6 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -21856,7 +21831,6 @@
   },
   "timers": {
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -21880,7 +21854,6 @@
     }
    },
    "Node": {
-    "!type": "fn(node: +HTMLElement)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html",
     "!data": {
      "extends": [
@@ -21897,7 +21870,6 @@
     }
    },
    "NodeList": {
-    "!type": "fn(nodes: string)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/NodeList.html",
     "!data": {
      "for": "node.NodeList"
@@ -22014,7 +21986,6 @@
      }
     },
     "Node": {
-     "!type": "fn(tree: +tree.Tree, config?: +config.Tree.NodeConfig)",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/Node.html",
      "!data": {
       "for": "node.Node"
@@ -22480,7 +22451,6 @@
     "module": "uploader-queue"
    },
    "Uploader": {
-    "!type": "fn()",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Uploader.html",
     "!data": {
      "for": "uploader.Uploader"
@@ -22695,7 +22665,6 @@
     }
    },
    "Widget": {
-    "!type": "fn(config: +config.WidgetConfig)",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/Widget.html",
     "!data": {
      "for": "widget.Widget"
@@ -23384,7 +23353,7 @@
     }
    },
    "YUI": {
-    "!type": "fn(config?: +config.YUIConfig)",
+    "!type": "fn(config?: +yui.config) -> +yui.YUI",
     "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html",
     "!data": {
      "extends": [
@@ -23566,7 +23535,7 @@
      }
     },
     "GlobalConfig": {
-     "!type": "+yui.Object",
+     "!type": "+yui.config",
      "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html#property_GlobalConfig",
      "!doc": "Master configuration that might span multiple contexts in a non-\nbrowser environment. It is applied first to all instances in all\ncontexts.",
      "!data": {
@@ -24594,7 +24563,7 @@
    }
   }
  },
- "YUI": "fn(config?: +yui.config) -> +yui.YUI"
+ "YUI": "yui.YUI"
 };
     
 })

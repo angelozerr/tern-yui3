@@ -20,12 +20,13 @@
   }
   
   var initialize = function(ternDef) {
-    ternDef["YUI"] = "fn(config?: +yui.config) -> +yui.YUI";
+    ternDef["YUI"] = "yui.YUI";
   }
   
   var overrideDef = {
     "yui": {
       "YUI": {
+        "!type": "fn(config?: +yui.config) -> +yui.YUI",
         "prototype": {
           "use": {
             "!type": "fn(modules: string, callback?: fn(Y: ?)) -> !this",
@@ -34,7 +35,10 @@
               "!lint": "yui_use_lint"  
             }
           }
-        }        
+        },
+        "GlobalConfig": {
+          "!type": "+yui.config"
+        }
       }
     },
     "node": {
@@ -67,6 +71,7 @@
     var mod = overrideDef[moduleName];
     if (!mod) return null;
     var base = className ? mod[className]: mod;
+    if (!methodName) return base;
     if (base) {
       if (isProtoType) base = base["prototype"]; 
       return base ? base[methodName] : null;

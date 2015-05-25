@@ -74,7 +74,7 @@
   }
   
   Generator.prototype.getTernType = function(yuiClass, yuiDoc) {
-	var moduleName = getModuleName(yuiClass, yuiDoc), className = yuiClass["class"], name = yuiClass["name"];	
+	var moduleName = getModuleName(yuiClass, yuiDoc), className = yuiClass["class"] ? yuiClass["class"] : yuiClass["name"], name = yuiClass["class"] ? yuiClass["name"] : null;	
 	var overridedType = this.options.getType ? this.options.getType(moduleName, className, name, !isStatic(yuiClass)) : null;
 	if (overridedType) return overridedType;
 	return getTernType(yuiClass, yuiDoc, this.options.isSubModule);
@@ -98,9 +98,7 @@
     if (!ternClass) {
       var yuiClass = fullClassName ? yuiDoc.classes[fullClassName] : yuiDoc.classes[className], type, proto, effects, doc, url, data;
       if (!yuiClass) yuiClass = yuiDoc.classes[className]
-      if (yuiClass) {
-        // !type
-        type = this.getTernType(yuiClass, yuiDoc);      
+      if (yuiClass) {      
         // !proto
         proto = this.getProto(yuiClass, yuiDoc, true);
         effects = null;
@@ -111,6 +109,10 @@
         // !url
         url = this.options.baseURL ? getURL(this.options.baseURL, className) : null;
         var uses = yuiClass["uses"], forClass = this.getForClass(className, moduleName, yuiDoc), augments = [], exts = [];
+        if (!forClass) {
+          // !type
+          type = this.getTernType(yuiClass, yuiDoc);
+        }
         if (uses) {
           for (var i = 0; i < uses.length; i++) {
             var useClassName = uses[i], useFullClassName = getClassName(useClassName, yuiDoc, this.options.isSubModule);
