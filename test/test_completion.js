@@ -6,7 +6,7 @@ exports['test YUI completion'] = function() {
 	    "end":{"line":0,"ch":1},
 	    "isProperty":false,
 	    "isObjectKey":false,
-	    "completions":[{"name":"YUI","type":"fn() -> yui.YUI",
+	    "completions":[{"name":"YUI","type":"fn(config?: yui.config) -> yui.YUI",
 	    "origin":"yui3"}]
 	});
 }

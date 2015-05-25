@@ -20,7 +20,7 @@
   }
   
   var initialize = function(ternDef) {
-    ternDef["YUI"] = "fn() -> +yui.YUI";
+    ternDef["YUI"] = "fn(config?: +yui.config) -> +yui.YUI";
   }
   
   var overrideDef = {

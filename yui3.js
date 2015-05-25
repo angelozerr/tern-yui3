@@ -24594,7 +24594,7 @@
    }
   }
  },
- "YUI": "fn() -> +yui.YUI"
+ "YUI": "fn(config?: +yui.config) -> +yui.YUI"
 };
     
 })
