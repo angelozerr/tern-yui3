@@ -23425,14 +23425,6 @@
        "submodule": "yui-log"
       }
      },
-     "YUI_config": {
-      "!type": "+yui.Object",
-      "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html#property_YUI_config",
-      "!doc": "Page-level config applied to all YUI instances created on the\ncurrent page. This is applied after `YUI.GlobalConfig` and before\nany instance-level configuration.",
-      "!data": {
-       "submodule": "yui-base"
-      }
-     },
      "applyConfig": {
       "!type": "fn(o: +yui.config)",
       "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html#method_applyConfig",
@@ -24563,7 +24555,15 @@
    }
   }
  },
- "YUI": "yui.YUI"
+ "YUI": "yui.YUI",
+ "YUI_config": {
+  "!type": "+yui.config",
+  "!url": "http://yuilibrary.com/yui/docs/api/classes/YUI.html#property_YUI_config",
+  "!doc": "Page-level config applied to all YUI instances created on the\ncurrent page. This is applied after `YUI.GlobalConfig` and before\nany instance-level configuration.",
+  "!data": {
+   "submodule": "yui-base"
+  }
+ }
 };
     
 })

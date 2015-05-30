@@ -36,8 +36,13 @@
           if (isObjectAndClassBoth) className = className + "."  + yuiClassItem["name"];
     	  if (moduleName) {
     	    var ternModule = getTernModule(moduleName, ternDef, this.options.isSubModule, yuiDoc);
-    	    var ternClass = attributeType ? this.getTernClassConfig(className, ternDef["!define"], yuiDoc) : 
-    	                                    this.getTernClass(className, ternModule, moduleName.replace(/-/g, '_'), yuiDoc);
+    	    var ternClass = null;
+    	    if (isGlobal(yuiClassItem)) {
+    	      ternClass = ternDef;
+    	    } else {
+    	      ternClass = attributeType ? this.getTernClassConfig(className, ternDef["!define"], yuiDoc) :
+    	        this.getTernClass(className, ternModule, moduleName.replace(/-/g, '_'), yuiDoc);
+    	    }    	                                    
     	    if (!isObjectAndClassBoth) {
               var ternClassItem = isStaticMethod ? ternClass : getTernClassPrototype(ternClass);
               this.visitClassItem(yuiClassItem, yuiDoc, ternClassItem);
@@ -46,6 +51,10 @@
     	}
       }
     }
+  }
+  
+  function isGlobal(yuiClassItem) {
+    return yuiClassItem.name == "YUI_config";
   }
   
   Generator.prototype.isIgnoreClassItem = function(yuiClassItem) {    
@@ -181,7 +190,7 @@
   }
   
   var isStatic = function(yuiClassItem) {
-    return yuiClassItem["static"] === 1;
+    return yuiClassItem["static"] === 1 || "YUI_config" == yuiClassItem.name;
   }
   
   var isEventType = function(yuiClassItem) {

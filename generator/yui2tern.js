@@ -44,6 +44,9 @@
         },
         "GlobalConfig": {
           "!type": "+yui.config"
+        },
+        "YUI_config": {
+          "!type": "+yui.config"
         }
       }
     },
