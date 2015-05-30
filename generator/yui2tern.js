@@ -34,7 +34,13 @@
             "!data": {
               "!lint": "yui_use_lint"  
             }
+          },
+          "applyConfig": {
+            "!type": "fn(o: +yui.config)",          
           }
+        },
+        "applyConfig": {
+          "!type": "fn(o: +yui.config)",          
         },
         "GlobalConfig": {
           "!type": "+yui.config"
