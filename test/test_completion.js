@@ -29,7 +29,7 @@ exports['test Y.one completion'] = function() {
 	    "end":{"line":0,"ch":33},
 	    "isProperty":true,
 	    "isObjectKey":false,
-	    "completions":[{"name":"one","type":"fn(node: string) -> node.Node",
+	    "completions":[{"name":"one","type":"fn(node: string|Element) -> node.Node",
 	    "origin":"yui3"}]
 	});
 }
@@ -41,7 +41,7 @@ exports['test Y.one completion with 2 modules (issue 12)'] = function() {
       "end":{"line":0,"ch":45},
       "isProperty":true,
       "isObjectKey":false,
-      "completions":[{"name":"one","type":"fn(node: string) -> node.Node",
+      "completions":[{"name":"one","type":"fn(node: string|Element) -> node.Node",
       "origin":"yui3"}]
   });
 }

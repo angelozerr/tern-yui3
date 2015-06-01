@@ -295,23 +295,41 @@
   
   var extractYUIType = exports.extractYUIType= function(yuiType) {
     if (!yuiType) return null;
+    //yuiType = yuiType.trim();
     var index = -1;
-    
-    // ex : {ArrayList|Widget} or {Any}
+       
     if (startsWith(yuiType, '{')) {
       index = yuiType.indexOf('}');
       yuiType = yuiType.substring(1, index != -1 ? index : yuiType.length);
-      yuiType = yuiType.trim();
-    }    
-    // ex : Node|String
-    yuiType = getFirstPart(yuiType, '|');    
-    // ex : Node/NodeList
-    yuiType = getFirstPart(yuiType, '/');
-    // ex : {string: boolean}
-    yuiType = getFirstPart(yuiType, ':');
-    // ex : Object*
-    yuiType = yuiType.replace(/[*]/g, '');
-    return yuiType != 'null' ? yuiType : null;
+    }
+    
+    var yuiTypes = null;
+    if (yuiType.indexOf("/") != -1) {
+      yuiTypes = yuiType.split("/");
+    } else {
+      yuiTypes = yuiType.split("|");
+    }
+    var filterYuiTypes = [];
+    for (var i = 0; i < yuiTypes.length; i++) {
+      var t = yuiTypes[i].trim();
+   // ex : {ArrayList|Widget} or {Any}
+      if (startsWith(t, '{')) {
+        index = t.indexOf('}');
+        t = t.substring(1, index != -1 ? index : t.length);
+      }
+      // ex : Node|String
+      //yuiType = getFirstPart(yuiType, '|');    
+      // ex : Node/NodeList
+      //yuiType = getFirstPart(yuiType, '/');
+      // ex : {string: boolean}
+      t = getFirstPart(t, ':');
+      // ex : Object*
+      t = t.replace(/[*]/g, '');
+      t = t.trim();
+      
+      if (t != "null") filterYuiTypes.push(t);
+    }
+    return filterYuiTypes;
   }
   
   var getTernType = exports.getTernType = function(yuiClass, yuiDoc, isSubModule) {
@@ -385,8 +403,24 @@
   }
   
   var getPropertyTernType = exports.getPropertyTernType = function(yuiType, props, yuiDoc, isSubModule) {
-    var type = extractYUIType(yuiType);
-    if (!type) return "?";
+    if (!yuiType) return "?";
+    var types = "", yuiTypes = extractYUIType(yuiType);
+    if (yuiTypes) {      
+      for (var i = 0; i < yuiTypes.length; i++) {
+        var type = toTernType(yuiTypes[i], props, yuiDoc, isSubModule);
+        if (type) {
+         if (startsWith(type, "fn(")) return type;
+         if (types.length > 0) types+= "|";
+         types+= type;
+        }
+      }
+    }
+    return types.length > 0 ? types : "?";
+  }
+  
+  function toTernType(type, props, yuiDoc, isSubModule) {
+//    var type = extractYUIType(yuiType);
+//    if (!type) return null;
 
     // is array?
     var isArray = false, index = type.indexOf('[');
@@ -400,18 +434,22 @@
       return getFunctionTernType(null, props, null, false, false, yuiDoc, isSubModule);
     case 'any':
       return '?';
+    case 'null':
+      return null;
     case 'string':
       return formatType('string', isArray);
     case 'number':
     case 'int': 
     case 'num':
-    case 'float':    	
+    case 'float':       
       return formatType('number', isArray);
     case 'boolean':
+    case 'false':
+    case 'true':      
       return formatType('bool', isArray);
     default:
       return formatType(getClassName(type, yuiDoc, isSubModule), isArray, true);
-    }    
+    }
   }
 
   var getModuleName = function(yuiClassItem, yuiDoc, dontReplace) {
