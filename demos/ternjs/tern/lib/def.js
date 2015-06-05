@@ -381,7 +381,12 @@
       delete base.isShell;
       var tp = spec["!type"];
       if (tp) {
+        try {
         parseType(tp, path, base);
+        }
+        catch(e) {
+          console.error(e)
+        }
       } else {
         var proto = spec["!proto"] && parseType(spec["!proto"]);
         infer.Obj.call(base, proto instanceof infer.Obj ? proto : true, path);

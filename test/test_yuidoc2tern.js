@@ -107,8 +107,22 @@ exports['test getTernType - YUIClassItem - method with callback'] = function() {
       type: "Number[]"	
     }
   };
-  var type = yuidoc2tern.getTernType(yuiClassItem, yuiDoc);
-  assert.equal(type, 'fn(content: +HTMLElement|+Node|string, options?: +yui.Object, callback?: fn(view: +app.View)) -> !this');
+  var ternDef = {"!define": {}};
+  var type = yuidoc2tern.getTernType(yuiClassItem, yuiDoc, false, ternDef);
+  assert.equal(type, 'fn(content: +HTMLElement|+Node|string, options?: +config.param0Config, callback?: fn(view: +app.View)) -> !this');
+  assert.equal(JSON.stringify(ternDef, null, " "), JSON.stringify({
+   "!define": {
+    "config": {
+     "param0Config": {
+      "view": {
+       "!type": "+Object|string"
+      },
+      "config": {
+       "!type": "+Object"
+      }
+     }
+    }}
+   }, null, " "));
 }
 
 exports['test toTernName'] = function() {

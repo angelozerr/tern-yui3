@@ -22,7 +22,7 @@ exports['test app.App'] = function() {
   var Content = App["Content"]
   assert.notEqual(Content, null, 'cannot find App.Content');
   // Test with callback of showContent
-  assert.equal(Content["prototype"]["showContent"]["!type"], "fn(content: +HTMLElement|+node.Node|string, options?: +yui.Object, callback?: fn(view: +app.View)) -> !this");
+  assert.equal(Content["prototype"]["showContent"]["!type"], "fn(content: +HTMLElement|+node.Node|string, options?: +config.param0Config, callback?: fn(view: +app.View)) -> !this");
 }
 
 exports['test test.EventTarget'] = function() {

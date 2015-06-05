@@ -56,7 +56,7 @@ exports['test !proto completion'] = function() {
 	    "completions":[{"name":"parseType","type":"fn(type: string, pre?: string) -> yui.Array","origin":"yui3"},
 	                   {"name":"pause","type":"fn()", "origin":"yui3"},
 	                   {"name":"propertyIsEnumerable","type":"fn(prop: string) -> bool", "origin":"ecma5"},
-	                   {"name":"publish","type":"fn(type: string, opts: yui.Object) -> event_custom.CustomEvent", "origin":"yui3"}
+	                   {"name":"publish","type":"fn(type: string, opts: {}) -> event_custom.CustomEvent", "origin":"yui3"}
 	                  ]
 	});
 	//  Anim.anim extends base.Base

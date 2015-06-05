@@ -40,12 +40,12 @@
     	    if (isGlobal(yuiClassItem)) {
     	      ternClass = ternDef;
     	    } else {
-    	      ternClass = attributeType ? this.getTernClassConfig(className, ternDef["!define"], yuiDoc) :
-    	        this.getTernClass(className, ternModule, moduleName.replace(/-/g, '_'), yuiDoc);
+    	      ternClass = attributeType ? getTernClassConfig(className, ternDef["!define"], yuiDoc) :
+    	        this.getTernClass(className, ternModule, moduleName.replace(/-/g, '_'), yuiDoc, null, ternDef);
     	    }    	                                    
     	    if (!isObjectAndClassBoth) {
               var ternClassItem = isStaticMethod ? ternClass : getTernClassPrototype(ternClass);
-              this.visitClassItem(yuiClassItem, yuiDoc, ternClassItem);
+              this.visitClassItem(yuiClassItem, yuiDoc, ternClassItem, ternDef);
             }	    
     	  }
     	}
@@ -61,10 +61,10 @@
     return this.options.isIgnoreClassItem ? this.options.isIgnoreClassItem(yuiClassItem) : false;
   }
   
-  Generator.prototype.visitClassItem = function(yuiClassItem, yuiDoc, ternClassItem) {
+  Generator.prototype.visitClassItem = function(yuiClassItem, yuiDoc, ternClassItem, ternDef) {
 	var moduleName = getModuleName(yuiClassItem, yuiDoc), className = yuiClassItem["class"], name = yuiClassItem["name"];	
     // !type
-	var type = this.getTernType(yuiClassItem, yuiDoc); 
+	var type = this.getTernType(yuiClassItem, yuiDoc, ternDef); 
     // !proto
     var proto = null;
     var effects = this.options.getEffects ? this.options.getEffects(moduleName, className, name, !isStatic(yuiClassItem)) : null;
@@ -82,14 +82,14 @@
     createTernDefItem(ternClassItem, name, type, proto, effects, url, doc, data);	
   }
   
-  Generator.prototype.getTernType = function(yuiClass, yuiDoc) {
+  Generator.prototype.getTernType = function(yuiClass, yuiDoc, ternDef) {
 	var moduleName = getModuleName(yuiClass, yuiDoc), className = yuiClass["class"] ? yuiClass["class"] : yuiClass["name"], name = yuiClass["class"] ? yuiClass["name"] : null;	
 	var overridedType = this.options.getType ? this.options.getType(moduleName, className, name, !isStatic(yuiClass)) : null;
 	if (overridedType) return overridedType;
-	return getTernType(yuiClass, yuiDoc, this.options.isSubModule);
+	return getTernType(yuiClass, yuiDoc, this.options.isSubModule, ternDef);
   }
   
-  Generator.prototype.getTernClass = function(className, parent, moduleName, yuiDoc, fullClassName) {
+  Generator.prototype.getTernClass = function(className, parent, moduleName, yuiDoc, fullClassName, ternDef) {
 	// get name
     var name = className;
     if (className.indexOf('.') != -1) {
@@ -98,7 +98,7 @@
       for (var i = 0; i < length; i++) {
         if (i > 0) locFullClassName+=".";
         locFullClassName+=names[i];
-        parent = this.getTernClass(names[i], parent, moduleName, yuiDoc, locFullClassName);
+        parent = this.getTernClass(names[i], parent, moduleName, yuiDoc, locFullClassName, ternDef);
       }
       name = names[length];
     }
@@ -120,7 +120,7 @@
         var uses = yuiClass["uses"], forClass = this.getForClass(className, moduleName, yuiDoc), augments = [], exts = [];
         if (!forClass) {
           // !type
-          type = this.getTernType(yuiClass, yuiDoc);
+          type = this.getTernType(yuiClass, yuiDoc, ternDef);
         }
         if (uses) {
           for (var i = 0; i < uses.length; i++) {
@@ -154,7 +154,7 @@
     if (forClassModuleName && forClassModuleName != moduleName) return forClassModuleName + "." + className;
   }
   
-  Generator.prototype.getTernClassConfig = function(className, parent, yuiDoc) {
+  var getTernClassConfig = function(className, parent, yuiDoc) {
     var names = getConfigType(className).split(".");
     var ternClass = parent;
     for (var i = 0; i < names.length; i++) {
@@ -312,15 +312,11 @@
     var filterYuiTypes = [];
     for (var i = 0; i < yuiTypes.length; i++) {
       var t = yuiTypes[i].trim();
-   // ex : {ArrayList|Widget} or {Any}
+      // ex : {ArrayList|Widget} or {Any}
       if (startsWith(t, '{')) {
         index = t.indexOf('}');
         t = t.substring(1, index != -1 ? index : t.length);
       }
-      // ex : Node|String
-      //yuiType = getFirstPart(yuiType, '|');    
-      // ex : Node/NodeList
-      //yuiType = getFirstPart(yuiType, '/');
       // ex : {string: boolean}
       t = getFirstPart(t, ':');
       // ex : Object*
@@ -332,7 +328,7 @@
     return filterYuiTypes;
   }
   
-  var getTernType = exports.getTernType = function(yuiClass, yuiDoc, isSubModule) {
+  var getTernType = exports.getTernType = function(yuiClass, yuiDoc, isSubModule, ternDef) {
 	var itemtype = yuiClass["itemtype"];
 	if (itemtype == 'config' && yuiClass.params) {
 		// case for EventTarget which has params and itemtype=config (and type=Boolean)
@@ -341,25 +337,25 @@
 	}
     switch(itemtype) {
       case 'method':
-    	var className = yuiClass.name, params = yuiClass.params, returnValue = yuiClass["return"], isChainable = yuiClass["chainable"] === 1, isConstructor = yuiClass["is_constructor"] === 1;
-        return getFunctionTernType(className, params, returnValue, isChainable, isConstructor, yuiDoc, isSubModule);
+    	var methodName = yuiClass.name, params = yuiClass.params, returnValue = yuiClass["return"], isChainable = yuiClass["chainable"] === 1, isConstructor = yuiClass["is_constructor"] === 1;
+        return getFunctionTernType(methodName, params, returnValue, isChainable, isConstructor, yuiDoc, isSubModule, ternDef);
       break;
       case 'property':
       case 'attribute':  
     	var yuiType = yuiClass.type;
-    	return getPropertyTernType(yuiType, null, yuiDoc);
+    	return getPropertyTernType(yuiType, null, yuiDoc, ternDef);
       case 'event':
         break;
       case 'config':
     	var yuiType = yuiClass.type;
-      	return getPropertyTernType(yuiType, null, yuiDoc);
+      	return getPropertyTernType(yuiType, null, yuiDoc, ternDef);
       default:
       	var className = yuiClass.name, params = yuiClass.params, returnValue = yuiClass["return"], isChainable = yuiClass["chainable"] === 1, isConstructor = yuiClass["is_constructor"] === 1;
-        return getFunctionTernType(className, params, returnValue, isChainable, isConstructor, yuiDoc, isSubModule);
+        return getFunctionTernType(className, params, returnValue, isChainable, isConstructor, yuiDoc, isSubModule, ternDef);
     }	  
   }
   
-  var getFunctionTernType = function(className, params, returnValue, isChainable, isConstructor, yuiDoc, isSubModule) {
+  var getFunctionTernType = function(className, params, returnValue, isChainable, isConstructor, yuiDoc, isSubModule, ternDef) {
     var type = 'fn(';
     if (params) {
       for ( var i = 0; i < params.length; i++) {
@@ -371,11 +367,35 @@
           type += '?';
         type += ': ';
         if (param.type) {
-          if (param.name == 'config' && param.type == 'Object') {
-            // case for config Object Literal (filled with attribute itemtype)
-            type += "+" + getConfigType(className);
+          if (param.type == 'Object') {
+            if (param.name == 'config') {
+              // case for config Object Literal (filled with attribute itemtype)
+              type += "+" + getConfigType(className);
+            } else {
+              if (param.props  && param.props.length > 0) {
+                // param Object with properties
+                var index = 0, paramObjName = getConfigType("param" + index), paramObjClass = null;
+                while(true) {
+                  paramObjClass = getTernClassConfig("param" + index, ternDef["!define"], yuiDoc);
+                  if (isEmpty(paramObjClass)) {
+                    for (var j = 0; j < param.props.length; j++) {
+                      var prop = param.props[j], paramObjItem = paramObjClass[prop.name] = {}, paramDoc = getDescription(prop), 
+                      paramType = getPropertyTernType(prop.type, null, yuiDoc, ternDef);
+                      if (paramType) paramObjItem["!type"] = paramType;
+                      if (paramDoc) paramObjItem["!doc"] = paramDoc;
+                    }
+                    break;
+                  }
+                  index++;
+                  paramObjName = getConfigType("param" + index);
+                }                
+                type += "+" + paramObjName;
+              } else {
+                type += "?";
+              }
+            }
           } else {
-            type += getPropertyTernType(param.type, param.props, yuiDoc, isSubModule); 
+            type += getPropertyTernType(param.type, param.props, yuiDoc, isSubModule, ternDef); 
           }
         } else {
             type += '?';	
@@ -392,7 +412,7 @@
     }*/
      else if (returnValue) {
       type += ' -> ';
-      type += getPropertyTernType(returnValue.type, returnValue.props, yuiDoc);
+      type += getPropertyTernType(returnValue.type, returnValue.props, yuiDoc, ternDef);
     }
     return type;	  
   }
@@ -402,14 +422,17 @@
     return "config." + className + "Config";  
   }
   
-  var getPropertyTernType = exports.getPropertyTernType = function(yuiType, props, yuiDoc, isSubModule) {
+  var getPropertyTernType = exports.getPropertyTernType = function(yuiType, props, yuiDoc, isSubModule, ternDef) {
     if (!yuiType) return "?";
     var types = "", yuiTypes = extractYUIType(yuiType);
     if (yuiTypes) {      
       for (var i = 0; i < yuiTypes.length; i++) {
-        var type = toTernType(yuiTypes[i], props, yuiDoc, isSubModule);
+        var type = toTernType(yuiTypes[i], props, yuiDoc, isSubModule, ternDef);
         if (type) {
-         if (startsWith(type, "fn(")) return type;
+         if (startsWith(type, "fn(")) {
+           if (i == 0) return type;
+           continue;
+         }
          if (types.length > 0) types+= "|";
          types+= type;
         }
@@ -418,7 +441,7 @@
     return types.length > 0 ? types : "?";
   }
   
-  function toTernType(type, props, yuiDoc, isSubModule) {
+  function toTernType(type, props, yuiDoc, isSubModule, ternDef) {
 //    var type = extractYUIType(yuiType);
 //    if (!type) return null;
 
@@ -431,9 +454,11 @@
     type = type.trim();
     switch (type.toLowerCase()) {
     case 'function':
-      return getFunctionTernType(null, props, null, false, false, yuiDoc, isSubModule);
-    case 'any':
+      return getFunctionTernType(null, props, null, false, false, yuiDoc, isSubModule, ternDef);
+    case 'any':    
       return '?';
+    case 'object':      
+      return formatType('Object', isArray, true);      
     case 'null':
       return null;
     case 'string':
