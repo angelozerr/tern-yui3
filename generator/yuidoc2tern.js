@@ -323,7 +323,7 @@
       t = t.replace(/[*]/g, '');
       t = t.trim();
       
-      if (t != "null") filterYuiTypes.push(t);
+      if (t.length > 0 && t != "null" && t != "undefined") filterYuiTypes.push(t);
     }
     return filterYuiTypes;
   }
@@ -337,8 +337,9 @@
 	}
     switch(itemtype) {
       case 'method':
-    	var methodName = yuiClass.name, params = yuiClass.params, returnValue = yuiClass["return"], isChainable = yuiClass["chainable"] === 1, isConstructor = yuiClass["is_constructor"] === 1;
-        return getFunctionTernType(methodName, params, returnValue, isChainable, isConstructor, yuiDoc, isSubModule, ternDef);
+    	var className = yuiClass["class"], methodName = yuiClass.name, params = yuiClass.params, returnValue = yuiClass["return"], isChainable = yuiClass["chainable"] === 1, isConstructor = yuiClass["is_constructor"] === 1;
+    	var name = className + methodName.substring(0, 1).toUpperCase() + methodName.substring(1, methodName.length);
+        return getFunctionTernType(name, params, returnValue, isChainable, isConstructor, yuiDoc, isSubModule, ternDef);
       break;
       case 'property':
       case 'attribute':  
@@ -368,31 +369,35 @@
         type += ': ';
         if (param.type) {
           if (param.type == 'Object') {
-            if (param.name == 'config') {
-              // case for config Object Literal (filled with attribute itemtype)
-              type += "+" + getConfigType(className);
-            } else {
-              if (param.props  && param.props.length > 0) {
-                // param Object with properties
-                var index = 0, paramObjName = getConfigType("param" + index), paramObjClass = null;
+            if (param.props  && param.props.length > 0) {
+              // param Object with properties
+              var paramObjClass = null;
+              if (className == null) {
+                var index = 0, paramObjName = getConfigType("param" + index);
                 while(true) {
                   paramObjClass = getTernClassConfig("param" + index, ternDef["!define"], yuiDoc);
-                  if (isEmpty(paramObjClass)) {
-                    for (var j = 0; j < param.props.length; j++) {
-                      var prop = param.props[j], paramObjItem = paramObjClass[prop.name] = {}, paramDoc = getDescription(prop), 
-                      paramType = getPropertyTernType(prop.type, null, yuiDoc, ternDef);
-                      if (paramType) paramObjItem["!type"] = paramType;
-                      if (paramDoc) paramObjItem["!doc"] = paramDoc;
-                    }
+                  if (isEmpty(paramObjClass)) {                  
                     break;
                   }
                   index++;
                   paramObjName = getConfigType("param" + index);
-                }                
-                type += "+" + paramObjName;
+                }
               } else {
-                type += "?";
+                paramObjClass = getTernClassConfig(className, ternDef["!define"], yuiDoc);
+                paramObjName = getConfigType(className);
               }
+              for (var j = 0; j < param.props.length; j++) {
+                var prop = param.props[j], paramObjItem = paramObjClass[prop.name] = {}, paramDoc = getDescription(prop), 
+                    paramType = getPropertyTernType(prop.type, null, yuiDoc, ternDef);
+                if (paramType) paramObjItem["!type"] = paramType;
+                if (paramDoc) paramObjItem["!doc"] = paramDoc;
+              }
+              type += "+" + paramObjName;
+            } else if (param.name == 'config') {
+                // case for config Object Literal (filled with attribute itemtype)
+                type += "+" + getConfigType(className);
+            } else {              
+                type += "+Object"; 
             }
           } else {
             type += getPropertyTernType(param.type, param.props, yuiDoc, isSubModule, ternDef); 
@@ -458,7 +463,9 @@
     case 'any':    
       return '?';
     case 'object':      
-      return formatType('Object', isArray, true);      
+      return formatType('Object', isArray, true);
+    case 'array':    
+      return '[?]';      
     case 'null':
       return null;
     case 'string':
