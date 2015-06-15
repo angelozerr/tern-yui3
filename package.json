@@ -14,10 +14,11 @@
   },  
   "dependencies": {
     "tern": ">=0.10.0",
-    "acorn": ">=1.0.0"
+    "acorn": ">=1.0.0",
+    "tern-lint": ">=0.2.0"
   },
   "devDependencies": { 
-    "test": ">=0.0.5" 
+    "test": ">=0.0.5",     
   },
   "keywords": [
     "tern",
