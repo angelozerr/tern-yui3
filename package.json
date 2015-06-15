@@ -18,7 +18,7 @@
     "tern-lint": ">=0.2.0"
   },
   "devDependencies": { 
-    "test": ">=0.0.5",     
+    "test": ">=0.0.5"    
   },
   "keywords": [
     "tern",
