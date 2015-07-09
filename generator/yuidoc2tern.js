@@ -79,7 +79,7 @@
       if (!data) data = {};
       data["submodule"] = submodule;
     }
-    createTernDefItem(ternClassItem, name, type, proto, effects, url, doc, data);	
+    createTernDefItem(ternClassItem, name, type, proto, effects, url, doc, data, effects);	
   }
   
   Generator.prototype.getTernType = function(yuiClass, yuiDoc, ternDef) {

@@ -48,13 +48,35 @@
         "YUI_config": {
           "!type": "+yui.config"
         }
-      }
+      }      
     },
     "node": {
       "Node": {
         "prototype": {
           "on": {
-            "!type": "fn(type: string, fn: fn(e: +event.DOMEventFacade), context?: ?, arg?: ?) -> +event_custom.EventHandle"
+            "!type": "fn(type: string, fn: fn(e: +event.DOMEventFacade), context?: ?, arg?: ?) -> +event_custom.EventHandle"            
+          },
+          "one": {
+            "!effects": ["custom Browser_querySelector 0"],
+            "!data": {
+              "!lint": "Browser_validateCSSSelectors"
+            }
+          }
+        },
+        "one": {
+          "!effects": ["custom Browser_querySelector 0"],
+          "!data": {
+            "!lint": "Browser_validateCSSSelectors"
+          }
+        }
+      },
+      "YUI": {
+        "prototype": {
+          "one": {
+            "!effects": ["custom Browser_querySelector 0"],
+            "!data": {
+              "!lint": "Browser_validateCSSSelectors"
+            }
           }
         }
       }

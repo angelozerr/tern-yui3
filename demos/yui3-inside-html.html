@@ -14,8 +14,10 @@
     <script src="codemirror/addon/edit/matchbrackets.js"></script>
     <script src="codemirror/addon/selection/active-line.js"></script>
     <script src="codemirror/addon/runmode/runmode.js"></script>
-        
-    <script src="codemirror/mode/javascript/javascript.js"></script>    
+
+	<script src="codemirror/mode/xml/xml.js"></script>        
+    <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>                
+    <script src="codemirror/mode/javascript/javascript.js"></script>
 
   <!-- Tern JS -->
   <script src="../node_modules/acorn/dist/acorn.js"></script>
@@ -26,6 +28,11 @@
   <script src="../node_modules/tern/lib/def.js"></script>
   <script src="../node_modules/tern/lib/comment.js"></script>
   <script src="../node_modules/tern/lib/infer.js"></script>
+  
+  <!--  Tern Browser Extension -->
+  <script src="../node_modules/tern-browser-extension/node_modules/sax/lib/sax.js"></script>
+  <script src="csslint/csslint.js"></script>
+  <script src="../node_modules/tern-browser-extension/browser-extension.js"></script>
   
   <script src="../yui3.js"></script>
   
@@ -69,12 +76,18 @@
     
     <h1>Demo with YUI Tern plugin</h1>
 	<p>See <a href="https://github.com/angelozerr/tern.yuidoc">https://github.com/angelozerr/tern.yuidoc</a> for more infos.</p>  
-    <form><textarea id="code" name="code">YUI().use('node', function(Y) {
-});
-YUI().use('XXXX', function(Y) {
-});
-YUI().use('node', 10, function(Y) {
-});
+    <form><textarea id="code" name="code"><html>
+    <div id="MyId"></div>     
+    <div id="MyId2"></div>
+	<script>YUI().use('node', function(Y) {
+	  var node = Y.one("#");
+	});
+	YUI().use('XXXX', function(Y) {
+	});
+	YUI().use('node', 10, function(Y) {
+	});
+	</script>
+</html>
 </textarea></form>
     <script type="text/javascript">
        
@@ -92,9 +105,13 @@ YUI().use('node', 10, function(Y) {
       CodeMirror.commands.autocomplete = function(cm) {
         CodeMirror.showHint(cm, myHint);
       }
-        
+      
+      //var server;
+      //getURL("http://ternjs.net/defs/ecma5.json", function(err, code) {
+      //  if (err) throw new Error("Request for ecma5.json: " + err);
+
       var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-        mode: 'application/javascript',
+        mode: 'text/html',
         theme : "eclipse",
         styleActiveLine: true,
         lineNumbers: true,
@@ -110,11 +127,10 @@ YUI().use('node', 10, function(Y) {
 	        "Ctrl-Q": function(cm) { CodeMirror.tern.rename(cm); }
         },
         gutters: ["CodeMirror-linenumbers", "CodeMirror-lint-markers"],
-    	textHover: {delay:300},
     	lint: {getAnnotations: CodeMirror.ternLint, 
     	  					   async : true,
     	  					   server: CodeMirror.tern.getServer},
-    	ternWith: { plugins: {"yui3" : {}, "lint": {}}}
+    	ternWith: { plugins: {"browser-extension":{"script-tags": ["aui:script"]}, "yui3" : {}, "lint": {}}}
       });
     </script>
     
