@@ -1,7 +1,7 @@
 "use strict";
 
 var fs = require("fs"), path = require("path"), tern = require("tern"), assert = require('assert');
-require("../tern-lint/lint.js");
+require("tern-lint");
 require("../yui3.js");
 
 var projectDir = path.resolve(__dirname, "..");

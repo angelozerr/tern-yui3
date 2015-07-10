@@ -85,7 +85,7 @@ exports['test Y.Anim completion'] = function() {
   util.assertCompletion("YUI().use('', function(Y) { new Y.A", {
     "name":"Anim",
     "type":"fn()",
-    "origin":"yui3"
+    "origin":"test1.js"
   }, "Anim");
 }
 
